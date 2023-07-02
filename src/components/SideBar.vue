@@ -12,7 +12,9 @@
         v-if="showUserDropDown"
         class="flex flex-col m-2 p-4 w-full bg-gray-700"
       >
-        <button class="m-2 hover:bg-red-400 rounded p-2">Logout</button>
+        <button @click="logout" class="m-2 hover:bg-red-400 rounded p-2">
+          Logout
+        </button>
         <button class="m-2 hover:bg-green-400 rounded p-2">
           Change Password
         </button>
@@ -36,8 +38,12 @@
 </template>
 
 <script setup lang="ts">
+import { useTokenStore } from "@/stores/token";
 import { ref } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
+
+const tokenStore = useTokenStore();
+const router = useRouter();
 
 const showUserDropDown = ref(false);
 
@@ -54,4 +60,9 @@ const links = ref([
   { id: 5, label: "About", path: "#" },
   { id: 6, label: "Contacts", path: "#" },
 ]);
+
+const logout = () => {
+  tokenStore.setNull();
+  router.push("/login");
+};
 </script>

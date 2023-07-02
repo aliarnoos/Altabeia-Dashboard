@@ -76,7 +76,7 @@ const login = () => {
       console.log("Response:", responseBody);
       const accessToken = responseBody.token.access_token;
       tokenStore.setToken(accessToken);
-      router.push("/home");
+      router.push("/");
     })
     .catch((error) => {
       console.error(error);
