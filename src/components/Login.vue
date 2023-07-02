@@ -11,7 +11,7 @@
             v-model="email"
             type="email"
             id="email"
-            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-500"
+            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
             required
           />
         </div>
@@ -25,14 +25,14 @@
             v-model="password"
             type="password"
             id="password"
-            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-500"
+            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
             required
           />
         </div>
         <button
           type="button"
           @click="login"
-          class="w-full py-2 px-4 bg-green-500 text-white font-bold rounded hover:bg-green-700"
+          class="w-full py-2 px-4 bg-green-600 text-white font-bold rounded hover:bg-green-700"
         >
           Login
         </button>
@@ -41,23 +41,45 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { ref } from "vue";
+import { useTokenStore } from "../stores/token";
+import { useRouter } from "vue-router";
 
-export default {
-  setup() {
-    const email = ref("");
-    const password = ref("");
+const router = useRouter();
 
-    const login = () => {
-      console.log(email.value, password.value);
-    };
+const email = ref("");
+const password = ref("");
+const tokenStore = useTokenStore();
 
-    return {
-      email,
-      password,
-      login,
-    };
-  },
+const login = () => {
+  const emailValue = email.value;
+  const passwordValue = password.value;
+
+  fetch("http://localhost:3000/admin/signin", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: emailValue,
+      password: passwordValue,
+    }),
+  })
+    .then(async (response) => {
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
+      const responseText = await response.text();
+      const responseBody = JSON.parse(responseText);
+
+      console.log("Response:", responseBody);
+      const accessToken = responseBody.token.access_token;
+      tokenStore.setToken(accessToken);
+      router.push("/home");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
 </script>
