@@ -4,7 +4,7 @@ import SideBar from "../components/SideBar.vue";
 
 <template>
   <main class="flex flex-row">
-    <side-bar class="basis-1/4" />
-    <div class="basis-3/4"></div>
+    <side-bar class="basis-1/6" />
+    <div></div>
   </main>
 </template>
