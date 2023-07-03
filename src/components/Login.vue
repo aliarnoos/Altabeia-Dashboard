@@ -75,30 +75,4 @@ async function login() {
     console.error(error);
   }
 }
-
-//   try {
-//     const response = await fetch("http://localhost:3000/admin/signin", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ email: emailValue, password: passwordValue }),
-//       credentials: "include", // Send and receive cookies with the request
-//     });
-
-//     if (!response.ok) {
-//       throw new Error("Login failed");
-//     }
-
-//     const data = await response.json();
-//     const { access_token, expire_date } = data;
-
-//     console.log(data);
-//     tokenStore.setToken(access_token);
-//     router.push("/");
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
 </script>
-../api/httpRequest
