@@ -52,16 +52,34 @@ const toogleUserDropDown = () => {
 };
 
 const links = ref([
-  { id: 0, label: "Overview", path: "#" },
+  { id: 0, label: "Overview", path: "/" },
   { id: 1, label: "Baners", path: "#" },
   { id: 2, label: "Contacts", path: "#" },
   { id: 3, label: "Users", path: "#" },
   { id: 4, label: "Schools", path: "#" },
   { id: 5, label: "About", path: "#" },
-  { id: 6, label: "Contacts", path: "#" },
+  { id: 6, label: "Contacts", path: "contacts" },
 ]);
 
-const logout = () => {
+const logout = async () => {
+  try {
+    const response = await fetch("http://localhost:3000/admin/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${tokenStore.token}`,
+      },
+      credentials: "include", // Send and receive cookies with the request
+    });
+
+    if (!response.ok) {
+      throw new Error("Loginout failed");
+    }
+
+    router.push("/");
+  } catch (error) {
+    console.error(error);
+  }
   tokenStore.setNull();
   router.push("/login");
 };

@@ -45,6 +45,7 @@
 import { ref } from "vue";
 import { useTokenStore } from "../stores/token";
 import { useRouter } from "vue-router";
+import sendHttpRequest from "../api/httpRequest";
 
 const router = useRouter();
 
@@ -52,34 +53,52 @@ const email = ref("");
 const password = ref("");
 const tokenStore = useTokenStore();
 
-const login = () => {
+async function login() {
   const emailValue = email.value;
   const passwordValue = password.value;
 
-  fetch("http://localhost:3000/admin/signin", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: emailValue,
-      password: passwordValue,
-    }),
-  })
-    .then(async (response) => {
-      if (!response.ok) {
-        throw new Error("Login failed");
+  try {
+    const response = await sendHttpRequest(
+      "POST",
+      "http://localhost:3000/admin/signin",
+      {
+        email: emailValue,
+        password: passwordValue,
       }
-      const responseText = await response.text();
-      const responseBody = JSON.parse(responseText);
+    );
+    console.log(response);
+    const { access_token, expire_date } = response;
 
-      console.log("Response:", responseBody);
-      const accessToken = responseBody.token.access_token;
-      tokenStore.setToken(accessToken);
-      router.push("/");
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
+    tokenStore.setToken(access_token);
+    router.push("/");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+//   try {
+//     const response = await fetch("http://localhost:3000/admin/signin", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ email: emailValue, password: passwordValue }),
+//       credentials: "include", // Send and receive cookies with the request
+//     });
+
+//     if (!response.ok) {
+//       throw new Error("Login failed");
+//     }
+
+//     const data = await response.json();
+//     const { access_token, expire_date } = data;
+
+//     console.log(data);
+//     tokenStore.setToken(access_token);
+//     router.push("/");
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 </script>
+../api/httpRequest
