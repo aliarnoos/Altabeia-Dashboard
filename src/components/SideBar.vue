@@ -6,7 +6,7 @@
         @click="toogleUserDropDown"
         class="m-2 p-2 cursor-pointer hover:text-green-400"
       >
-        {{ userStore.user.email }}
+        {{ userStore.user?.email }}
       </p>
       <div
         v-if="showUserDropDown"
