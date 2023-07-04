@@ -1,6 +1,12 @@
 <template>
-  <div class="w-10/12 p-10 flex flex-col gap-10">
-    <AddContact v-if="editState" />
+  <div class="w-10/12 p-10 flex items-center flex-col gap-10">
+    <UpdateContact
+      v-if="editState"
+      @cancelEdit="editState = false"
+      @statusMessage="(event) => showStatusMessage(event)"
+      :contact="selectedContact"
+      class="w-5/12"
+    />
     <table class="w-full">
       <thead>
         <tr>
@@ -19,7 +25,7 @@
           </td>
           <td class="border p-4 flex justify-center">
             <button
-              @click="toogleEdit"
+              @click="activeEdit(item)"
               class="bg-green-500 hover:bg-green-700 text-white font-bold p-4 rounded"
             >
               Edit
@@ -28,14 +34,26 @@
         </tr>
       </tbody>
     </table>
+    <p
+      v-if="statusMessage == 'Something went wrong!'"
+      class="bg-red-500 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
+    >
+      {{ statusMessage }}
+    </p>
+    <p
+      v-else-if="statusMessage"
+      class="bg-green-500 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
+    >
+      {{ statusMessage }}
+    </p>
   </div>
 </template>
 
 <script setup lang="ts">
-import sendHttpRequest from "@/api/httpRequest";
 import { useTokenStore } from "@/stores/token";
 import { onBeforeMount, ref } from "vue";
-import AddContact from "../../components/contacts/AddContact.vue";
+import UpdateContact from "../../components/contacts/UpdateContact.vue";
+import { useRequestStore } from "@/stores/request";
 interface Item {
   id: number;
   type: string;
@@ -43,28 +61,47 @@ interface Item {
   isVisible: string;
 }
 const tokenStore = useTokenStore();
+const requestStore = useRequestStore();
+
 const items = ref<Item[]>();
+
 const fetchContacts = async () => {
-  try {
-    const response = await sendHttpRequest(
-      "GET",
-      "http://localhost:3000/admin/contacts",
-      {},
-      tokenStore.token
-    );
-    console.log(response);
-    items.value = response.data.contacts;
-  } catch (error) {
-    console.error(error);
-  }
+  await requestStore.getData(
+    import.meta.env.VITE_API_URL + "/admin/contacts",
+    tokenStore.token
+  );
+  items.value = requestStore.fetchedData.contacts;
 };
-onBeforeMount(() => {
+
+onBeforeMount(async () => {
   fetchContacts();
 });
 
 const editState = ref(false);
 
-const toogleEdit = (e: Event) => {
-  editState.value = !editState.value;
+const selectedContact = ref();
+
+const statusMessage = ref();
+
+const showStatusMessage = (event: any) => {
+  fetchContacts();
+  if (event.value) {
+    statusMessage.value = event.value;
+  } else {
+    statusMessage.value = "Something went wrong!";
+  }
+  setTimeout(() => {
+    statusMessage.value = null;
+  }, 2000);
+};
+const activeEdit = (item: any) => {
+  selectedContact.value = {
+    type: item.type,
+    value: item.value,
+    isVisible: item.isVisible,
+    id: item.id,
+  };
+  console.log(selectedContact.value.value);
+  editState.value = true;
 };
 </script>
