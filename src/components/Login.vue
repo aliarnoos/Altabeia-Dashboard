@@ -68,7 +68,7 @@ async function login() {
 
   tokenStore.setToken(access_token);
   setUser();
-  router.push("/");
+  router.replace("/");
 }
 
 const setUser = async () => {
