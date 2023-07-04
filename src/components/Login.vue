@@ -45,10 +45,10 @@
 import { ref } from "vue";
 import { useTokenStore } from "../stores/token";
 import { useRouter } from "vue-router";
-import sendHttpRequest from "../api/httpRequest";
+import { useRequestStore } from "@/stores/request";
 
 const router = useRouter();
-
+const requestStore = useRequestStore();
 const email = ref("");
 const password = ref("");
 const tokenStore = useTokenStore();
@@ -56,23 +56,15 @@ const tokenStore = useTokenStore();
 async function login() {
   const emailValue = email.value;
   const passwordValue = password.value;
+  const response = await requestStore.postData(
+    import.meta.env.VITE_API_URL + "/admin/signin",
+    { email: emailValue, password: passwordValue },
+    tokenStore.token
+  );
+  console.log(response);
+  const { access_token, expire_date } = response;
 
-  try {
-    const response = await sendHttpRequest(
-      "POST",
-      "http://localhost:3000/admin/signin",
-      {
-        email: emailValue,
-        password: passwordValue,
-      }
-    );
-    console.log(response);
-    const { access_token, expire_date } = response;
-
-    tokenStore.setToken(access_token);
-    router.push("/");
-  } catch (error) {
-    console.error(error);
-  }
+  tokenStore.setToken(access_token);
+  router.push("/");
 }
 </script>

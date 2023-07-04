@@ -28,7 +28,7 @@
           :key="link.id"
           class="p-4 hover:bg-gray-700 cursor-pointer"
         >
-          <router-link :to="link.path" class="text-lg">{{
+          <router-link :to="link.path" class="text-lg p-4">{{
             link.label
           }}</router-link>
         </li>
