@@ -5,8 +5,7 @@ import { useTokenStore } from "@/stores/token";
 import ContactList from "@/components/contacts/Contacts.vue";
 
 const router = createRouter({
-  // history: createWebHistory(import.meta.env.BASE_URL),
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/login",
@@ -24,11 +23,7 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   const tokenStore = useTokenStore();
-  if (
-    !tokenStore.token &&
-    // Avoid an infinite redirect
-    to.name !== "login"
-  ) {
+  if (!tokenStore.token && to.name !== "login") {
     // redirect the user to the login page
     return { name: "login" };
   }
