@@ -14,6 +14,7 @@ export const useRequestStore = defineStore("request", () => {
     try {
       const response = await getRequest(url, token);
       fetchedData.value = response.data;
+      return response;
     } catch (error) {
       console.error(error);
     }
