@@ -46,12 +46,14 @@ import { ref } from "vue";
 import { useTokenStore } from "../stores/token";
 import { useRouter } from "vue-router";
 import { useRequestStore } from "@/stores/request";
+import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
 const requestStore = useRequestStore();
 const email = ref("");
 const password = ref("");
 const tokenStore = useTokenStore();
+const userStore = useUserStore();
 
 async function login() {
   const emailValue = email.value;
@@ -65,6 +67,15 @@ async function login() {
   const { access_token, expire_date } = response;
 
   tokenStore.setToken(access_token);
+  setUser();
   router.push("/");
 }
+
+const setUser = async () => {
+  const response = await requestStore.getData(
+    import.meta.env.VITE_API_URL + "/admin/user",
+    tokenStore.token
+  );
+  userStore.user = response.user;
+};
 </script>

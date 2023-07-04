@@ -6,7 +6,7 @@
         @click="toogleUserDropDown"
         class="m-2 p-2 cursor-pointer hover:text-green-400"
       >
-        test@test.com
+        {{ userStore.user.email }}
       </p>
       <div
         v-if="showUserDropDown"
@@ -38,12 +38,16 @@
 </template>
 
 <script setup lang="ts">
+import { useRequestStore } from "@/stores/request";
 import { useTokenStore } from "@/stores/token";
-import { ref } from "vue";
+import { useUserStore } from "@/stores/user";
+import { onBeforeMount, ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 
 const tokenStore = useTokenStore();
 const router = useRouter();
+
+const userStore = useUserStore();
 
 const showUserDropDown = ref(false);
 
@@ -53,7 +57,7 @@ const toogleUserDropDown = () => {
 
 const links = ref([
   { id: 0, label: "Overview", path: "/" },
-  { id: 1, label: "Baners", path: "#" },
+  { id: 1, label: "Banners", path: "#" },
   { id: 2, label: "Contacts", path: "#" },
   { id: 3, label: "Users", path: "#" },
   { id: 4, label: "Schools", path: "#" },
