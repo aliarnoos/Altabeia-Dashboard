@@ -12,10 +12,10 @@
         v-if="showUserDropDown"
         class="flex flex-col m-2 p-4 w-full bg-gray-700"
       >
-        <button @click="logout" class="m-2 hover:bg-red-400 rounded p-2">
+        <button @click="logout" class="m-2 hover:bg-red-500 rounded p-2">
           Logout
         </button>
-        <button class="m-2 hover:bg-green-400 rounded p-2">
+        <button class="m-2 hover:bg-green-500 rounded p-2">
           Change Password
         </button>
       </div>
