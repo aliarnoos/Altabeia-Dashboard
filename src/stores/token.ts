@@ -5,13 +5,13 @@ import jwtDecode from "jwt-decode";
 export const useTokenStore = defineStore("token", () => {
   const localStorageKey = "authToken";
   const token = ref<string | null>(
-    localStorage.getItem(localStorageKey) || null
+    sessionStorage.getItem(localStorageKey) || null
   );
   const expiration = ref<number | null>();
 
   const setToken = (newToken: string, date: number) => {
     token.value = newToken;
-    localStorage.setItem(localStorageKey, newToken);
+    sessionStorage.setItem(localStorageKey, newToken);
     setExpireation(date);
   };
 
@@ -22,20 +22,26 @@ export const useTokenStore = defineStore("token", () => {
   const setNull = () => {
     token.value = null;
     expiration.value = null;
-    localStorage.removeItem(localStorageKey);
+    sessionStorage.removeItem(localStorageKey);
   };
 
   const validateToken = (): boolean => {
-    const tokenValue = token.value;
-    if (tokenValue) {
-      const decodedToken: any = jwtDecode(tokenValue);
-      const currentDate = new Date().getTime() / 1000;
-
-      if (decodedToken.exp > currentDate) {
-        return true; // Token is valid
+    try {
+      const tokenValue = token.value;
+      if (tokenValue) {
+        const decodedToken: any = jwtDecode(tokenValue);
+        if (decodedToken) {
+          const currentDate = new Date().getTime() / 1000;
+          if (decodedToken.exp > currentDate) {
+            return true; // Token is valid
+          }
+        }
       }
+      return false;
+    } catch (error) {
+      console.error(error);
+      return false; // Token is invalid or not present
     }
-    return false; // Token is invalid or not present
   };
 
   return { token, expiration, setToken, setNull, validateToken };

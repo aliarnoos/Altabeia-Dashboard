@@ -67,6 +67,6 @@ async function login() {
   const { access_token, expire_date } = response;
 
   tokenStore.setToken(access_token, expire_date);
-  router.push("/");
+  router.replace("/");
 }
 </script>
