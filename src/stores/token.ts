@@ -7,7 +7,7 @@ export const useTokenStore = defineStore("token", () => {
   const token = ref<string | null>(
     localStorage.getItem(localStorageKey) || null
   );
-  const expireation = ref<number | null>();
+  const expiration = ref<number | null>();
 
   const setToken = (newToken: string, date: number) => {
     token.value = newToken;
@@ -16,12 +16,12 @@ export const useTokenStore = defineStore("token", () => {
   };
 
   const setExpireation = (date: number) => {
-    expireation.value = date;
+    expiration.value = date;
   };
 
   const setNull = () => {
     token.value = null;
-    expireation.value = null;
+    expiration.value = null;
     localStorage.removeItem(localStorageKey);
   };
 
@@ -38,5 +38,5 @@ export const useTokenStore = defineStore("token", () => {
     return false; // Token is invalid or not present
   };
 
-  return { token, setToken, setNull, validateToken };
+  return { token, expiration, setToken, setNull, validateToken };
 });
