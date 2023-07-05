@@ -26,9 +26,9 @@
           links="ref(["
           v-for="link in links"
           :key="link.id"
-          class="p-4 hover:bg-gray-700 cursor-pointer"
+          class="mb-2 hover:bg-gray-700 cursor-pointer flex items-stretch"
         >
-          <router-link :to="link.path" class="text-lg p-4">{{
+          <router-link :to="link.path" class="text-lg p-4 grow">{{
             link.label
           }}</router-link>
         </li>
@@ -38,10 +38,9 @@
 </template>
 
 <script setup lang="ts">
-import { useRequestStore } from "@/stores/request";
 import { useTokenStore } from "@/stores/token";
 import { useUserStore } from "@/stores/user";
-import { onBeforeMount, ref } from "vue";
+import { ref } from "vue";
 import { RouterLink, useRouter } from "vue-router";
 
 const tokenStore = useTokenStore();
@@ -61,7 +60,7 @@ const links = ref([
   { id: 2, label: "Contacts", path: "#" },
   { id: 3, label: "Users", path: "#" },
   { id: 4, label: "Schools", path: "#" },
-  { id: 5, label: "About", path: "#" },
+  { id: 5, label: "Registration", path: "/registration" },
   { id: 6, label: "Contacts", path: "contacts" },
 ]);
 

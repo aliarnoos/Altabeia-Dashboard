@@ -69,12 +69,4 @@ async function login() {
   tokenStore.setToken(access_token, expire_date);
   router.push("/");
 }
-
-// const setUser = async () => {
-//   const response = await requestStore.getData(
-//     import.meta.env.VITE_API_URL + "/admin/user",
-//     tokenStore.token || undefined
-//   );
-//   userStore.user = response.user;
-// };
 </script>
