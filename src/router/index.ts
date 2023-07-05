@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "@/views/LoginView.vue";
 import { useTokenStore } from "@/stores/token";
-import ContactList from "@/components/contacts/Contacts.vue";
-
+import Contacts from "@/components/contacts/Contacts.vue";
+import RegistrationFee from "@/components/registration/RegistrationFee.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -16,7 +16,10 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
-      children: [{ path: "contacts", component: ContactList }],
+      children: [
+        { path: "contacts", component: Contacts },
+        { path: "registration", component: RegistrationFee },
+      ],
     },
   ],
 });
