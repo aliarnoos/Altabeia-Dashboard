@@ -4,25 +4,55 @@
     @click="hideSidebar"
   >
     <div class="bg-white w-fit p-6 rounded-lg">
-      <form @submit.prevent="updateContact" class="grid grid-cols-2 gap-4">
-        <label for="value">Contact Value:</label>
+      <form @submit.prevent="updateFee" class="grid grid-cols-2 gap-4">
+        <label for="titleKu">Kurdish Title:</label>
         <input
-          v-model="value"
+          v-model="title.ku"
           type="text"
-          name="value"
-          id="value"
+          name="titleKu"
+          id="titleKu"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-        <label for="type">Contact Type:</label>
-        <select
-          v-model="type"
+
+        <label for="titleEn">English Title:</label>
+        <input
+          v-model="title.en"
+          type="text"
+          name="titleEn"
+          id="titleEn"
+          required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        >
-          <option value="Email">Email</option>
-          <option value="Phone">Phone</option>
-          <option value="Address">Address</option>
-        </select>
+        />
+
+        <label for="titleAr"> Arabic Title:</label>
+        <input
+          v-model="title.ar"
+          type="text"
+          name="titleAr"
+          id="titleAr"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+        />
+
+        <label for="titleTu">Turkmen Title:</label>
+        <input
+          v-model="title.tu"
+          type="text"
+          name="titleTu"
+          id="titleTu"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+        />
+        <label for="price">Price:</label>
+        <input
+          v-model="price"
+          type="text"
+          name="price"
+          id="price"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+        />
         <label for="isVisible">Visible:</label>
         <input
           v-model="visibility"
@@ -58,8 +88,8 @@ import { useRequestStore } from "@/stores/request";
 const props = defineProps(["fee"]);
 const emit = defineEmits(["cancelEdit", "statusMessage"]);
 
-const type = ref(props.fee.type);
-const value = ref(props.fee.value);
+const title = ref(props.fee.title);
+const price = ref(props.fee.price);
 const visibility = ref(props.fee.isVisible);
 const registationId = props.fee.id;
 
@@ -68,15 +98,15 @@ const requestStore = useRequestStore();
 
 const statusMessage = ref();
 
-const updateContact = async () => {
-  const contact = {
-    type: type.value,
-    value: value.value,
+const updateFee = async () => {
+  const fee = {
+    title: title.value,
+    price: price.value,
     isVisible: visibility.value,
   };
   const response = await requestStore.updateData(
     `${import.meta.env.VITE_API_URL}/admin/registation-fee/${registationId}`,
-    contact,
+    fee,
     tokenStore.token || ""
   );
   if (response) {

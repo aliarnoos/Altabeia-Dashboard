@@ -1,10 +1,10 @@
 <template>
-  <div class="w-10/12 p-10 flex items-center flex-col gap-10">
+  <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
     <UpdateRegistration
       v-if="editState"
       @cancelEdit="editState = false"
       @statusMessage="(event) => showStatusMessage(event)"
-      :contact="selectedContact"
+      :fee="selectedFee"
       class="w-5/12"
     />
     <table class="w-full">
@@ -29,7 +29,7 @@
           <td class="border p-4">
             {{ item.isVisible ? "Visible" : "Hidden" }}
           </td>
-          <td class="border p-4 flex justify-center">
+          <td class="border p-4 text-center">
             <button
               @click="activeEdit(item)"
               class="bg-green-500 hover:bg-green-700 text-white font-bold p-4 rounded"
@@ -89,7 +89,7 @@ onBeforeMount(async () => {
 
 const editState = ref(false);
 
-const selectedContact = ref();
+const selectedFee = ref();
 
 const statusMessage = ref();
 
@@ -105,13 +105,17 @@ const showStatusMessage = (event: any) => {
   }, 2000);
 };
 const activeEdit = (item: any) => {
-  selectedContact.value = {
-    type: item.type,
-    value: item.value,
+  selectedFee.value = {
+    title: {
+      ku: item.titleKu,
+      en: item.titleEn,
+      ar: item.titleAr,
+      tu: item.titleTu,
+    },
+    price: item.price,
     isVisible: item.isVisible,
     id: item.id,
   };
-  console.log(selectedContact.value.value);
   editState.value = true;
 };
 </script>
