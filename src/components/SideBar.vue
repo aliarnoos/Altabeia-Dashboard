@@ -1,7 +1,7 @@
 <template>
   <aside class="flex flex-col bg-gray-800 text-white h-screen w-64">
     <div class="flex flex-col items-center justify-center py-6">
-      <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+      <h1 class="text-2xl font-bold">Dashboard</h1>
       <p
         @click="toogleUserDropDown"
         class="m-2 p-2 cursor-pointer hover:text-green-400"
@@ -26,7 +26,7 @@
           links="ref(["
           v-for="link in links"
           :key="link.id"
-          class="mb-2 hover:bg-gray-700 cursor-pointer flex items-stretch"
+          class="mb-2 pl-2 hover:bg-gray-700 cursor-pointer flex items-stretch"
         >
           <router-link :to="link.path" class="text-lg p-4 grow">{{
             link.label
