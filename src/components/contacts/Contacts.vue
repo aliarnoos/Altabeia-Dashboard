@@ -1,5 +1,5 @@
 <template>
-  <div class="w-10/12 p-10 flex items-center flex-col gap-10">
+  <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
     <UpdateContact
       v-if="editState"
       @cancelEdit="editState = false"
@@ -23,7 +23,7 @@
           <td class="border p-4">
             {{ item.isVisible ? "Visible" : "Hidden" }}
           </td>
-          <td class="border p-4 flex justify-center">
+          <td class="border p-4 text-center">
             <button
               @click="activeEdit(item)"
               class="bg-green-500 hover:bg-green-700 text-white font-bold p-4 rounded"
@@ -101,7 +101,6 @@ const activeEdit = (item: any) => {
     isVisible: item.isVisible,
     id: item.id,
   };
-  console.log(selectedContact.value.value);
   editState.value = true;
 };
 </script>
