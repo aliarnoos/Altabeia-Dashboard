@@ -61,21 +61,20 @@ async function login() {
   const response = await requestStore.postData(
     import.meta.env.VITE_API_URL + "/admin/signin",
     { email: emailValue, password: passwordValue },
-    tokenStore.token
+    tokenStore.token || ""
   );
   console.log(response);
   const { access_token, expire_date } = response;
 
-  tokenStore.setToken(access_token);
-  setUser();
-  router.replace("/");
+  tokenStore.setToken(access_token, expire_date);
+  router.push("/");
 }
 
-const setUser = async () => {
-  const response = await requestStore.getData(
-    import.meta.env.VITE_API_URL + "/admin/user",
-    tokenStore.token
-  );
-  userStore.user = response.user;
-};
+// const setUser = async () => {
+//   const response = await requestStore.getData(
+//     import.meta.env.VITE_API_URL + "/admin/user",
+//     tokenStore.token || undefined
+//   );
+//   userStore.user = response.user;
+// };
 </script>

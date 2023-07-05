@@ -1,84 +1,3 @@
-<!-- <template>
-  <div>
-    <form @submit.prevent="addContact">
-      <label for="type">Contact Type:</label>
-      <select
-        v-model="type"
-        class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-      >
-        <option value="Email">Email</option>
-        <option value="Phone">Phone</option>
-        <option value="Address">Address</option>
-      </select>
-      <label for="value">Contact Value:</label>
-      <input
-        v-model="value"
-        type="text"
-        name="value"
-        id="value"
-        required
-        class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-      />
-      <label for="isVisible">Visible:</label>
-      <input
-        v-model="visibility"
-        type="checkbox"
-        name="isVisible"
-        id="isVisible"
-        class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-      />
-      <div class="flex gap-2">
-        <button
-          class="w-full py-2 px-4 bg-green-600 text-white font-bold rounded hover:bg-green-700"
-        >
-          Update
-        </button>
-        <button
-          type="button"
-          @click="$emit('cancelEdit')"
-          class="w-full py-2 px-4 bg-red-600 text-white font-bold rounded hover:bg-red-700"
-        >
-          Cancel
-        </button>
-      </div>
-    </form>
-  </div>
-</template>
-
-<script setup lang="ts">
-import { ref } from "vue";
-import { useTokenStore } from "../../stores/token";
-
-const props = defineProps(["contact"]);
-
-const type = ref(props.contact.type);
-const value = ref(props.contact.value);
-const visibility = ref(props.contact.isVisible);
-
-console.log(props.contact);
-
-const tokenStore = useTokenStore();
-const addContact = async () => {
-  // try {
-  //   const response = await sendHttpRequest(
-  //     "POST",
-  //     "http://localhost:3000/admin/contacts",
-  //     {
-  //       type: type.value,
-  //       value: value.value,
-  //       isVisible: visibility.value,
-  //     },
-  //     tokenStore.token
-  //   );
-  //   console.log(response);
-  // } catch (error) {
-  //   console.error(error);
-  // }
-};
-</script>
-
-<style scoped></style> -->
-
 <template>
   <div
     class="fixed top-0 left-0 w-screen h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-10"
@@ -158,7 +77,7 @@ const updateContact = async () => {
   const response = await requestStore.updateData(
     `${import.meta.env.VITE_API_URL}/admin/contacts/${contactId}`,
     contact,
-    tokenStore.token
+    tokenStore.token || ""
   );
   if (response) {
     statusMessage.value = response.message;

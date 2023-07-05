@@ -23,7 +23,8 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   const tokenStore = useTokenStore();
-  if (!tokenStore.token && to.name !== "login") {
+  const tokenValidation = tokenStore.validateToken();
+  if (!tokenValidation && to.name !== "login") {
     // redirect the user to the login page
     return { name: "login" };
   }

@@ -68,7 +68,7 @@ const items = ref<Item[]>();
 const fetchContacts = async () => {
   await requestStore.getData(
     import.meta.env.VITE_API_URL + "/admin/contacts",
-    tokenStore.token
+    tokenStore.token || undefined
   );
   items.value = requestStore.fetchedData.contacts;
 };
