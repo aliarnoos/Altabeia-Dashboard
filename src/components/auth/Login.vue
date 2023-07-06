@@ -38,7 +38,7 @@
         <button
           type="button"
           @click="login"
-          class="w-full py-2 px-4 bg-green-600 text-white font-bold rounded hover:bg-green-700"
+          class="w-full py-2 px-4 bg-green-500 text-white font-bold rounded hover:bg-green-600"
         >
           Login
         </button>
@@ -55,7 +55,6 @@ import { ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRouter } from "vue-router";
 import { useRequestStore } from "@/stores/request";
-import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
 const requestStore = useRequestStore();

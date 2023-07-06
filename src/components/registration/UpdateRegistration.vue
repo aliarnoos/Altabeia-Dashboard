@@ -63,14 +63,14 @@
         />
         <div class="col-span-2 flex gap-2 mt-4">
           <button
-            class="w-full py-2 px-4 bg-green-600 text-white font-bold rounded hover:bg-green-700"
+            class="w-full py-2 px-4 bg-green-500 text-white font-bold rounded hover:bg-green-600"
           >
             Update
           </button>
           <button
             type="button"
             @click="$emit('cancelEdit')"
-            class="w-full py-2 px-4 bg-red-600 text-white font-bold rounded hover:bg-red-700"
+            class="w-full py-2 px-4 bg-red-500 text-white font-bold rounded hover:bg-red-600"
           >
             Cancel
           </button>

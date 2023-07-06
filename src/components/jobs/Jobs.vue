@@ -37,7 +37,7 @@
           <td class="border p-4 text-center">
             <button
               @click="activeEdit(item)"
-              class="bg-green-500 hover:bg-green-700 text-white font-bold p-2 pl-4 pr-4 rounded"
+              class="bg-green-500 hover:bg-green-600 text-white font-bold p-2 pl-4 pr-4 rounded"
             >
               <span class="material-symbols-outlined text-xl">
                 edit_square
