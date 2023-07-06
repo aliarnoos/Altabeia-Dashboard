@@ -17,6 +17,7 @@ export const useRequestStore = defineStore("request", () => {
       return response;
     } catch (error) {
       console.error(error);
+      return error;
     }
   };
 
@@ -25,6 +26,7 @@ export const useRequestStore = defineStore("request", () => {
       return await patchRequest(url, data, token);
     } catch (error) {
       console.error(error);
+      return error;
     }
   };
 
@@ -33,6 +35,7 @@ export const useRequestStore = defineStore("request", () => {
       return await postRequest(url, data, token);
     } catch (error) {
       console.error(error);
+      return error;
     }
   };
 
@@ -41,6 +44,7 @@ export const useRequestStore = defineStore("request", () => {
       return await deleteRequest(url, token);
     } catch (error) {
       console.error(error);
+      return error;
     }
   };
 
