@@ -10,25 +10,27 @@
     <table class="w-full">
       <thead>
         <tr>
-          <th class="p-4 border">Type</th>
-          <th class="p-4 border">Value</th>
-          <th class="p-4 border">Visibility</th>
-          <th class="p-4 border">Edit</th>
+          <th class="p-2 border">Type</th>
+          <th class="p-2 border">Value</th>
+          <th class="p-2 border">Visibility</th>
+          <th class="p-2 border">Edit</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
-          <td class="border p-4">{{ item.type }}</td>
-          <td class="border p-4">{{ item.value }}</td>
-          <td class="border p-4">
+          <td class="border p-2 text-center">{{ item.type }}</td>
+          <td class="border p-2">{{ item.value }}</td>
+          <td class="border p-2 text-center">
             {{ item.isVisible ? "Visible" : "Hidden" }}
           </td>
-          <td class="border p-4 text-center">
+          <td class="border p-2 text-center">
             <button
               @click="activeEdit(item)"
-              class="bg-green-500 hover:bg-green-700 text-white font-bold p-4 rounded"
+              class="bg-green-500 hover:bg-green-700 text-white font-bold p-2 pl-4 pr-4 rounded"
             >
-              Edit
+              <span class="material-symbols-outlined text-xl">
+                edit_square
+              </span>
             </button>
           </td>
         </tr>

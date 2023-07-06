@@ -10,31 +10,33 @@
     <table class="w-full">
       <thead>
         <tr>
-          <th class="p-4 border">title Kurdish</th>
-          <th class="p-4 border">title English</th>
-          <th class="p-4 border">title Arabic</th>
-          <th class="p-4 border">title Turkmen</th>
-          <th class="p-4 border">Price</th>
-          <th class="p-4 border">Visibility</th>
-          <th class="p-4 border">Edit</th>
+          <th class="p-2 border">title Kurdish</th>
+          <th class="p-2 border">title English</th>
+          <th class="p-2 border">title Arabic</th>
+          <th class="p-2 border">title Turkmen</th>
+          <th class="p-2 border">Price</th>
+          <th class="p-2 border">Visibility</th>
+          <th class="p-2 border">Edit</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
-          <td class="border p-4">{{ item.titleKu }}</td>
-          <td class="border p-4">{{ item.titleEn }}</td>
-          <td class="border p-4">{{ item.titleAr }}</td>
-          <td class="border p-4">{{ item.titleTu }}</td>
-          <td class="border p-4">{{ item.price }}</td>
-          <td class="border p-4">
+          <td class="border p-2">{{ item.titleKu }}</td>
+          <td class="border p-2">{{ item.titleEn }}</td>
+          <td class="border p-2">{{ item.titleAr }}</td>
+          <td class="border p-2">{{ item.titleTu }}</td>
+          <td class="border p-2">{{ item.price }}</td>
+          <td class="border p-2">
             {{ item.isVisible ? "Visible" : "Hidden" }}
           </td>
           <td class="border p-4 text-center">
             <button
               @click="activeEdit(item)"
-              class="bg-green-500 hover:bg-green-700 text-white font-bold p-4 rounded"
+              class="bg-green-500 hover:bg-green-700 text-white font-bold p-2 pl-4 pr-4 rounded"
             >
-              Edit
+              <span class="material-symbols-outlined text-xl">
+                edit_square
+              </span>
             </button>
           </td>
         </tr>
