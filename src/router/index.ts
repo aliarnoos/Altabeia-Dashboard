@@ -5,7 +5,7 @@ import { useTokenStore } from "@/stores/token";
 import Contacts from "@/components/contacts/Contacts.vue";
 import RegistrationFee from "@/components/registration/RegistrationFee.vue";
 import SocialMedia from "@/components/social-media/SocialMedia.vue";
-
+import Jobs from "@/components/jobs/Jobs.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -22,6 +22,7 @@ const router = createRouter({
         { path: "contacts", component: Contacts },
         { path: "social-media", component: SocialMedia },
         { path: "registration", component: RegistrationFee },
+        { path: "jobs", component: Jobs },
       ],
     },
   ],
