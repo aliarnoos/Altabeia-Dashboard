@@ -1,5 +1,9 @@
 <template>
-  <div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <div
+    class="flex flex-col gap-10 justify-center items-center min-h-screen bg-gray-100"
+  >
+    <h1 class="text-4xl bold">Welocme:</h1>
+
     <div class="bg-white p-8 shadow-md rounded-md w-80">
       <h2 class="text-2xl font-bold mb-4">Login</h2>
       <form @submit.prevent="login">
@@ -63,10 +67,10 @@ async function login() {
     { email: emailValue, password: passwordValue },
     tokenStore.token || ""
   );
-  console.log(response);
-  const { access_token, expire_date } = response;
-
-  tokenStore.setToken(access_token, expire_date);
-  router.replace("/");
+  if (response) {
+    const { access_token, expire_date } = response;
+    tokenStore.setToken(access_token, expire_date);
+    router.replace("/");
+  }
 }
 </script>
