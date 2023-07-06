@@ -1,6 +1,6 @@
 <template>
   <main class="flex flex-row">
-    <side-bar class="basis-1/6" />
+    <SideBar />
     <RouterView />
   </main>
 </template>

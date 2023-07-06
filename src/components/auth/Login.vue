@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { useTokenStore } from "../stores/token";
+import { useTokenStore } from "../../stores/token";
 import { useRouter } from "vue-router";
 import { useRequestStore } from "@/stores/request";
 import { useUserStore } from "@/stores/user";
