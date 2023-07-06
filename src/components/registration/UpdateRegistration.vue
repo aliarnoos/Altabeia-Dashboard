@@ -1,7 +1,7 @@
 <template>
   <div
     class="fixed top-0 left-0 w-screen h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-10"
-    @click="hideSidebar"
+    @click="hideWindow"
   >
     <div class="bg-white w-fit p-6 rounded-lg">
       <form @submit.prevent="updateFee" class="grid grid-cols-2 gap-4">
@@ -116,7 +116,7 @@ const updateFee = async () => {
   emit("statusMessage", statusMessage);
 };
 
-const hideSidebar = (event: any) => {
+const hideWindow = (event: any) => {
   // Check if the click event target is outside the sidebar
   if (event.target.classList.contains("bg-opacity-50")) {
     emit("cancelEdit");
