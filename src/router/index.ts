@@ -4,6 +4,8 @@ import LoginView from "@/views/LoginView.vue";
 import { useTokenStore } from "@/stores/token";
 import Contacts from "@/components/contacts/Contacts.vue";
 import RegistrationFee from "@/components/registration/RegistrationFee.vue";
+import SocialMedia from "@/components/social-media/SocialMedia.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -18,6 +20,7 @@ const router = createRouter({
       component: HomeView,
       children: [
         { path: "contacts", component: Contacts },
+        { path: "social-media", component: SocialMedia },
         { path: "registration", component: RegistrationFee },
       ],
     },
