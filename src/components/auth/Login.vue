@@ -77,7 +77,7 @@ async function login() {
     tokenStore.setToken(access_token, expire_date);
     router.replace("/");
   } else {
-    errorMessage.value = response.message;
+    errorMessage.value = true;
   }
 }
 </script>
