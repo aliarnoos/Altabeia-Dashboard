@@ -4,7 +4,9 @@
   >
     <h1 class="text-4xl bold">Welocme:</h1>
 
-    <div class="bg-white p-8 shadow-md rounded-md w-80">
+    <div
+      class="bg-white p-8 flex justify-center flex-col gap-4 shadow-md rounded-md w-80"
+    >
       <h2 class="text-2xl font-bold mb-4">Login</h2>
       <form @submit.prevent="login">
         <div class="mb-4">
@@ -41,6 +43,9 @@
           Login
         </button>
       </form>
+      <p v-if="errorMessage" class="text-red-600 font-bold">
+        Wrong email or password!
+      </p>
     </div>
   </div>
 </template>
@@ -57,7 +62,8 @@ const requestStore = useRequestStore();
 const email = ref("");
 const password = ref("");
 const tokenStore = useTokenStore();
-const userStore = useUserStore();
+
+const errorMessage = ref();
 
 async function login() {
   const emailValue = email.value;
@@ -67,10 +73,12 @@ async function login() {
     { email: emailValue, password: passwordValue },
     tokenStore.token || ""
   );
-  if (response) {
+  if (response.access_token) {
     const { access_token, expire_date } = response;
     tokenStore.setToken(access_token, expire_date);
     router.replace("/");
+  } else {
+    errorMessage.value = response.message;
   }
 }
 </script>
