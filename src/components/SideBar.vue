@@ -7,23 +7,33 @@
   <aside class="flex flex-col bg-gray-800 text-white h-screen w-64 basis-1/6">
     <div class="flex flex-col items-center justify-center py-6">
       <h1 class="text-2xl font-bold">Dashboard</h1>
-      <p
+      <button
         @click="toogleUserDropDown"
-        class="m-2 p-2 cursor-pointer hover:text-green-400"
+        class="m-2 p-2 flex justify-center items-center gap-1 hover:text-green-400 bold"
       >
+        <span v-if="showUserDropDown" class="material-symbols-outlined">
+          arrow_drop_up
+        </span>
+        <span v-else class="material-symbols-outlined"> arrow_drop_down </span>
         {{ userStore.user?.email }}
-      </p>
+      </button>
       <div
         v-if="showUserDropDown"
         class="flex flex-col m-2 p-4 w-full bg-gray-700"
       >
-        <button @click="logout" class="m-2 hover:bg-red-500 rounded p-2">
+        <button
+          @click="logout"
+          class="m-2 flex justify-center items-center gap-1 hover:bg-red-500 rounded p-2"
+        >
+          <span class="material-symbols-outlined text-lg"> logout </span>
           Logout
         </button>
         <button
-          class="m-2 hover:bg-green-500 rounded p-2"
+          class="m-2 flex justify-center items-center gap-1 hover:bg-green-500 rounded p-2"
           @click="ChangePasswordState = true"
         >
+          <span class="material-symbols-outlined text-lg"> edit </span>
+
           Change Password
         </button>
       </div>
@@ -91,12 +101,10 @@ const toogleUserDropDown = () => {
 
 const links = ref([
   { id: 0, label: "Overview", path: "/" },
-  { id: 5, label: "Registration", path: "/registration" },
-  { id: 6, label: "Contacts", path: "contacts" },
-  { id: 2, label: "Social Media", path: "/social-media" },
-  { id: 1, label: "Banners", path: "#" },
-  { id: 3, label: "Users", path: "#" },
-  { id: 4, label: "Schools", path: "#" },
+  { id: 1, label: "Registration Fees", path: "/registration" },
+  { id: 2, label: "Contacts", path: "contacts" },
+  { id: 3, label: "Social Media", path: "/social-media" },
+  { id: 4, label: "Jobs", path: "/jobs" },
 ]);
 
 const logout = async () => {

@@ -1,6 +1,6 @@
-<template class="w-5/12">
+<template>
   <div
-    class="fixed top-0 left-0 w-screen h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-10"
+    class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-10"
   >
     <div class="bg-white w-fit p-6 rounded-lg">
       <form @submit.prevent="updatePassword" class="grid grid-cols-2 gap-4">
