@@ -9,7 +9,7 @@
       <h1 class="text-2xl font-bold">Dashboard</h1>
       <button
         @click="toogleUserDropDown"
-        class="m-2 p-2 flex justify-center items-center gap-1 hover:text-green-400 bold"
+        class="m-2 p-2 flex justify-center items-center gap-1 hover:text-green-400 font-bold"
       >
         <span v-if="showUserDropDown" class="material-symbols-outlined">
           arrow_drop_up
@@ -55,13 +55,13 @@
   </aside>
   <p
     v-if="statusMessage == 'Something went wrong!'"
-    class="bg-red-500 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
+    class="bg-red-700 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
   >
     {{ statusMessage }}
   </p>
   <p
     v-else-if="statusMessage"
-    class="bg-green-500 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
+    class="bg-green-700 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
   >
     {{ statusMessage }}
   </p>
