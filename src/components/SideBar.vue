@@ -38,6 +38,7 @@
 </template>
 
 <script setup lang="ts">
+import { useRequestStore } from "@/stores/request";
 import { useTokenStore } from "@/stores/token";
 import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
@@ -45,8 +46,8 @@ import { RouterLink, useRouter } from "vue-router";
 
 const tokenStore = useTokenStore();
 const router = useRouter();
-
 const userStore = useUserStore();
+const requestStore = useRequestStore();
 
 const showUserDropDown = ref(false);
 
@@ -57,7 +58,7 @@ const toogleUserDropDown = () => {
 const links = ref([
   { id: 0, label: "Overview", path: "/" },
   { id: 1, label: "Banners", path: "#" },
-  { id: 2, label: "Contacts", path: "#" },
+  { id: 2, label: "Social Media", path: "/social-media" },
   { id: 3, label: "Users", path: "#" },
   { id: 4, label: "Schools", path: "#" },
   { id: 5, label: "Registration", path: "/registration" },
@@ -65,25 +66,15 @@ const links = ref([
 ]);
 
 const logout = async () => {
-  try {
-    const response = await fetch("http://localhost:3000/admin/logout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${tokenStore.token}`,
-      },
-      credentials: "include", // Send and receive cookies with the request
-    });
-
-    if (!response.ok) {
-      throw new Error("Loginout failed");
-    }
-
+  const response = await requestStore.postData(
+    `${import.meta.env.VITE_API_URL}/admin/logout`,
+    {},
+    tokenStore.token || ""
+  );
+  if (response) {
     router.push("/");
-  } catch (error) {
-    console.error(error);
+    tokenStore.setNull();
+    router.push("/login");
   }
-  tokenStore.setNull();
-  router.push("/login");
 };
 </script>
