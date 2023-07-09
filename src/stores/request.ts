@@ -5,6 +5,7 @@ import {
   getRequest,
   patchRequest,
   postRequest,
+  putRequest,
 } from "../api/httpRequest";
 
 export const useRequestStore = defineStore("request", () => {
@@ -33,6 +34,15 @@ export const useRequestStore = defineStore("request", () => {
   const postData = async (url: string, data: {}, token: string) => {
     try {
       return await postRequest(url, data, token);
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  };
+
+  const putData = async (url: string, file: Buffer, token: string) => {
+    try {
+      return await putRequest(url, file, token);
     } catch (error) {
       console.error(error);
       return error;
