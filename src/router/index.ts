@@ -6,6 +6,7 @@ import Contacts from "@/components/contacts/Contacts.vue";
 import RegistrationFee from "@/components/registration/RegistrationFee.vue";
 import SocialMedia from "@/components/social-media/SocialMedia.vue";
 import Jobs from "@/components/jobs/Jobs.vue";
+import Teachers from "@/components/teachers/Teachers.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -23,6 +24,7 @@ const router = createRouter({
         { path: "social-media", component: SocialMedia },
         { path: "registration", component: RegistrationFee },
         { path: "jobs", component: Jobs },
+        { path: "teachers", component: Teachers },
       ],
     },
   ],

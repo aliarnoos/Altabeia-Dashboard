@@ -105,6 +105,7 @@ const links = ref([
   { id: 2, label: "Contacts", path: "contacts" },
   { id: 3, label: "Social Media", path: "/social-media" },
   { id: 4, label: "Jobs", path: "/jobs" },
+  { id: 5, label: "Teachers", path: "/teachers" },
 ]);
 
 const logout = async () => {
