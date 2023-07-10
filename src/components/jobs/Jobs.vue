@@ -1,13 +1,25 @@
 <template>
   <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
     <h1 class="text-3xl font-bold mb-4 text-center">Jobs</h1>
-    <!-- <UpdateRegistration
+    <UpdateJob
       v-if="editState"
       @cancelEdit="editState = false"
       @statusMessage="(event) => showStatusMessage(event)"
-      :fee="selectedFee"
+      :job="selectedJob"
       class="w-5/12"
-    /> -->
+    />
+    <AddJob
+      v-if="addJobState"
+      @cancelEdit="addJobState = false"
+      @statusMessage="(event: Event) => showStatusMessage(event)"
+      class="w-5/12"
+    />
+    <button
+      @click="() => (addJobState = true)"
+      class="bg-green-500 rounded p-4 text-white ml-auto font-bold hover:bg-green-600"
+    >
+      Add Job
+    </button>
     <table class="w-full">
       <thead>
         <tr>
@@ -31,7 +43,13 @@
           <td class="border p-2">{{ item.titleTu }}</td>
           <td class="border p-2">{{ item.startDate }}</td>
           <td class="border p-2">{{ item.closeDate }}</td>
-          <td class="border p-2">{{ item.attachment }}</td>
+          <td class="border p-2 text-center">
+            <a :href="item.attachmentUrl"
+              ><span class="material-symbols-outlined text-3xl text-gray-800">
+                file_present
+              </span></a
+            >
+          </td>
 
           <td class="border p-4">
             {{ item.isVisible ? "Visible" : "Hidden" }}
@@ -76,6 +94,9 @@
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "../../stores/request";
 import { onBeforeMount, ref } from "vue";
+import { useLoadingStore } from "@/stores/loading";
+import UpdateJob from "./UpdateJob.vue";
+import AddJob from "./AddJob.vue";
 
 interface Item {
   id: number;
@@ -86,19 +107,23 @@ interface Item {
   startDate: string;
   closeDate: string;
   attachment: string;
+  attachmentUrl: string;
   isVisible: string;
 }
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
+const loadingStore = useLoadingStore();
 
 const items = ref<Item[]>();
 
 const fetchJobs = async () => {
+  loadingStore.setLoading();
   await requestStore.getData(
     import.meta.env.VITE_API_URL + "/admin/jobs",
     tokenStore.token || undefined
   );
   items.value = requestStore.fetchedData.jobs;
+  loadingStore.setFalse();
 };
 
 onBeforeMount(async () => {
@@ -107,9 +132,11 @@ onBeforeMount(async () => {
 
 const editState = ref(false);
 
-const selectedFee = ref();
+const selectedJob = ref();
 
 const statusMessage = ref();
+
+const addJobState = ref(false);
 
 const showStatusMessage = (event: any) => {
   fetchJobs();
@@ -123,7 +150,7 @@ const showStatusMessage = (event: any) => {
   }, 2000);
 };
 const activeEdit = (item: any) => {
-  selectedFee.value = {
+  selectedJob.value = {
     title: {
       ku: item.titleKu,
       en: item.titleEn,
