@@ -1,5 +1,6 @@
 <template>
   <main class="flex flex-row">
+    <IsLoading></IsLoading>
     <SideBar />
     <RouterView />
   </main>
@@ -11,6 +12,7 @@ import { useRequestStore } from "@/stores/request";
 import { useTokenStore } from "@/stores/token";
 import { useUserStore } from "@/stores/user";
 import { onBeforeMount } from "vue";
+import IsLoading from "../components/IsLoading.vue";
 import jwtDecode from "jwt-decode";
 
 const requestStore = useRequestStore();
