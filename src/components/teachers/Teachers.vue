@@ -10,30 +10,30 @@
     <table class="w-full">
       <thead>
         <tr>
-          <th class="p-2 border">Name Kurdish</th>
-          <th class="p-2 border">Name English</th>
-          <th class="p-2 border">Name Arabic</th>
-          <th class="p-2 border">Name Turkmen</th>
-          <th class="p-2 border">Position Kurdish</th>
-          <th class="p-2 border">Position English</th>
-          <th class="p-2 border">Position Arabic</th>
-          <th class="p-2 border">Positon Turkmen</th>
-          <th class="p-2 border">Image</th>
-          <th class="p-2 border">Visibility</th>
-          <th class="p-2 border">Edit</th>
+          <th class="p-2 border text-xs">Name_KU</th>
+          <th class="p-2 border text-xs">Name_EN</th>
+          <th class="p-2 border text-xs">Name_AR</th>
+          <th class="p-2 border text-xs">Name_TU</th>
+          <th class="p-2 border text-xs">Position_KU</th>
+          <th class="p-2 border text-xs">Position_EN</th>
+          <th class="p-2 border text-xs">Position_AR</th>
+          <th class="p-2 border text-xs">Positon_TU</th>
+          <th class="p-2 border text-xs">Image</th>
+          <th class="p-2 border text-xs">Visibility</th>
+          <th class="p-2 border text-xs">Edit</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
-          <td class="border p-2">{{ item.nameKu }}</td>
-          <td class="border p-2">{{ item.nameEn }}</td>
-          <td class="border p-2">{{ item.nameAr }}</td>
-          <td class="border p-2">{{ item.nameTu }}</td>
-          <td class="border p-2">{{ item.positionKu }}</td>
-          <td class="border p-2">{{ item.positionEn }}</td>
-          <td class="border p-2">{{ item.positionAr }}</td>
-          <td class="border p-2">{{ item.positionTu }}</td>
-          <td class="border p-2">
+          <td class="border p-2 text-xs">{{ item.nameKu }}</td>
+          <td class="border p-2 text-xs">{{ item.nameEn }}</td>
+          <td class="border p-2 text-xs">{{ item.nameAr }}</td>
+          <td class="border p-2 text-xs">{{ item.nameTu }}</td>
+          <td class="border p-2 text-xs">{{ item.positionKu }}</td>
+          <td class="border p-2 text-xs">{{ item.positionEn }}</td>
+          <td class="border p-2 text-xs">{{ item.positionAr }}</td>
+          <td class="border p-2 text-xs">{{ item.positionTu }}</td>
+          <td class="border p-2 text-xs">
             <img :src="item.imageUrl" alt="teacher" class="w-20 rounded" />
           </td>
 
