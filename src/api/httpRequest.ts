@@ -60,21 +60,18 @@ const postRequest = (url: string, data: {}, token?: string) => {
   return promise;
 };
 
-const putRequest = (url: string, file: Buffer, token?: string) => {
+const putRequest = (url: string, file: FormData) => {
   const promise: Promise<any> = new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", url);
+    xhr.open("PUT", url);
 
     xhr.responseType = "json";
 
-    if (token) {
-      xhr.setRequestHeader("Authorization", `Bearer ${token}`);
-    }
     xhr.setRequestHeader("Content-Type", "multipart/form-data");
     xhr.withCredentials = true;
 
     xhr.onload = () => {
-      if (xhr.status === 201) {
+      if (xhr.status === 200) {
         resolve(xhr.response);
       } else if (xhr.status === 404) {
         reject("Not found");
@@ -87,7 +84,7 @@ const putRequest = (url: string, file: Buffer, token?: string) => {
       reject("Something went wrong!");
     };
 
-    xhr.send(JSON.stringify(file));
+    xhr.send(file);
   });
   return promise;
 };

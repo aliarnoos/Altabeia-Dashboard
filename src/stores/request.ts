@@ -40,9 +40,9 @@ export const useRequestStore = defineStore("request", () => {
     }
   };
 
-  const putData = async (url: string, file: Buffer, token: string) => {
+  const putData = async (url: string, file: FormData) => {
     try {
-      return await putRequest(url, file, token);
+      return await putRequest(url, file);
     } catch (error) {
       console.error(error);
       return error;
@@ -58,5 +58,5 @@ export const useRequestStore = defineStore("request", () => {
     }
   };
 
-  return { fetchedData, getData, updateData, postData, deleteData };
+  return { fetchedData, getData, updateData, postData, putData, deleteData };
 });
