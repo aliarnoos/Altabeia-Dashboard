@@ -45,8 +45,10 @@
           <td class="border p-2">{{ item.closeDate }}</td>
           <td class="border p-2 text-center">
             <a :href="item.attachmentUrl"
-              ><span class="material-symbols-outlined text-3xl text-gray-800">
-                file_present
+              ><span
+                class="material-symbols-outlined text-3xl text-gray-800 hover:text-green-600"
+              >
+                description
               </span></a
             >
           </td>
