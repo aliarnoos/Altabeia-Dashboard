@@ -1,7 +1,7 @@
 <template>
   <div
     class="fixed top-0 left-0 w-screen h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-10"
-    @click="hideSidebar"
+    @click="hidePopup"
   >
     <div class="bg-white w-fit p-6 rounded-lg">
       <form @submit.prevent="updateTeacher" class="grid grid-cols-2 gap-4">
@@ -81,7 +81,7 @@
 
         <label for="image">Image:</label>
         <input
-          v-on:change="image"
+          ref="fileInput"
           type="file"
           name="image"
           id="image"
@@ -125,15 +125,21 @@ const emit = defineEmits(["cancelEdit", "statusMessage"]);
 const name = ref(props.teacher.name);
 const position = ref(props.teacher.position);
 const visibility = ref(props.teacher.isVisible);
-const image = ref(props.teacher.imageUrl);
 const teacherId = props.teacher.id;
+
+let imagePath: string;
 
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
 
 const statusMessage = ref();
+const fileInput = ref();
 
 const updateTeacher = async () => {
+  if (fileInput.value.files[0]) {
+    await uploadImage();
+  }
+
   const teacher = {
     nameKu: name.value.ku,
     nameEn: name.value.en,
@@ -143,9 +149,10 @@ const updateTeacher = async () => {
     positionEn: position.value.en,
     positionAr: position.value.ar,
     positionTu: position.value.tu,
-    // image: image.value || null,
+    image: imagePath,
     isVisible: visibility.value,
   };
+
   const response = await requestStore.updateData(
     `${import.meta.env.VITE_API_URL}/admin/teachers/${teacherId}`,
     teacher,
@@ -158,43 +165,54 @@ const updateTeacher = async () => {
   emit("statusMessage", statusMessage);
 };
 
-const hideSidebar = (event: any) => {
+const uploadImage = async () => {
+  const file = fileInput.value.files[0];
+
+  if (!file) {
+    console.error("No file selected");
+    return;
+  }
+  const fileName = generateUniqueFileName(file.name);
+  const formData = new FormData();
+  formData.append("file", file, fileName);
+  const response = await requestStore.postData(
+    `${import.meta.env.VITE_API_URL}/admin/presigned-url/`,
+    { fileName },
+    tokenStore.token || ""
+  );
+
+  const { url } = await response;
+  console.log(fileName);
+
+  // const uploadResponse = await requestStore.putData(url, formData);
+  const uploadResponse = await fetch(url, {
+    method: "PUT",
+    body: file,
+    headers: {
+      "Content-Type": file.type,
+    },
+  });
+
+  if (uploadResponse.ok) {
+    imagePath = fileName;
+  } else {
+    console.error("Failed to upload file to S3:", uploadResponse.status);
+  }
+};
+
+const generateUniqueFileName = (fileName: string) => {
+  const fileNameWithoutSpaces = fileName.replace(/\s/g, "");
+
+  const timestamp = Date.now();
+
+  const uniqueFileName = `${fileNameWithoutSpaces}_${timestamp}`;
+  return uniqueFileName;
+};
+
+const hidePopup = (event: any) => {
   // Check if the click event target is outside the sidebar
   if (event.target.classList.contains("bg-opacity-50")) {
     emit("cancelEdit");
-  }
-
-  async function uploadImage(fileInput: any) {
-    const file = fileInput.files[0];
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const response = await requestStore.postData(
-      `${import.meta.env.VITE_API_URL}/admin/presigned-url/`,
-      {},
-      tokenStore.token || ""
-    );
-
-    const { url } = await response.json();
-
-    // Upload the file to the pre-signed URL
-    const uploadResponse = await fetch(url, {
-      method: "PUT",
-      body: file,
-      headers: {
-        "Content-Type": file.type,
-      },
-    });
-
-    if (uploadResponse.ok) {
-      // The file was uploaded successfully
-      console.log("File uploaded to S3:", file);
-      // You can perform any additional actions here, such as displaying the uploaded image on your webpage
-    } else {
-      // Handle the error if the file upload fails
-      console.error("Failed to upload file to S3:", uploadResponse.status);
-    }
   }
 };
 </script>
