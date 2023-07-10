@@ -1,5 +1,6 @@
 <template>
   <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
+    <h1 class="text-3xl font-bold mb-4 text-center">Jobs</h1>
     <!-- <UpdateRegistration
       v-if="editState"
       @cancelEdit="editState = false"
@@ -19,6 +20,7 @@
           <th class="p-2 border">Attachment</th>
           <th class="p-2 border">Visibility</th>
           <th class="p-2 border">Edit</th>
+          <th class="p-2 border">Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -42,6 +44,14 @@
               <span class="material-symbols-outlined text-xl">
                 edit_square
               </span>
+            </button>
+          </td>
+          <td class="border p-2">
+            <button
+              @click="deleteJob(item.id)"
+              class="bg-red-500 hover:bg-red-600 text-white font-bold p-2 pl-4 pr-4 rounded"
+            >
+              <span class="material-symbols-outlined text-xl"> delete </span>
             </button>
           </td>
         </tr>
@@ -127,5 +137,18 @@ const activeEdit = (item: any) => {
     id: item.id,
   };
   editState.value = true;
+};
+
+const deleteJob = async (jobId: number) => {
+  const response = await requestStore.deleteData(
+    `${import.meta.env.VITE_API_URL}/admin/jobs/${jobId}`,
+    tokenStore.token || ""
+  );
+  console.log(response);
+  statusMessage.value = response.message;
+  setTimeout(() => {
+    statusMessage.value = null;
+  }, 2000);
+  fetchJobs();
 };
 </script>
