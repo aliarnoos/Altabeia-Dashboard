@@ -130,9 +130,7 @@ const deleteRequest = (url: string, token: string) => {
 
     xhr.responseType = "json";
 
-    if (token) {
-      xhr.setRequestHeader("Authorization", `Bearer ${token}`);
-    }
+    xhr.setRequestHeader("Authorization", `Bearer ${token}`);
     xhr.withCredentials = true;
 
     xhr.onload = () => {
@@ -148,6 +146,7 @@ const deleteRequest = (url: string, token: string) => {
     xhr.onerror = () => {
       reject("Something went wrong!");
     };
+    xhr.send();
   });
   return promise;
 };
