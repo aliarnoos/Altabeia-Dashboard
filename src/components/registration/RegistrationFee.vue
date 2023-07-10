@@ -1,5 +1,7 @@
 <template>
   <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
+    <h1 class="text-3xl font-bold mb-8 text-center">Registation Fees</h1>
+
     <UpdateRegistration
       v-if="editState"
       @cancelEdit="editState = false"

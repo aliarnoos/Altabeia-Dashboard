@@ -3,6 +3,7 @@
     class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-10"
   >
     <div class="bg-white w-fit p-6 rounded-lg">
+      <h1 class="text-lg font-bold mb-8 text-center">Change Password</h1>
       <form @submit.prevent="updatePassword" class="grid grid-cols-2 gap-4">
         <label for="password">New Password:</label>
         <input
@@ -15,14 +16,14 @@
         />
         <div class="col-span-2 flex gap-2 mt-4">
           <button
-            class="w-full py-2 px-4 bg-green-600 text-white font-bold rounded hover:bg-green-700"
+            class="w-full py-2 px-4 bg-green-500 text-white font-bold rounded hover:bg-green-600"
           >
             Update
           </button>
           <button
             type="button"
             @click="$emit('cancelEdit')"
-            class="w-full py-2 px-4 bg-red-600 text-white font-bold rounded hover:bg-red-700"
+            class="w-full py-2 px-4 bg-gray-500 text-white font-bold rounded hover:bg-gray-600"
           >
             Cancel
           </button>

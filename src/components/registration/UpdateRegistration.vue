@@ -70,7 +70,7 @@
           <button
             type="button"
             @click="$emit('cancelEdit')"
-            class="w-full py-2 px-4 bg-red-500 text-white font-bold rounded hover:bg-red-600"
+            class="w-full py-2 px-4 bg-gray-500 text-white font-bold rounded hover:bg-gray-600"
           >
             Cancel
           </button>
