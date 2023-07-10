@@ -14,8 +14,8 @@
         <tr>
           <th class="p-2 border">Type</th>
           <th class="p-2 border">Value</th>
-          <th class="p-2 border">Visibility</th>
-          <th class="p-2 border">Edit</th>
+          <th class="p-2 border">Visible</th>
+          <th class="p-2 border">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -23,7 +23,7 @@
           <td class="border p-2 text-center">{{ item.type }}</td>
           <td class="border p-2">{{ item.value }}</td>
           <td class="border p-2 text-center">
-            {{ item.isVisible ? "Visible" : "Hidden" }}
+            {{ item.isVisible ? "Yes" : "No" }}
           </td>
           <td class="border p-2 text-center">
             <button

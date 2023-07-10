@@ -23,40 +23,22 @@
     <table class="w-full">
       <thead>
         <tr>
-          <th class="p-2 border">title Kurdish</th>
-          <th class="p-2 border">title English</th>
-          <th class="p-2 border">title Arabic</th>
-          <th class="p-2 border">title Turkmen</th>
+          <th class="p-2 border">title</th>
           <th class="p-2 border">Start Date</th>
           <th class="p-2 border">Close Date</th>
-          <th class="p-2 border">Attachment</th>
-          <th class="p-2 border">Visibility</th>
-          <th class="p-2 border">Edit</th>
-          <th class="p-2 border">Delete</th>
+          <th class="p-2 border">Visible</th>
+          <th class="p-2 border">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
-          <td class="border p-2">{{ item.titleKu }}</td>
           <td class="border p-2">{{ item.titleEn }}</td>
-          <td class="border p-2">{{ item.titleAr }}</td>
-          <td class="border p-2">{{ item.titleTu }}</td>
           <td class="border p-2">{{ item.startDate }}</td>
           <td class="border p-2">{{ item.closeDate }}</td>
-          <td class="border p-2 text-center">
-            <a :href="item.attachmentUrl"
-              ><span
-                class="material-symbols-outlined text-3xl text-gray-800 hover:text-green-600"
-              >
-                description
-              </span></a
-            >
-          </td>
-
           <td class="border p-4">
-            {{ item.isVisible ? "Visible" : "Hidden" }}
+            {{ item.isVisible ? "Yes" : "No" }}
           </td>
-          <td class="border p-4 text-center">
+          <td class="border p-4 text-center flex justify-center gap-4">
             <button
               @click="activeEdit(item)"
               class="bg-green-500 hover:bg-green-600 text-white font-bold p-2 pl-4 pr-4 rounded"
@@ -65,8 +47,6 @@
                 edit_square
               </span>
             </button>
-          </td>
-          <td class="border p-2">
             <button
               @click="deleteJob(item.id)"
               class="bg-red-500 hover:bg-red-600 text-white font-bold p-2 pl-4 pr-4 rounded"

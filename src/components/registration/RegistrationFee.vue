@@ -12,24 +12,18 @@
     <table class="w-full">
       <thead>
         <tr>
-          <th class="p-2 border">title Kurdish</th>
-          <th class="p-2 border">title English</th>
-          <th class="p-2 border">title Arabic</th>
-          <th class="p-2 border">title Turkmen</th>
+          <th class="p-2 border">title</th>
           <th class="p-2 border">Price</th>
-          <th class="p-2 border">Visibility</th>
-          <th class="p-2 border">Edit</th>
+          <th class="p-2 border">Visible</th>
+          <th class="p-2 border">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
-          <td class="border p-2">{{ item.titleKu }}</td>
           <td class="border p-2">{{ item.titleEn }}</td>
-          <td class="border p-2">{{ item.titleAr }}</td>
-          <td class="border p-2">{{ item.titleTu }}</td>
           <td class="border p-2">{{ item.price }}</td>
           <td class="border p-2">
-            {{ item.isVisible ? "Visible" : "Hidden" }}
+            {{ item.isVisible ? "Yes" : "No" }}
           </td>
           <td class="border p-4 text-center">
             <button
@@ -68,10 +62,7 @@ import { useLoadingStore } from "@/stores/loading";
 
 interface Item {
   id: number;
-  titleKu: string;
   titleEn: string;
-  titleAr: string;
-  titleTu: string;
   price: string;
   isVisible: string;
 }

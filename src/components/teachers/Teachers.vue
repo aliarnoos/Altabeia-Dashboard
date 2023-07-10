@@ -23,38 +23,21 @@
     <table class="w-full">
       <thead>
         <tr>
-          <th class="p-2 border text-xs">Name_KU</th>
-          <th class="p-2 border text-xs">Name_EN</th>
-          <th class="p-2 border text-xs">Name_AR</th>
-          <th class="p-2 border text-xs">Name_TU</th>
-          <th class="p-2 border text-xs">Position_KU</th>
-          <th class="p-2 border text-xs">Position_EN</th>
-          <th class="p-2 border text-xs">Position_AR</th>
-          <th class="p-2 border text-xs">Positon_TU</th>
-          <th class="p-2 border text-xs">Image</th>
-          <th class="p-2 border text-xs">Visibility</th>
-          <th class="p-2 border text-xs">Edit</th>
-          <th class="p-2 border text-xs">Delete</th>
+          <th class="p-2 border">Name</th>
+          <th class="p-2 border">Position</th>
+          <th class="p-2 border">Visible</th>
+          <th class="p-2 border">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
-          <td class="border p-2 text-xs">{{ item.nameKu }}</td>
-          <td class="border p-2 text-xs">{{ item.nameEn }}</td>
-          <td class="border p-2 text-xs">{{ item.nameAr }}</td>
-          <td class="border p-2 text-xs">{{ item.nameTu }}</td>
-          <td class="border p-2 text-xs">{{ item.positionKu }}</td>
-          <td class="border p-2 text-xs">{{ item.positionEn }}</td>
-          <td class="border p-2 text-xs">{{ item.positionAr }}</td>
-          <td class="border p-2 text-xs">{{ item.positionTu }}</td>
-          <td class="border p-2 text-xs flex justify-center items-center">
-            <img :src="item.imageUrl" alt="teacher" class="w-20 rounded" />
-          </td>
+          <td class="border p-2">{{ item.nameEn }}</td>
+          <td class="border p-2">{{ item.positionEn }}</td>
 
           <td class="border p-2">
-            {{ item.isVisible ? "Visible" : "Hidden" }}
+            {{ item.isVisible ? "Yes" : "No" }}
           </td>
-          <td class="border p-2 text-center">
+          <td class="border p-2 flex justify-center gap-4">
             <button
               @click="activeEdit(item)"
               class="bg-green-500 hover:bg-green-600 text-white font-bold p-2 pl-4 pr-4 rounded"
@@ -63,8 +46,6 @@
                 edit_square
               </span>
             </button>
-          </td>
-          <td class="border p-2 text-center">
             <button
               @click="deleteTeacher(item.id)"
               class="bg-red-500 hover:bg-red-600 text-white font-bold p-2 pl-4 pr-4 rounded"
@@ -99,14 +80,8 @@ import AddTeacherVue from "./AddTeacher.vue";
 import { useLoadingStore } from "@/stores/loading";
 
 interface Item {
-  nameKu: string;
   nameEn: string;
-  nameAr: string;
-  nameTu: string;
-  positionKu: string;
   positionEn: string;
-  positionAr: string;
-  positionTu: string;
   imageUrl: string;
   isVisible: string;
   id: number;
