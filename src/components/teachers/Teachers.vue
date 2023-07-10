@@ -1,5 +1,6 @@
 <template>
   <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
+    <h1 class="text-3xl font-bold mb-4 text-center">Teachers</h1>
     <UpdateTeacher
       v-if="editState"
       @cancelEdit="editState = false"
@@ -7,6 +8,18 @@
       :teacher="selectedTeacher"
       class="w-5/12"
     />
+    <AddTeacherVue
+      v-if="addTeacherState"
+      @cancelEdit="addTeacherState = false"
+      @statusMessage="(event: any) => showStatusMessage(event)"
+      class="w-5/12"
+    />
+    <button
+      @click="() => (addTeacherState = true)"
+      class="bg-green-500 rounded p-4 text-white ml-auto font-bold hover:bg-green-600"
+    >
+      Add Teacher
+    </button>
     <table class="w-full">
       <thead>
         <tr>
@@ -21,6 +34,7 @@
           <th class="p-2 border text-xs">Image</th>
           <th class="p-2 border text-xs">Visibility</th>
           <th class="p-2 border text-xs">Edit</th>
+          <th class="p-2 border text-xs">Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -33,14 +47,14 @@
           <td class="border p-2 text-xs">{{ item.positionEn }}</td>
           <td class="border p-2 text-xs">{{ item.positionAr }}</td>
           <td class="border p-2 text-xs">{{ item.positionTu }}</td>
-          <td class="border p-2 text-xs">
+          <td class="border p-2 text-xs flex justify-center items-center">
             <img :src="item.imageUrl" alt="teacher" class="w-20 rounded" />
           </td>
 
-          <td class="border p-4">
+          <td class="border p-2">
             {{ item.isVisible ? "Visible" : "Hidden" }}
           </td>
-          <td class="border p-4 text-center">
+          <td class="border p-2 text-center">
             <button
               @click="activeEdit(item)"
               class="bg-green-500 hover:bg-green-600 text-white font-bold p-2 pl-4 pr-4 rounded"
@@ -48,6 +62,14 @@
               <span class="material-symbols-outlined text-xl">
                 edit_square
               </span>
+            </button>
+          </td>
+          <td class="border p-2 text-center">
+            <button
+              @click="deleteTeacher(item.id)"
+              class="bg-red-500 hover:bg-red-600 text-white font-bold p-2 pl-4 pr-4 rounded"
+            >
+              <span class="material-symbols-outlined text-xl"> delete </span>
             </button>
           </td>
         </tr>
@@ -73,6 +95,7 @@ import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "../../stores/request";
 import { onBeforeMount, ref } from "vue";
 import UpdateTeacher from "./UpdateTeacher.vue";
+import AddTeacherVue from "./AddTeacher.vue";
 
 interface Item {
   nameKu: string;
@@ -105,7 +128,7 @@ onBeforeMount(async () => {
 });
 
 const editState = ref(false);
-
+const addTeacherState = ref(false);
 const selectedTeacher = ref();
 
 const statusMessage = ref();
@@ -140,5 +163,18 @@ const activeEdit = (item: any) => {
     id: item.id,
   };
   editState.value = true;
+};
+
+const deleteTeacher = async (teacherId: number) => {
+  const response = await requestStore.deleteData(
+    `${import.meta.env.VITE_API_URL}/admin/teachers/${teacherId}`,
+    tokenStore.token || ""
+  );
+  console.log(response);
+  statusMessage.value = response.message;
+  setTimeout(() => {
+    statusMessage.value = null;
+  }, 2000);
+  fetchTeachers();
 };
 </script>

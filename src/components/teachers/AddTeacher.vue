@@ -4,7 +4,7 @@
     @click="hidePopup"
   >
     <div class="bg-white w-fit p-6 rounded-lg">
-      <form @submit.prevent="updateTeacher" class="grid grid-cols-2 gap-4">
+      <form @submit.prevent="addTeacher" class="grid grid-cols-2 gap-4">
         <label for="nameKu">Kurdish Name:</label>
         <input
           v-model="name.ku"
@@ -86,6 +86,7 @@
             name="image"
             id="image"
             class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+            required
           />
           <button
             type="button"
@@ -108,7 +109,7 @@
           <button
             class="w-full py-2 px-4 bg-green-500 text-white font-bold rounded hover:bg-green-600"
           >
-            Update
+            Add
           </button>
           <button
             type="button"
@@ -128,14 +129,21 @@ import { ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
 
-const props = defineProps(["teacher"]);
 const emit = defineEmits(["cancelEdit", "statusMessage"]);
 
-const name = ref(props.teacher.name);
-const position = ref(props.teacher.position);
-const visibility = ref(props.teacher.isVisible);
-const teacherId = props.teacher.id;
-
+const name = {
+  ku: "",
+  en: "",
+  ar: "",
+  tu: "",
+};
+const position = {
+  ku: "",
+  en: "",
+  ar: "",
+  tu: "",
+};
+const visibility = ref(true);
 let imagePath: string;
 
 const tokenStore = useTokenStore();
@@ -147,26 +155,26 @@ const fileInput = ref();
 const removeFile = () => {
   fileInput.value.value = "";
 };
-const updateTeacher = async () => {
+const addTeacher = async () => {
   if (fileInput.value.files[0]) {
     await uploadImage();
   }
 
   const teacher = {
-    nameKu: name.value.ku,
-    nameEn: name.value.en,
-    nameAr: name.value.ar,
-    nameTu: name.value.tu,
-    positionKu: position.value.ku,
-    positionEn: position.value.en,
-    positionAr: position.value.ar,
-    positionTu: position.value.tu,
+    nameKu: name.ku,
+    nameEn: name.en,
+    nameAr: name.ar,
+    nameTu: name.tu,
+    positionKu: position.ku,
+    positionEn: position.en,
+    positionAr: position.ar,
+    positionTu: position.tu,
     image: imagePath,
     isVisible: visibility.value,
   };
 
-  const response = await requestStore.updateData(
-    `${import.meta.env.VITE_API_URL}/admin/teachers/${teacherId}`,
+  const response = await requestStore.postData(
+    `${import.meta.env.VITE_API_URL}/admin/teachers/`,
     teacher,
     tokenStore.token || ""
   );
