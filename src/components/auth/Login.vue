@@ -55,16 +55,19 @@ import { ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRouter } from "vue-router";
 import { useRequestStore } from "@/stores/request";
+import { useLoadingStore } from "@/stores/loading";
 
 const router = useRouter();
 const requestStore = useRequestStore();
 const email = ref("");
 const password = ref("");
 const tokenStore = useTokenStore();
+const loadingStore = useLoadingStore();
 
 const errorMessage = ref();
 
 async function login() {
+  loadingStore.setLoading();
   const emailValue = email.value;
   const passwordValue = password.value;
   const response = await requestStore.postData(
@@ -79,5 +82,6 @@ async function login() {
   } else {
     errorMessage.value = true;
   }
+  loadingStore.setFalse();
 }
 </script>

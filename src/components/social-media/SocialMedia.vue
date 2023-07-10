@@ -58,6 +58,7 @@ import { useTokenStore } from "@/stores/token";
 import { onBeforeMount, ref } from "vue";
 import { useRequestStore } from "@/stores/request";
 import UpdateSocialMedia from "./UpdateSocialMedia.vue";
+import { useLoadingStore } from "@/stores/loading";
 
 interface Item {
   id: number;
@@ -67,15 +68,18 @@ interface Item {
 }
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
+const loadingStore = useLoadingStore();
 
 const items = ref<Item[]>();
 
 const fetchSocialMedia = async () => {
+  loadingStore.setLoading();
   await requestStore.getData(
     import.meta.env.VITE_API_URL + "/admin/social-media",
     tokenStore.token || undefined
   );
   items.value = requestStore.fetchedData.socialMedia;
+  loadingStore.setFalse();
 };
 
 onBeforeMount(async () => {

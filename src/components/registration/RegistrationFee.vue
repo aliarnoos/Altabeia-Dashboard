@@ -64,6 +64,7 @@ import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "../../stores/request";
 import { onBeforeMount, ref } from "vue";
 import UpdateRegistration from "./UpdateRegistration.vue";
+import { useLoadingStore } from "@/stores/loading";
 
 interface Item {
   id: number;
@@ -76,15 +77,18 @@ interface Item {
 }
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
+const loadingStore = useLoadingStore();
 
 const items = ref<Item[]>();
 
 const fetchFees = async () => {
+  loadingStore.setLoading();
   await requestStore.getData(
     import.meta.env.VITE_API_URL + "/admin/registation-fee",
     tokenStore.token || undefined
   );
   items.value = requestStore.fetchedData.registrationFees;
+  loadingStore.setFalse();
 };
 
 onBeforeMount(async () => {

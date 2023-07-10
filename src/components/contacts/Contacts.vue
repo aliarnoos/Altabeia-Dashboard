@@ -58,6 +58,7 @@ import { useTokenStore } from "@/stores/token";
 import { onBeforeMount, ref } from "vue";
 import UpdateContact from "../../components/contacts/UpdateContact.vue";
 import { useRequestStore } from "@/stores/request";
+import { useLoadingStore } from "@/stores/loading";
 interface Item {
   id: number;
   type: string;
@@ -66,15 +67,18 @@ interface Item {
 }
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
+const loadingStore = useLoadingStore();
 
 const items = ref<Item[]>();
 
 const fetchContacts = async () => {
+  loadingStore.setLoading();
   await requestStore.getData(
     import.meta.env.VITE_API_URL + "/admin/contacts",
     tokenStore.token || undefined
   );
   items.value = requestStore.fetchedData.contacts;
+  loadingStore.setFalse();
 };
 
 onBeforeMount(async () => {

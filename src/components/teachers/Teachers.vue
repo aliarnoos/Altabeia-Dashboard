@@ -11,7 +11,7 @@
     <AddTeacherVue
       v-if="addTeacherState"
       @cancelEdit="addTeacherState = false"
-      @statusMessage="(event: any) => showStatusMessage(event)"
+      @statusMessage="(event: Event) => showStatusMessage(event)"
       class="w-5/12"
     />
     <button
@@ -96,6 +96,7 @@ import { useRequestStore } from "../../stores/request";
 import { onBeforeMount, ref } from "vue";
 import UpdateTeacher from "./UpdateTeacher.vue";
 import AddTeacherVue from "./AddTeacher.vue";
+import { useLoadingStore } from "@/stores/loading";
 
 interface Item {
   nameKu: string;
@@ -112,15 +113,18 @@ interface Item {
 }
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
+const loadingStore = useLoadingStore();
 
 const items = ref<Item[]>();
 
 const fetchTeachers = async () => {
+  loadingStore.setLoading();
   await requestStore.getData(
     import.meta.env.VITE_API_URL + "/admin/teachers",
     tokenStore.token || undefined
   );
   items.value = requestStore.fetchedData.teachers;
+  loadingStore.setFalse();
 };
 
 onBeforeMount(async () => {
