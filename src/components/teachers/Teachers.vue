@@ -4,8 +4,9 @@
       <h1 class="text-3xl font-bold text-center">Teachers</h1>
       <RouterLink
         to="/teachers/add"
-        class="bg-green-500 rounded p-4 text-white ml-auto font-bold hover:bg-green-600"
+        class="flex justify-center gap-2 bg-green-500 rounded p-4 text-white ml-auto font-bold hover:bg-green-600"
       >
+        <span class="material-symbols-outlined"> add </span>
         Add Teacher
       </RouterLink>
     </div>

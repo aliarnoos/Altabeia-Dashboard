@@ -4,8 +4,9 @@
       <h1 class="text-3xl font-bold text-center">Jobs</h1>
       <RouterLink
         to="jobs/add"
-        class="bg-green-500 rounded p-4 text-white font-bold hover:bg-green-600"
+        class="flex justify-center gap-2 bg-green-500 rounded p-4 text-white font-bold hover:bg-green-600"
       >
+        <span class="material-symbols-outlined"> add </span>
         Add Job
       </RouterLink>
     </div>
@@ -48,18 +49,6 @@
         </tr>
       </tbody>
     </table>
-    <p
-      v-if="statusMessage == 'Something went wrong!'"
-      class="bg-red-500 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
-    >
-      {{ statusMessage }}
-    </p>
-    <p
-      v-else-if="statusMessage"
-      class="bg-green-500 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
-    >
-      {{ statusMessage }}
-    </p>
   </div>
 </template>
 
@@ -68,6 +57,7 @@ import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "../../stores/request";
 import { onBeforeMount, ref } from "vue";
 import { useLoadingStore } from "@/stores/loading";
+import { useMessageStore } from "@/stores/statusMessage";
 
 interface Item {
   id: number;
@@ -84,6 +74,7 @@ interface Item {
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
 const loadingStore = useLoadingStore();
+const messageStore = useMessageStore();
 
 const items = ref<Item[]>();
 
@@ -101,46 +92,15 @@ onBeforeMount(async () => {
   fetchJobs();
 });
 
-const statusMessage = ref();
-
-const showStatusMessage = (event: any) => {
-  fetchJobs();
-  if (event.value) {
-    statusMessage.value = event.value;
-  } else {
-    statusMessage.value = "Something went wrong!";
-  }
-  setTimeout(() => {
-    statusMessage.value = null;
-  }, 2000);
-};
-// const activeEdit = (item: any) => {
-//   selectedJob.value = {
-//     title: {
-//       ku: item.titleKu,
-//       en: item.titleEn,
-//       ar: item.titleAr,
-//       tu: item.titleTu,
-//     },
-//     startDate: item.startDate,
-//     closeDate: item.closeDate,
-//     attachment: item.attachment,
-//     isVisible: item.isVisible,
-//     id: item.id,
-//   };
-//   editState.value = true;
-// };
-
 const deleteJob = async (jobId: number) => {
   const response = await requestStore.deleteData(
     `${import.meta.env.VITE_API_URL}/admin/jobs/${jobId}`,
     tokenStore.token || ""
   );
-  console.log(response);
-  statusMessage.value = response.message;
-  setTimeout(() => {
-    statusMessage.value = null;
-  }, 2000);
+  if (response) {
+    messageStore.setMessage(response.message);
+  }
+
   fetchJobs();
 };
 </script>
