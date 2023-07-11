@@ -77,23 +77,10 @@
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
         <label for="image">Image:</label>
-        <div class="flex gap-2">
-          <input
-            ref="fileInput"
-            type="file"
-            name="image"
-            id="image"
-            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-            required
-          />
-          <button
-            type="button"
-            class="p-2 rounded bg-red-500 text-white hover:bg-red-600"
-            @click="removeFile"
-          >
-            Remove
-          </button>
-        </div>
+        <FilePreviewInput
+          @updateFile="(event:any) => fileInput = event.value"
+          :required="true"
+        />
 
         <label for="isVisible">Visible:</label>
         <input
@@ -128,6 +115,7 @@ import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
 import { useMessageStore } from "@/stores/statusMessage";
 import { useRouter } from "vue-router";
+import FilePreviewInput from "../common/FilePreviewInput.vue";
 
 const name = {
   ku: "",
@@ -143,19 +131,15 @@ const position = {
 };
 const visibility = ref(true);
 let imagePath: string;
+const fileInput = ref();
 
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
 const messageStore = useMessageStore();
 const router = useRouter();
 
-const fileInput = ref();
-
-const removeFile = () => {
-  fileInput.value.value = "";
-};
 const addTeacher = async () => {
-  if (fileInput.value.files[0]) {
+  if (fileInput?.value?.files?.[0]) {
     await uploadImage();
   }
 
@@ -184,7 +168,7 @@ const addTeacher = async () => {
 };
 
 const uploadImage = async () => {
-  const file = fileInput.value.files[0];
+  const file = fileInput?.value?.files?.[0];
 
   if (!file) {
     console.error("No file selected");
@@ -200,7 +184,6 @@ const uploadImage = async () => {
   );
 
   const { url } = await response;
-  console.log(fileName);
 
   // const uploadResponse = await requestStore.putData(url, formData);
   const uploadResponse = await fetch(url, {
