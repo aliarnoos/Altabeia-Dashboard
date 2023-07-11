@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import SideBar from "../components/SideBar.vue";
+import SideBar from "../components/sideBar/SideBar.vue";
 import { useRequestStore } from "@/stores/request";
 import { useTokenStore } from "@/stores/token";
 import { useUserStore } from "@/stores/user";

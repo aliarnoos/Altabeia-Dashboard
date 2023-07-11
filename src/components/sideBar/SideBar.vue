@@ -38,20 +38,7 @@
         </button>
       </div>
     </div>
-    <nav class="flex-grow">
-      <ul class="space-y-2">
-        <li
-          links="ref(["
-          v-for="link in links"
-          :key="link.id"
-          class="mb-2 pl-2 hover:bg-gray-700 cursor-pointer flex items-stretch"
-        >
-          <router-link :to="link.path" class="text-lg p-4 grow">{{
-            link.label
-          }}</router-link>
-        </li>
-      </ul>
-    </nav>
+    <SideBarButton :links="links" />
   </aside>
   <p
     v-if="statusMessage == 'Something went wrong!'"
@@ -72,8 +59,9 @@ import { useRequestStore } from "@/stores/request";
 import { useTokenStore } from "@/stores/token";
 import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
-import { RouterLink, useRouter } from "vue-router";
-import ChangePassword from "./auth/ChangePassword.vue";
+import { useRouter } from "vue-router";
+import ChangePassword from "../auth/ChangePassword.vue";
+import SideBarButton from "./sideBarButton.vue";
 
 const tokenStore = useTokenStore();
 const router = useRouter();
