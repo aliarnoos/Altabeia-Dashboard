@@ -76,12 +76,6 @@
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-        <label for="image">Image:</label>
-        <FilePreviewInput
-          @updateFile="(event:any) => fileInput = event.value"
-          :required="true"
-        />
-
         <label for="isVisible">Visible:</label>
         <input
           v-model="visibility"
@@ -89,6 +83,11 @@
           name="isVisible"
           id="isVisible"
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+        />
+        <label for="image">Image:</label>
+        <FilePreviewInput
+          @updateFile="(event:any) => fileInput = event.value"
+          :required="true"
         />
         <div class="col-span-2 flex gap-2 mt-4">
           <button
