@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="fixed top-0 left-0 w-screen h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-10"
-    @click="hidePopup"
-  >
-    <div class="bg-white w-fit p-6 rounded-lg">
+  <div class="w-10/12 flex justify-center items-center">
+    <div class="bg-white">
+      <h1 class="text-2xl font-bold text-left mb-14">Edit Teacher</h1>
       <form @submit.prevent="updateTeacher" class="grid grid-cols-2 gap-4">
         <label for="nameKu">Kurdish Name:</label>
         <input
@@ -110,13 +108,13 @@
           >
             Update
           </button>
-          <button
-            type="button"
+          <RouterLink
+            to="/teachers"
             @click="$emit('cancelEdit')"
-            class="w-full py-2 px-4 bg-gray-500 text-white font-bold rounded hover:bg-gray-600"
+            class="w-full py-2 px-4 bg-gray-500 text-white font-bold rounded hover:bg-gray-600 text-center"
           >
-            Cancel
-          </button>
+            Back
+          </RouterLink>
         </div>
       </form>
     </div>
@@ -124,25 +122,79 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
-
-const props = defineProps(["teacher"]);
-const emit = defineEmits(["cancelEdit", "statusMessage"]);
-
-const name = ref(props.teacher.name);
-const position = ref(props.teacher.position);
-const visibility = ref(props.teacher.isVisible);
-const teacherId = props.teacher.id;
-
-let imagePath: string;
+import { useMessageStore } from "@/stores/statusMessage";
+import { useLoadingStore } from "@/stores/loading";
+import { useRoute, useRouter } from "vue-router";
 
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
+const loadingStore = useLoadingStore();
+const messageStore = useMessageStore();
+const route = useRoute();
+const router = useRouter();
+const id = route.params.id;
 
-const statusMessage = ref();
+interface Item {
+  nameEn: string;
+  nameAr: string;
+  nameKu: string;
+  nameTu: string;
+  positionEn: string;
+  positionAr: string;
+  positionKu: string;
+  positionTu: string;
+  image: string;
+  imageUrl: string;
+  isVisible: string;
+  id: number;
+}
+const item = ref<Item>();
+
+const fetchTeacher = async () => {
+  loadingStore.setLoading();
+  await requestStore.getData(
+    `${import.meta.env.VITE_API_URL}/admin/teachers/${id}`,
+    tokenStore.token || undefined
+  );
+  item.value = requestStore.fetchedData.teacher;
+  name.value = {
+    ku: item.value?.nameKu,
+    en: item.value?.nameEn,
+    ar: item.value?.nameAr,
+    tu: item.value?.nameTu,
+  };
+  position.value = {
+    ku: item.value?.positionKu,
+    en: item.value?.positionEn,
+    ar: item.value?.positionAr,
+    tu: item.value?.positionTu,
+  };
+  visibility.value = item.value?.isVisible;
+  loadingStore.setFalse();
+};
+
+onBeforeMount(async () => {
+  fetchTeacher();
+});
+
+const name = ref({
+  ku: item.value?.nameKu,
+  en: item.value?.nameEn,
+  ar: item.value?.nameAr,
+  tu: item.value?.nameTu,
+});
+const position = ref({
+  ku: item.value?.positionKu,
+  en: item.value?.positionEn,
+  ar: item.value?.positionAr,
+  tu: item.value?.positionTu,
+});
+const visibility = ref(item.value?.isVisible);
 const fileInput = ref();
+let imagePath: string;
 
 const removeFile = () => {
   fileInput.value.value = "";
@@ -166,15 +218,14 @@ const updateTeacher = async () => {
   };
 
   const response = await requestStore.updateData(
-    `${import.meta.env.VITE_API_URL}/admin/teachers/${teacherId}`,
+    `${import.meta.env.VITE_API_URL}/admin/teachers/${id}`,
     teacher,
     tokenStore.token || ""
   );
   if (response) {
-    statusMessage.value = response.message;
-    emit("cancelEdit");
+    messageStore.setMessage(response.message);
+    router.push("/teachers");
   }
-  emit("statusMessage", statusMessage);
 };
 
 const uploadImage = async () => {
@@ -219,12 +270,5 @@ const generateUniqueFileName = (fileName: string) => {
 
   const uniqueFileName = `${fileNameWithoutSpaces}_${timestamp}`;
   return uniqueFileName;
-};
-
-const hidePopup = (event: any) => {
-  // Check if the click event target is outside the sidebar
-  if (event.target.classList.contains("bg-opacity-50")) {
-    emit("cancelEdit");
-  }
 };
 </script>

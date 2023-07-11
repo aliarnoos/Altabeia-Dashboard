@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="fixed top-0 left-0 w-screen h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-10"
-    @click="hidePopup"
-  >
-    <div class="bg-white w-fit p-6 rounded-lg">
+  <div class="w-10/12 flex justify-center items-center">
+    <div class="bg-white">
+      <h1 class="text-2xl font-bold text-left mb-14">Add New Teacher:</h1>
       <form @submit.prevent="addTeacher" class="grid grid-cols-2 gap-4">
         <label for="nameKu">Kurdish Name:</label>
         <input
@@ -111,13 +109,13 @@
           >
             Add
           </button>
-          <button
-            type="button"
+          <RouterLink
+            to="/teachers"
             @click="$emit('cancelEdit')"
-            class="w-full py-2 px-4 bg-gray-500 text-white font-bold rounded hover:bg-gray-600"
+            class="w-full py-2 px-4 bg-gray-500 text-white font-bold rounded hover:bg-gray-600 text-center"
           >
-            Cancel
-          </button>
+            Back
+          </RouterLink>
         </div>
       </form>
     </div>
@@ -128,8 +126,8 @@
 import { ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
-
-const emit = defineEmits(["cancelEdit", "statusMessage"]);
+import { useMessageStore } from "@/stores/statusMessage";
+import { useRouter } from "vue-router";
 
 const name = {
   ku: "",
@@ -148,8 +146,9 @@ let imagePath: string;
 
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
+const messageStore = useMessageStore();
+const router = useRouter();
 
-const statusMessage = ref();
 const fileInput = ref();
 
 const removeFile = () => {
@@ -179,10 +178,9 @@ const addTeacher = async () => {
     tokenStore.token || ""
   );
   if (response) {
-    statusMessage.value = response.message;
-    emit("cancelEdit");
+    messageStore.setMessage(response.message);
+    router.push("/teachers");
   }
-  emit("statusMessage", statusMessage);
 };
 
 const uploadImage = async () => {
@@ -227,12 +225,5 @@ const generateUniqueFileName = (fileName: string) => {
 
   const uniqueFileName = `${fileNameWithoutSpaces}_${timestamp}`;
   return uniqueFileName;
-};
-
-const hidePopup = (event: any) => {
-  // Check if the click event target is outside the sidebar
-  if (event.target.classList.contains("bg-opacity-50")) {
-    emit("cancelEdit");
-  }
 };
 </script>
