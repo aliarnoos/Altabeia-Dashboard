@@ -4,7 +4,7 @@
     @cancelEdit="ChangePasswordState = false"
     @statusMessage="(event) => showStatusMessage(event)"
   />
-  <div class="flex flex-col bg-gray-800 text-white h-screen w-64 basis-1/6">
+  <div class="flex flex-col bg-gray-800 text-white min-h-screen w-64 basis-1/6">
     <div class="flex flex-col items-center justify-center py-6">
       <h1 class="text-2xl font-bold">Dashboard</h1>
       <button
