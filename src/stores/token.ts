@@ -5,13 +5,13 @@ import jwtDecode from "jwt-decode";
 export const useTokenStore = defineStore("token", () => {
   const localStorageKey = "authToken";
   const token = ref<string | null>(
-    sessionStorage.getItem(localStorageKey) || null
+    localStorage.getItem(localStorageKey) || null
   );
   const expiration = ref<number | null>();
 
   const setToken = (newToken: string, date: number) => {
     token.value = newToken;
-    sessionStorage.setItem(localStorageKey, newToken);
+    localStorage.setItem(localStorageKey, newToken);
     setExpireation(date);
   };
 
@@ -22,7 +22,7 @@ export const useTokenStore = defineStore("token", () => {
   const setNull = () => {
     token.value = null;
     expiration.value = null;
-    sessionStorage.removeItem(localStorageKey);
+    localStorage.removeItem(localStorageKey);
   };
 
   const validateToken = (): boolean => {
