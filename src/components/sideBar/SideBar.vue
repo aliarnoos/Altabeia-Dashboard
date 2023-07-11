@@ -4,7 +4,7 @@
     @cancelEdit="ChangePasswordState = false"
     @statusMessage="(event) => showStatusMessage(event)"
   />
-  <aside class="flex flex-col bg-gray-800 text-white h-screen w-64 basis-1/6">
+  <div class="flex flex-col bg-gray-800 text-white h-screen w-64 basis-1/6">
     <div class="flex flex-col items-center justify-center py-6">
       <h1 class="text-2xl font-bold">Dashboard</h1>
       <button
@@ -39,7 +39,7 @@
       </div>
     </div>
     <SideBarButton :links="links" />
-  </aside>
+  </div>
   <p
     v-if="statusMessage == 'Something went wrong!'"
     class="bg-red-700 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
@@ -90,7 +90,7 @@ const toogleUserDropDown = () => {
 const links = ref([
   { id: 0, label: "Overview", path: "/" },
   { id: 1, label: "Registration Fees", path: "/registration" },
-  { id: 2, label: "Contacts", path: "contacts" },
+  { id: 2, label: "Contacts", path: "/contacts" },
   { id: 3, label: "Social Media", path: "/social-media" },
   { id: 4, label: "Jobs", path: "/jobs" },
   { id: 5, label: "Teachers", path: "/teachers" },

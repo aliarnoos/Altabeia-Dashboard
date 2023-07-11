@@ -1,18 +1,21 @@
 <template>
   <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
-    <h1 class="text-3xl font-bold mb-8 text-center">Registation Fees</h1>
+    <h1 class="text-3xl font-bold flex justify-start w-full">
+      Registation Fees
+    </h1>
 
     <UpdateRegistration
       v-if="editState"
       @cancelEdit="editState = false"
-      @statusMessage="(event) => showStatusMessage(event)"
+      @updated="() => fetchFees()"
       :fee="selectedFee"
       class="w-5/12"
     />
     <table class="w-full">
       <thead>
         <tr>
-          <th class="p-2 border">title</th>
+          <th class="p-2 border">ID</th>
+          <th class="p-2 border">Title</th>
           <th class="p-2 border">Price</th>
           <th class="p-2 border">Visible</th>
           <th class="p-2 border">Actions</th>
@@ -20,6 +23,7 @@
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
+          <td class="border p-2 text-center">{{ item.id }}</td>
           <td class="border p-2">{{ item.titleEn }}</td>
           <td class="border p-2">{{ item.price }}</td>
           <td class="border p-2">

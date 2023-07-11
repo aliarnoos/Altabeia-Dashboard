@@ -1,29 +1,19 @@
 <template>
   <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
-    <h1 class="text-3xl font-bold mb-4 text-center">Jobs</h1>
-    <UpdateJob
-      v-if="editState"
-      @cancelEdit="editState = false"
-      @statusMessage="(event) => showStatusMessage(event)"
-      :job="selectedJob"
-      class="w-5/12"
-    />
-    <AddJob
-      v-if="addJobState"
-      @cancelEdit="addJobState = false"
-      @statusMessage="(event: Event) => showStatusMessage(event)"
-      class="w-5/12"
-    />
-    <button
-      @click="() => (addJobState = true)"
-      class="bg-green-500 rounded p-4 text-white ml-auto font-bold hover:bg-green-600"
-    >
-      Add Job
-    </button>
+    <div class="flex items-center justify-between w-full">
+      <h1 class="text-3xl font-bold text-center">Jobs</h1>
+      <RouterLink
+        to="jobs/add"
+        class="bg-green-500 rounded p-4 text-white font-bold hover:bg-green-600"
+      >
+        Add Job
+      </RouterLink>
+    </div>
     <table class="w-full">
       <thead>
         <tr>
-          <th class="p-2 border">title</th>
+          <th class="p-2 border">ID</th>
+          <th class="p-2 border">Title</th>
           <th class="p-2 border">Start Date</th>
           <th class="p-2 border">Close Date</th>
           <th class="p-2 border">Visible</th>
@@ -32,21 +22,22 @@
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
+          <td class="border p-2 text-center">{{ item.id }}</td>
           <td class="border p-2">{{ item.titleEn }}</td>
           <td class="border p-2">{{ item.startDate }}</td>
           <td class="border p-2">{{ item.closeDate }}</td>
-          <td class="border p-4">
+          <td class="border p-4 text-center">
             {{ item.isVisible ? "Yes" : "No" }}
           </td>
           <td class="border p-4 text-center flex justify-center gap-4">
-            <button
-              @click="activeEdit(item)"
+            <RouterLink
+              :to="`/jobs/${item.id}`"
               class="bg-green-500 hover:bg-green-600 text-white font-bold p-2 pl-4 pr-4 rounded"
             >
               <span class="material-symbols-outlined text-xl">
                 edit_square
               </span>
-            </button>
+            </RouterLink>
             <button
               @click="deleteJob(item.id)"
               class="bg-red-500 hover:bg-red-600 text-white font-bold p-2 pl-4 pr-4 rounded"
@@ -77,8 +68,6 @@ import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "../../stores/request";
 import { onBeforeMount, ref } from "vue";
 import { useLoadingStore } from "@/stores/loading";
-import UpdateJob from "./UpdateJob.vue";
-import AddJob from "./AddJob.vue";
 
 interface Item {
   id: number;
@@ -112,13 +101,7 @@ onBeforeMount(async () => {
   fetchJobs();
 });
 
-const editState = ref(false);
-
-const selectedJob = ref();
-
 const statusMessage = ref();
-
-const addJobState = ref(false);
 
 const showStatusMessage = (event: any) => {
   fetchJobs();
@@ -131,22 +114,22 @@ const showStatusMessage = (event: any) => {
     statusMessage.value = null;
   }, 2000);
 };
-const activeEdit = (item: any) => {
-  selectedJob.value = {
-    title: {
-      ku: item.titleKu,
-      en: item.titleEn,
-      ar: item.titleAr,
-      tu: item.titleTu,
-    },
-    startDate: item.startDate,
-    closeDate: item.closeDate,
-    attachment: item.attachment,
-    isVisible: item.isVisible,
-    id: item.id,
-  };
-  editState.value = true;
-};
+// const activeEdit = (item: any) => {
+//   selectedJob.value = {
+//     title: {
+//       ku: item.titleKu,
+//       en: item.titleEn,
+//       ar: item.titleAr,
+//       tu: item.titleTu,
+//     },
+//     startDate: item.startDate,
+//     closeDate: item.closeDate,
+//     attachment: item.attachment,
+//     isVisible: item.isVisible,
+//     id: item.id,
+//   };
+//   editState.value = true;
+// };
 
 const deleteJob = async (jobId: number) => {
   const response = await requestStore.deleteData(

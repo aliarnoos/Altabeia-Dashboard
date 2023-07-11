@@ -84,9 +84,10 @@
 import { ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
+import { useMessageStore } from "@/stores/statusMessage";
 
 const props = defineProps(["fee"]);
-const emit = defineEmits(["cancelEdit", "statusMessage"]);
+const emit = defineEmits(["cancelEdit", "updated"]);
 
 const title = ref(props.fee.title);
 const price = ref(props.fee.price);
@@ -95,8 +96,7 @@ const registationId = props.fee.id;
 
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
-
-const statusMessage = ref();
+const messageStore = useMessageStore();
 
 const updateFee = async () => {
   const fee = {
@@ -110,10 +110,10 @@ const updateFee = async () => {
     tokenStore.token || ""
   );
   if (response) {
-    statusMessage.value = response.message;
+    messageStore.setMessage(response.message);
     emit("cancelEdit");
   }
-  emit("statusMessage", statusMessage);
+  emit("updated");
 };
 
 const hideWindow = (event: any) => {

@@ -1,6 +1,6 @@
 <template>
   <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
-    <h1 class="text-3xl font-bold mb-4 text-center">Schools</h1>
+    <h1 class="text-3xl font-bold flex justify-start w-full">Schools</h1>
     <!-- <UpdateJob
       v-if="editState"
       @cancelEdit="editState = false"
@@ -23,42 +23,24 @@
     <table class="w-full">
       <thead>
         <tr>
-          <th class="p-2 border">Title_KU</th>
-          <th class="p-2 border">Title_EN</th>
-          <th class="p-2 border">Title_AR</th>
-          <th class="p-2 border">Title_TU</th>
-          <th class="p-2 border">Description_KU</th>
-          <th class="p-2 border">Description_EN</th>
-          <th class="p-2 border">Description_AR</th>
-          <th class="p-2 border">Description_TU</th>
-          <th class="p-2 border">Image</th>
-          <th class="p-2 border">Icon</th>
+          <th class="p-2 border">ID</th>
+          <th class="p-2 border">Title</th>
+          <th class="p-2 border">Description</th>
           <th class="p-2 border">Icon BG Color</th>
-          <th class="p-2 border">Visibility</th>
+          <th class="p-2 border">Visible</th>
           <th class="p-2 border">Edit</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
-          <td class="border p-2">{{ item.titleKu }}</td>
+          <td class="border p-2 text-center">{{ item.id }}</td>
           <td class="border p-2">{{ item.titleEn }}</td>
-          <td class="border p-2">{{ item.titleAr }}</td>
-          <td class="border p-2">{{ item.titleTu }}</td>
-          <td class="border p-2">{{ item.descriptionKu }}</td>
           <td class="border p-2">{{ item.descriptionEn }}</td>
-          <td class="border p-2 text-center">{{ item.descriptionAr }}</td>
-          <td class="border p-2 text-center">{{ item.descriptionKu }}</td>
-          <td class="border p-2 text-center">
-            <img :src="item.imageUrl" alt="school" />
-          </td>
-          <td class="border p-2 text-center">
-            <img :src="item.iconUrl" alt="icon" />
-          </td>
           <td class="border p-2 text-center">
             {{ item.iconBgColor }}
           </td>
           <td class="border p-4">
-            {{ item.isVisible ? "Visible" : "Hidden" }}
+            {{ item.isVisible ? "Yes" : "No" }}
           </td>
           <td class="border p-4 text-center">
             <button
@@ -124,7 +106,6 @@ const fetchSchools = async () => {
     tokenStore.token || undefined
   );
   items.value = requestStore.fetchedData.schools;
-  console.log(items);
   loadingStore.setFalse();
 };
 

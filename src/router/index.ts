@@ -8,6 +8,10 @@ import SocialMedia from "@/components/social-media/SocialMedia.vue";
 import Jobs from "@/components/jobs/Jobs.vue";
 import Teachers from "@/components/teachers/Teachers.vue";
 import Schools from "@/components/schools/Schools.vue";
+import AddJob from "@/components/jobs/AddJob.vue";
+import UpdateJob from "@/components/jobs/UpdateJob.vue";
+import AddTeacher from "@/components/teachers/AddTeacher.vue";
+import UpdateTeacher from "@/components/teachers/UpdateTeacher.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,10 +27,19 @@ const router = createRouter({
       component: HomeView,
       children: [
         { path: "contacts", component: Contacts },
+
         { path: "social-media", component: SocialMedia },
+
         { path: "registration", component: RegistrationFee },
+
         { path: "jobs", component: Jobs },
+        { path: "jobs/add", component: AddJob },
+        { path: "jobs/:id", component: UpdateJob },
+
         { path: "teachers", component: Teachers },
+        { path: "teachers/add", component: AddTeacher },
+        { path: "teachers/:id", component: UpdateTeacher },
+
         { path: "schools", component: Schools },
       ],
     },

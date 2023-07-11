@@ -1,17 +1,18 @@
 <template>
   <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
-    <h1 class="text-3xl font-bold mb-4 text-center">Contacts</h1>
+    <h1 class="text-3xl font-bold flex justify-start w-full">Contacts</h1>
 
     <UpdateContact
       v-if="editState"
       @cancelEdit="editState = false"
-      @statusMessage="(event) => showStatusMessage(event)"
+      @updated="() => fetchContacts()"
       :contact="selectedContact"
       class="w-5/12"
     />
     <table class="w-full">
       <thead>
         <tr>
+          <th class="p-2 border">ID</th>
           <th class="p-2 border">Type</th>
           <th class="p-2 border">Value</th>
           <th class="p-2 border">Visible</th>
@@ -20,6 +21,7 @@
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
+          <td class="border p-2 text-center">{{ item.id }}</td>
           <td class="border p-2 text-center">{{ item.type }}</td>
           <td class="border p-2">{{ item.value }}</td>
           <td class="border p-2 text-center">
@@ -38,18 +40,6 @@
         </tr>
       </tbody>
     </table>
-    <p
-      v-if="statusMessage == 'Something went wrong!'"
-      class="bg-red-500 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
-    >
-      {{ statusMessage }}
-    </p>
-    <p
-      v-else-if="statusMessage"
-      class="bg-green-500 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
-    >
-      {{ statusMessage }}
-    </p>
   </div>
 </template>
 
@@ -68,7 +58,6 @@ interface Item {
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
 const loadingStore = useLoadingStore();
-
 const items = ref<Item[]>();
 
 const fetchContacts = async () => {
@@ -89,19 +78,19 @@ const editState = ref(false);
 
 const selectedContact = ref();
 
-const statusMessage = ref();
+// const statusMessage = ref();
 
-const showStatusMessage = (event: any) => {
-  fetchContacts();
-  if (event.value) {
-    statusMessage.value = event.value;
-  } else {
-    statusMessage.value = "Something went wrong!";
-  }
-  setTimeout(() => {
-    statusMessage.value = null;
-  }, 2000);
-};
+// const showStatusMessage = (event: any) => {
+//   fetchContacts();
+//   if (event.value) {
+//     statusMessage.value = event.value;
+//   } else {
+//     statusMessage.value = "Something went wrong!";
+//   }
+//   setTimeout(() => {
+//     statusMessage.value = null;
+//   }, 2000);
+// };
 const activeEdit = (item: any) => {
   selectedContact.value = {
     type: item.type,

@@ -1,17 +1,18 @@
 <template>
   <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
-    <h1 class="text-3xl font-bold mb-4 text-center">Social Media</h1>
+    <h1 class="text-3xl font-bold flex justify-start w-full">Social Media</h1>
 
     <UpdateSocialMedia
       v-if="editState"
       @cancelEdit="editState = false"
-      @statusMessage="(event) => showStatusMessage(event)"
+      @updated="() => fetchSocialMedia()"
       :socialMedia="selectedSocialMedia"
       class="w-5/12"
     />
     <table class="w-full">
       <thead>
         <tr>
+          <th class="p-2 border">ID</th>
           <th class="p-2 border">Type</th>
           <th class="p-2 border">URL</th>
           <th class="p-2 border">Visible</th>
@@ -20,8 +21,9 @@
       </thead>
       <tbody>
         <tr v-for="item in items" :key="item.id">
+          <td class="border p-2 text-center">{{ item.id }}</td>
           <td class="border p-2 text-center">{{ item.type }}</td>
-          <td class="border p-2 text-center">{{ item.url }}</td>
+          <td class="border p-2">{{ item.url }}</td>
           <td class="border p-2 text-center">
             {{ item.isVisible ? "Yes" : "No" }}
           </td>

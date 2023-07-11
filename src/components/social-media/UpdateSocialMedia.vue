@@ -54,9 +54,10 @@
 import { ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
+import { useMessageStore } from "@/stores/statusMessage";
 
 const props = defineProps(["socialMedia"]);
-const emit = defineEmits(["cancelEdit", "statusMessage"]);
+const emit = defineEmits(["cancelEdit", "updated"]);
 
 const url = ref(props.socialMedia.url);
 const type = ref(props.socialMedia.type);
@@ -65,8 +66,7 @@ const socialMediaId = props.socialMedia.id;
 
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
-
-const statusMessage = ref();
+const messageStore = useMessageStore();
 
 const updateSocialMedia = async () => {
   const socialMedia = {
@@ -80,10 +80,10 @@ const updateSocialMedia = async () => {
     tokenStore.token || ""
   );
   if (response) {
-    statusMessage.value = response.message;
+    messageStore.setMessage(response.message);
     emit("cancelEdit");
   }
-  emit("statusMessage", statusMessage);
+  emit("updated");
 };
 
 const hideSidebar = (event: any) => {

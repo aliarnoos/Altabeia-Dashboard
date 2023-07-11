@@ -1,10 +1,8 @@
 <template>
-  <div
-    class="fixed top-0 left-0 w-screen h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-10"
-    @click="hidePopup"
-  >
-    <div class="bg-white w-fit p-6 rounded-lg">
-      <form @submit.prevent="addJob" class="grid grid-cols-2 gap-4">
+  <div class="w-10/12 flex justify-center items-center">
+    <div class="bg-white">
+      <h1 class="text-2xl font-bold text-left mb-14">Add New Job</h1>
+      <form @submit.prevent="addJob" class="grid grid-cols-2 gap-6">
         <label for="nameKu">Titile_KU:</label>
         <input
           v-model="title.ku"
@@ -91,13 +89,12 @@
           >
             Update
           </button>
-          <button
-            type="button"
-            @click="$emit('cancelEdit')"
-            class="w-full py-2 px-4 bg-gray-500 text-white font-bold rounded hover:bg-gray-600"
+          <RouterLink
+            to="/jobs"
+            class="w-full py-2 px-4 text-center bg-gray-500 text-white font-bold rounded hover:bg-gray-600"
           >
-            Cancel
-          </button>
+            Back
+          </RouterLink>
         </div>
       </form>
     </div>
@@ -108,6 +105,8 @@
 import { ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
+import { useRouter } from "vue-router";
+import { useMessageStore } from "@/stores/statusMessage";
 
 const emit = defineEmits(["cancelEdit", "statusMessage"]);
 
@@ -124,8 +123,10 @@ let attachmentPath: string;
 
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
+const messageStore = useMessageStore();
 
-const statusMessage = ref();
+const router = useRouter();
+
 const fileInput = ref();
 
 const removeFile = () => {
@@ -152,10 +153,9 @@ const addJob = async () => {
     tokenStore.token || ""
   );
   if (response) {
-    statusMessage.value = response.message;
-    emit("cancelEdit");
+    messageStore.setMessage(response.message);
+    router.push("/jobs");
   }
-  emit("statusMessage", statusMessage);
 };
 
 const uploadImage = async () => {
@@ -200,12 +200,5 @@ const generateUniqueFileName = (fileName: string) => {
 
   const uniqueFileName = `${fileNameWithoutSpaces}_${timestamp}`;
   return uniqueFileName;
-};
-
-const hidePopup = (event: any) => {
-  // Check if the click event target is outside the sidebar
-  if (event.target.classList.contains("bg-opacity-50")) {
-    emit("cancelEdit");
-  }
 };
 </script>

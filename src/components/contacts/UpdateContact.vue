@@ -54,9 +54,10 @@
 import { ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
+import { useMessageStore } from "@/stores/statusMessage";
 
 const props = defineProps(["contact"]);
-const emit = defineEmits(["cancelEdit", "statusMessage"]);
+const emit = defineEmits(["cancelEdit", "updated"]);
 
 const type = ref(props.contact.type);
 const value = ref(props.contact.value);
@@ -65,6 +66,7 @@ const contactId = props.contact.id;
 
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
+const messageStore = useMessageStore();
 
 const statusMessage = ref();
 
@@ -83,7 +85,8 @@ const updateContact = async () => {
     statusMessage.value = response.message;
     emit("cancelEdit");
   }
-  emit("statusMessage", statusMessage);
+  emit("updated");
+  messageStore.setMessage(response.message);
 };
 
 const hideSidebar = (event: any) => {

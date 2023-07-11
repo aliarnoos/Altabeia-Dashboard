@@ -1,5 +1,6 @@
 <template>
   <main class="flex flex-row">
+    <PopupCard />
     <IsLoading></IsLoading>
     <SideBar />
     <RouterView />
@@ -12,12 +13,15 @@ import { useRequestStore } from "@/stores/request";
 import { useTokenStore } from "@/stores/token";
 import { useUserStore } from "@/stores/user";
 import { onBeforeMount } from "vue";
-import IsLoading from "../components/IsLoading.vue";
+import IsLoading from "../components/common/IsLoading.vue";
 import jwtDecode from "jwt-decode";
+import PopupCard from "@/components/common/PopupCard.vue";
+import { useMessageStore } from "@/stores/statusMessage";
 
 const requestStore = useRequestStore();
 const userStore = useUserStore();
 const tokenStore = useTokenStore();
+const messageStore = useMessageStore();
 
 const setUser = async () => {
   const response = await requestStore.getData(
@@ -28,7 +32,6 @@ const setUser = async () => {
 };
 
 const REFRESH_TIMEOUT = 120; // 2 minutes in seconds
-
 const refreshToken = async (): Promise<void> => {
   const tokenValue = tokenStore.token;
   if (tokenValue) {
@@ -47,11 +50,8 @@ const refreshToken = async (): Promise<void> => {
         {},
         tokenValue
       );
-
-      console.log(response);
       const { access_token, expire_date } = response;
       tokenStore.setToken(access_token, expire_date);
-      console.log(tokenStore.token, tokenStore.expiration);
     }
   }
 };
