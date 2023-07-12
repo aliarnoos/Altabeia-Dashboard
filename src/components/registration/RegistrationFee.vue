@@ -3,14 +3,6 @@
     <h1 class="text-3xl font-bold flex justify-start w-full">
       Registation Fees
     </h1>
-
-    <UpdateRegistration
-      v-if="editState"
-      @cancelEdit="editState = false"
-      @updated="() => fetchFees()"
-      :fee="selectedFee"
-      class="w-5/12"
-    />
     <table class="w-full">
       <thead>
         <tr>
@@ -30,14 +22,14 @@
             {{ item.isVisible ? "Yes" : "No" }}
           </td>
           <td class="border p-4 text-center">
-            <button
-              @click="activeEdit(item)"
+            <RouterLink
+              :to="`/registration/${item.id}`"
               class="bg-green-500 hover:bg-green-600 text-white font-bold p-2 pl-4 pr-4 rounded"
             >
               <span class="material-symbols-outlined text-xl">
                 edit_square
               </span>
-            </button>
+            </RouterLink>
           </td>
         </tr>
       </tbody>
@@ -61,7 +53,6 @@
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "../../stores/request";
 import { onBeforeMount, ref } from "vue";
-import UpdateRegistration from "./UpdateRegistration.vue";
 import { useLoadingStore } from "@/stores/loading";
 
 interface Item {
@@ -79,7 +70,7 @@ const items = ref<Item[]>();
 const fetchFees = async () => {
   loadingStore.setLoading();
   await requestStore.getData(
-    import.meta.env.VITE_API_URL + "/admin/registation-fee",
+    import.meta.env.VITE_API_URL + "/admin/registration-fee",
     tokenStore.token || undefined
   );
   items.value = requestStore.fetchedData.registrationFees;

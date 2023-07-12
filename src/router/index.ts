@@ -12,6 +12,7 @@ import AddJob from "@/components/jobs/AddJob.vue";
 import UpdateJob from "@/components/jobs/UpdateJob.vue";
 import AddTeacher from "@/components/teachers/AddTeacher.vue";
 import UpdateTeacher from "@/components/teachers/UpdateTeacher.vue";
+import UpdateRegistration from "@/components/registration/UpdateRegistration.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +32,7 @@ const router = createRouter({
         { path: "social-media", component: SocialMedia },
 
         { path: "registration", component: RegistrationFee },
+        { path: "registration/:id", component: UpdateRegistration },
 
         { path: "jobs", component: Jobs },
         { path: "jobs/add", component: AddJob },

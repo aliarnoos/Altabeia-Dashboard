@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="fixed top-0 left-0 w-screen h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-10"
-    @click="hideWindow"
-  >
-    <div class="bg-white w-fit p-6 rounded-lg">
+  <div class="w-10/12 flex justify-center items-center">
+    <div class="bg-white">
+      <h1 class="text-2xl font-bold text-left mb-14">Edit Registation Fee</h1>
       <form @submit.prevent="updateFee" class="grid grid-cols-2 gap-4">
         <label for="titleKu">Kurdish Title:</label>
         <input
@@ -67,13 +65,12 @@
           >
             Update
           </button>
-          <button
-            type="button"
-            @click="$emit('cancelEdit')"
+          <RouterLink
+            to="/registration"
             class="w-full py-2 px-4 bg-gray-500 text-white font-bold rounded hover:bg-gray-600"
           >
             Cancel
-          </button>
+          </RouterLink>
         </div>
       </form>
     </div>
@@ -81,22 +78,63 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
 import { useMessageStore } from "@/stores/statusMessage";
+import { useRoute, useRouter } from "vue-router";
+import { useLoadingStore } from "@/stores/loading";
 
-const props = defineProps(["fee"]);
-const emit = defineEmits(["cancelEdit", "updated"]);
+interface Item {
+  id: number;
+  titleKu: string;
+  titleEn: string;
+  titleAr: string;
+  titleTu: string;
+  price: string;
+  isVisible: string;
+}
+const item = ref<Item>();
 
-const title = ref(props.fee.title);
-const price = ref(props.fee.price);
-const visibility = ref(props.fee.isVisible);
-const registationId = props.fee.id;
-
+const loadingStore = useLoadingStore();
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
 const messageStore = useMessageStore();
+const route = useRoute();
+const router = useRouter();
+
+const title = ref({
+  ku: item.value?.titleKu,
+  en: item.value?.titleEn,
+  ar: item.value?.titleAr,
+  tu: item.value?.titleTu,
+});
+const price = ref(item?.value?.price);
+const visibility = ref(item?.value?.isVisible);
+const id = route.params.id;
+
+const fetchFee = async () => {
+  loadingStore.setLoading();
+  await requestStore.getData(
+    `${import.meta.env.VITE_API_URL}/admin/registration-fee/${id}`,
+    tokenStore.token || undefined
+  );
+  item.value = requestStore.fetchedData.registrationFee;
+
+  title.value = {
+    ku: item.value?.titleKu,
+    en: item.value?.titleEn,
+    ar: item.value?.titleAr,
+    tu: item.value?.titleTu,
+  };
+  price.value = item?.value?.price;
+  visibility.value = item.value?.isVisible;
+  loadingStore.setFalse();
+};
+
+onBeforeMount(async () => {
+  fetchFee();
+});
 
 const updateFee = async () => {
   const fee = {
@@ -105,21 +143,13 @@ const updateFee = async () => {
     isVisible: visibility.value,
   };
   const response = await requestStore.updateData(
-    `${import.meta.env.VITE_API_URL}/admin/registation-fee/${registationId}`,
+    `${import.meta.env.VITE_API_URL}/admin/registration-fee/${id}`,
     fee,
     tokenStore.token || ""
   );
   if (response) {
     messageStore.setMessage(response.message);
-    emit("cancelEdit");
-  }
-  emit("updated");
-};
-
-const hideWindow = (event: any) => {
-  // Check if the click event target is outside the sidebar
-  if (event.target.classList.contains("bg-opacity-50")) {
-    emit("cancelEdit");
+    router.push("/registration");
   }
 };
 </script>
