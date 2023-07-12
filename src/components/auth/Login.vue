@@ -44,7 +44,7 @@
         </button>
       </form>
       <p v-if="errorMessage" class="text-red-600 font-bold">
-        Wrong email or password!
+        {{ errorMessage }}
       </p>
     </div>
   </div>
@@ -79,8 +79,10 @@ async function login() {
     const { access_token, expire_date } = response;
     tokenStore.setToken(access_token, expire_date);
     router.replace("/");
+  } else if (response.statusCode == 403) {
+    errorMessage.value = "Wrong email or password!";
   } else {
-    errorMessage.value = true;
+    errorMessage.value = "Something went wrong! please try again";
   }
   loadingStore.setFalse();
 }
