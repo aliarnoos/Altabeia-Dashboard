@@ -1,6 +1,6 @@
 <template>
-  <div class="w-10/12 flex justify-center items-center">
-    <div class="bg-white">
+  <div class="flex justify-center items-center">
+    <div class="bg-white w-8/12">
       <h1 class="text-2xl font-bold text-left mb-14">Edit Registation Fee</h1>
       <form @submit.prevent="updateFee" class="grid grid-cols-2 gap-4">
         <label for="titleKu">Kurdish Title:</label>
@@ -67,7 +67,7 @@
           </button>
           <RouterLink
             to="/registration"
-            class="w-full py-2 px-4 bg-gray-500 text-white font-bold rounded hover:bg-gray-600"
+            class="w-full py-2 px-4 bg-gray-500 text-white font-bold rounded hover:bg-gray-600 text-center"
           >
             Cancel
           </RouterLink>

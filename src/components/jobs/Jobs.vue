@@ -1,5 +1,5 @@
 <template>
-  <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
+  <div class="w-full p-10 flex items-center flex-col gap-10 overflow-x-auto">
     <div class="flex items-center justify-between w-full">
       <h1 class="text-3xl font-bold text-center">Jobs</h1>
       <RouterLink

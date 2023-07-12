@@ -60,7 +60,7 @@ import { useTokenStore } from "@/stores/token";
 import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import ChangePassword from "../auth/ChangePassword.vue";
+import ChangePassword from "../../auth/ChangePassword.vue";
 import SideBarButton from "./sideBarButton.vue";
 
 const tokenStore = useTokenStore();

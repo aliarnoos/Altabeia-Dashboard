@@ -1,80 +1,66 @@
 <template>
   <div class="flex justify-center items-center">
     <div class="bg-white">
-      <h1 class="text-2xl font-bold text-left mb-14">Add New Teacher:</h1>
-      <form @submit.prevent="addTeacher" class="grid grid-cols-2 gap-4">
-        <label for="nameKu">Kurdish Name:</label>
+      <h1 class="text-2xl font-bold text-left mb-14">Edit School</h1>
+      <form @submit.prevent="updateJob" class="grid grid-cols-2 gap-4">
+        <label for="nameKu">Titile_KU:</label>
         <input
-          v-model="name.ku"
+          v-model="title.ku"
           type="text"
           name="nameKu"
           id="nameKu"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-        <label for="nameEn">English Name:</label>
+        <label for="nameEn">Titile_EN:</label>
         <input
-          v-model="name.en"
+          v-model="title.en"
           type="text"
           name="nameEn"
           id="nameEn"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-        <label for="nameAr">Arabic Name:</label>
+        <label for="nameAr">Titile_AR:</label>
         <input
-          v-model="name.ar"
+          v-model="title.ar"
           type="text"
           name="nameAr"
           id="nameAr"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-        <label for="nameTu">Turkmen Name:</label>
+        <label for="nameTu">Titile_TU:</label>
         <input
-          v-model="name.tu"
+          v-model="title.tu"
           type="text"
           name="nameTu"
           id="nameTu"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-
-        <label for="positionKu">Kurdish Position:</label>
+        <label for="startDate">Start Date:</label>
         <input
-          v-model="position.ku"
-          type="text"
-          name="positionKu"
-          id="positionKu"
+          v-model="startDate"
+          type="date"
+          name="startDate"
+          id="startDate"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-        <label for="positionEn">English Position:</label>
+        <label for="closeDate">Close Date:</label>
         <input
-          v-model="position.en"
-          type="text"
-          name="positionEn"
-          id="positionEn"
+          v-model="closeDate"
+          type="date"
+          name="closeDate"
+          id="closeDate"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-        <label for="positionAr">Arabic Position:</label>
-        <input
-          v-model="position.ar"
-          type="text"
-          name="positionAr"
-          id="positionAr"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
-        <label for="positionTu">Turkmen Position:</label>
-        <input
-          v-model="position.tu"
-          type="text"
-          name="positionTu"
-          id="positionTu"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+        <label for="attachment">Attachment:</label>
+        <FilePreviewInput
+          @updateFile="(event:any) => fileInput = event.value"
+          :required="false"
         />
         <label for="isVisible">Visible:</label>
         <input
@@ -84,20 +70,14 @@
           id="isVisible"
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-        <label for="image">Image:</label>
-        <FilePreviewInput
-          @updateFile="(event:any) => fileInput = event.value"
-          :required="true"
-        />
         <div class="col-span-2 flex gap-2 mt-4">
           <button
             class="w-full py-2 px-4 bg-green-500 text-white font-bold rounded hover:bg-green-600"
           >
-            Add
+            Update
           </button>
           <RouterLink
-            to="/teachers"
-            @click="$emit('cancelEdit')"
+            to="/schools"
             class="w-full py-2 px-4 bg-gray-500 text-white font-bold rounded hover:bg-gray-600 text-center"
           >
             Back
@@ -112,62 +92,103 @@
 import { ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
+import { onBeforeMount } from "vue";
+import { useLoadingStore } from "@/stores/loading";
+import { useRoute, useRouter } from "vue-router";
 import { useMessageStore } from "@/stores/statusMessage";
-import { useRouter } from "vue-router";
 import FilePreviewInput from "../common/FilePreviewInput.vue";
 
-const name = {
-  ku: "",
-  en: "",
-  ar: "",
-  tu: "",
-};
-const position = {
-  ku: "",
-  en: "",
-  ar: "",
-  tu: "",
-};
-const visibility = ref(true);
-let imagePath: string;
-const fileInput = ref();
-
+interface Item {
+  id: number;
+  titleKu: string;
+  titleEn: string;
+  titleAr: string;
+  titleTu: string;
+  startDate: string;
+  closeDate: string;
+  attachment: string;
+  attachmentUrl: string;
+  isVisible: string;
+}
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
+const loadingStore = useLoadingStore();
 const messageStore = useMessageStore();
+const route = useRoute();
 const router = useRouter();
 
-const addTeacher = async () => {
+const id = route.params.id;
+
+const item = ref<Item>();
+
+const fetchSchool = async () => {
+  loadingStore.setLoading();
+  await requestStore.getData(
+    `${import.meta.env.VITE_API_URL}/admin/schools/${id}`,
+    tokenStore.token || undefined
+  );
+  item.value = requestStore.fetchedData.job;
+
+  title.value = {
+    ku: item.value?.titleKu,
+    en: item.value?.titleEn,
+    ar: item.value?.titleAr,
+    tu: item.value?.titleTu,
+  };
+  startDate.value = item.value?.startDate;
+  closeDate.value = item.value?.closeDate;
+  visibility.value = item.value?.isVisible;
+  loadingStore.setFalse();
+};
+
+onBeforeMount(async () => {
+  fetchSchool();
+});
+
+const title = ref({
+  ku: item.value?.titleKu,
+  en: item.value?.titleEn,
+  ar: item.value?.titleAr,
+  tu: item.value?.titleTu,
+});
+const startDate = ref(item.value?.startDate);
+const closeDate = ref(item.value?.closeDate);
+const visibility = ref(item.value?.isVisible);
+let attachmentPath: string;
+
+const fileInput = ref();
+
+const removeFile = () => {
+  fileInput.value.value = "";
+};
+const updateJob = async () => {
   if (fileInput?.value?.files?.[0]) {
     await uploadImage();
   }
-
-  const teacher = {
-    nameKu: name.ku,
-    nameEn: name.en,
-    nameAr: name.ar,
-    nameTu: name.tu,
-    positionKu: position.ku,
-    positionEn: position.en,
-    positionAr: position.ar,
-    positionTu: position.tu,
-    image: imagePath,
+  const job = {
+    titleKu: title.value.ku,
+    titleEn: title.value.en,
+    titleAr: title.value.ar,
+    titleTu: title.value.tu,
+    startDate: startDate.value,
+    closeDate: closeDate.value,
+    attachment: attachmentPath,
     isVisible: visibility.value,
   };
 
-  const response = await requestStore.postData(
-    `${import.meta.env.VITE_API_URL}/admin/teachers/`,
-    teacher,
+  const response = await requestStore.updateData(
+    `${import.meta.env.VITE_API_URL}/admin/schools/${id}`,
+    job,
     tokenStore.token || ""
   );
   if (response) {
     messageStore.setMessage(response.message);
-    router.push("/teachers");
+    router.push("/schools");
   }
 };
 
 const uploadImage = async () => {
-  const file = fileInput?.value?.files?.[0];
+  const file = fileInput.value.files[0];
 
   if (!file) {
     console.error("No file selected");
@@ -184,7 +205,6 @@ const uploadImage = async () => {
 
   const { url } = await response;
 
-  // const uploadResponse = await requestStore.putData(url, formData);
   const uploadResponse = await fetch(url, {
     method: "PUT",
     body: file,
@@ -194,7 +214,7 @@ const uploadImage = async () => {
   });
 
   if (uploadResponse.ok) {
-    imagePath = fileName;
+    attachmentPath = fileName;
   } else {
     console.error("Failed to upload file to S3:", uploadResponse.status);
   }

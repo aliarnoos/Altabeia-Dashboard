@@ -1,25 +1,6 @@
 <template>
-  <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
+  <div class="p-10 flex items-center flex-col gap-10 overflow-x-auto">
     <h1 class="text-3xl font-bold flex justify-start w-full">Schools</h1>
-    <!-- <UpdateJob
-      v-if="editState"
-      @cancelEdit="editState = false"
-      @statusMessage="(event) => showStatusMessage(event)"
-      :job="selectedJob"
-      class="w-5/12"
-    />
-    <AddJob
-      v-if="addJobState"
-      @cancelEdit="addJobState = false"
-      @statusMessage="(event: Event) => showStatusMessage(event)"
-      class="w-5/12"
-    />
-    <button
-      @click="() => (addJobState = true)"
-      class="bg-green-500 rounded p-4 text-white ml-auto font-bold hover:bg-green-600"
-    >
-      Add Job
-    </button> -->
     <table class="w-full">
       <thead>
         <tr>
@@ -43,14 +24,14 @@
             {{ item.isVisible ? "Yes" : "No" }}
           </td>
           <td class="border p-4 text-center">
-            <button
-              @click="activeEdit(item)"
+            <RouterLink
+              :to="`/schools/${item.id}`"
               class="bg-green-500 hover:bg-green-600 text-white font-bold p-2 pl-4 pr-4 rounded"
             >
               <span class="material-symbols-outlined text-xl">
                 edit_square
               </span>
-            </button>
+            </RouterLink>
           </td>
         </tr>
       </tbody>

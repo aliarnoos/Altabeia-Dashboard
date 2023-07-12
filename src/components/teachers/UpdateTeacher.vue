@@ -1,5 +1,5 @@
 <template>
-  <div class="w-10/12 flex justify-center items-center">
+  <div class="flex justify-center items-center">
     <div class="bg-white">
       <h1 class="text-2xl font-bold text-left mb-14">Edit Teacher</h1>
       <form @submit.prevent="updateTeacher" class="grid grid-cols-2 gap-4">
@@ -235,7 +235,6 @@ const uploadImage = async () => {
   const { url } = await response;
   console.log(fileName);
 
-  // const uploadResponse = await requestStore.putData(url, formData);
   const uploadResponse = await fetch(url, {
     method: "PUT",
     body: file,

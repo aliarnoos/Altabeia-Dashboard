@@ -1,5 +1,5 @@
 <template>
-  <div class="w-10/12 p-10 flex items-center flex-col gap-10 overflow-x-auto">
+  <div class="p-10 flex items-center flex-col gap-10 overflow-x-auto">
     <h1 class="text-3xl font-bold flex justify-start w-full">
       Registation Fees
     </h1>
