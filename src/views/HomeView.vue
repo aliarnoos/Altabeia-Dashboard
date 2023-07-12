@@ -1,14 +1,19 @@
 <template>
-  <main class="flex flex-row">
+  <main>
     <PopupCard />
     <IsLoading></IsLoading>
-    <SideBar />
-    <RouterView />
+    <div class="flex flex-row">
+      <SideBar />
+      <div class="w-full">
+        <HeaderBar />
+        <RouterView />
+      </div>
+    </div>
   </main>
 </template>
 
 <script setup lang="ts">
-import SideBar from "../components/sideBar/SideBar.vue";
+import SideBar from "../components/layout/sideBar/SideBar.vue";
 import { useRequestStore } from "@/stores/request";
 import { useTokenStore } from "@/stores/token";
 import { useUserStore } from "@/stores/user";
@@ -17,6 +22,7 @@ import IsLoading from "../components/common/IsLoading.vue";
 import jwtDecode from "jwt-decode";
 import PopupCard from "@/components/common/PopupCard.vue";
 import { useMessageStore } from "@/stores/statusMessage";
+import HeaderBar from "@/components/layout/Header.vue";
 
 const requestStore = useRequestStore();
 const userStore = useUserStore();
