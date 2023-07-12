@@ -77,23 +77,10 @@
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
         <label for="image">Image:</label>
-        <div class="flex gap-2">
-          <input
-            ref="fileInput"
-            type="file"
-            name="image"
-            id="image"
-            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-          />
-          <button
-            type="button"
-            class="p-2 rounded bg-red-500 text-white hover:bg-red-600"
-            @click="removeFile"
-          >
-            Remove
-          </button>
-        </div>
-
+        <FilePreviewInput
+          @updateFile="(event:any) => fileInput = event.value"
+          :required="false"
+        />
         <label for="isVisible">Visible:</label>
         <input
           v-model="visibility"
@@ -128,6 +115,7 @@ import { useRequestStore } from "@/stores/request";
 import { useMessageStore } from "@/stores/statusMessage";
 import { useLoadingStore } from "@/stores/loading";
 import { useRoute, useRouter } from "vue-router";
+import FilePreviewInput from "@/components/common/FilePreviewInput.vue";
 
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
@@ -200,7 +188,7 @@ const removeFile = () => {
   fileInput.value.value = "";
 };
 const updateTeacher = async () => {
-  if (fileInput.value.files[0]) {
+  if (fileInput?.value?.files?.[0]) {
     await uploadImage();
   }
 
