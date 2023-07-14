@@ -2,7 +2,7 @@
   <div class="flex justify-center items-center">
     <div class="bg-white">
       <h1 class="text-2xl font-bold text-left mb-14">Edit School</h1>
-      <form @submit.prevent="updateJob" class="grid grid-cols-2 gap-4">
+      <form @submit.prevent="updateSchool" class="grid grid-cols-2 gap-4">
         <label for="nameKu">Titile_KU:</label>
         <input
           v-model="title.ku"
@@ -39,28 +39,71 @@
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-        <label for="startDate">Start Date:</label>
+
+        <label for="descriptionKu">Description_KU:</label>
         <input
-          v-model="startDate"
-          type="date"
-          name="startDate"
-          id="startDate"
+          v-model="description.ku"
+          type="text"
+          name="descriptionKu"
+          id="descriptionKu"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-        <label for="closeDate">Close Date:</label>
+
+        <label for="descriptionEn">Description_EN:</label>
         <input
-          v-model="closeDate"
-          type="date"
-          name="closeDate"
-          id="closeDate"
+          v-model="description.en"
+          type="text"
+          name="descriptionEn"
+          id="descriptionEn"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
-        <label for="attachment">Attachment:</label>
+
+        <label for="descriptionAr">Description_AR:</label>
+        <input
+          v-model="description.ar"
+          type="text"
+          name="descriptionAr"
+          id="descriptionAr"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+        />
+
+        <label for="descriptionTu">Description_TU:</label>
+        <input
+          v-model="description.tu"
+          type="text"
+          name="descriptionTu"
+          id="descriptionTu"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+        />
+        <label for="icon">Icon:</label>
         <FilePreviewInput
-          @updateFile="(event:any) => fileInput = event.value"
+          @updateFile="(event:any) => iconInput = event.value"
           :required="false"
+        />
+        <label for="closeDate">Image :</label>
+        <FilePreviewInput
+          @updateFile="(event:any) => imageInput = event.value"
+          :required="false"
+        />
+
+        <label for="closeDate">Backgound Image :</label>
+        <FilePreviewInput
+          @updateFile="(event:any) => backgoundImageInput = event.value"
+          :required="false"
+        />
+
+        <label for="iconBgColor">Icon Background Color:</label>
+        <input
+          v-model="iconBgColor"
+          type="color"
+          name="iconBgColor"
+          id="iconBgColor"
+          required
+          class="w-full h-10 bg-white px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
         <label for="isVisible">Visible:</label>
         <input
@@ -104,10 +147,14 @@ interface Item {
   titleEn: string;
   titleAr: string;
   titleTu: string;
-  startDate: string;
-  closeDate: string;
-  attachment: string;
-  attachmentUrl: string;
+  descriptionKu: string;
+  descriptionEn: string;
+  descriptionAr: string;
+  descriptionTu: string;
+  icon: string;
+  image: string;
+  backgoundImage: string;
+  iconBgColor: string;
   isVisible: string;
 }
 const tokenStore = useTokenStore();
@@ -127,7 +174,7 @@ const fetchSchool = async () => {
     `${import.meta.env.VITE_API_URL}/admin/schools/${id}`,
     tokenStore.token || undefined
   );
-  item.value = requestStore.fetchedData.job;
+  item.value = requestStore.fetchedData.school;
 
   title.value = {
     ku: item.value?.titleKu,
@@ -135,8 +182,15 @@ const fetchSchool = async () => {
     ar: item.value?.titleAr,
     tu: item.value?.titleTu,
   };
-  startDate.value = item.value?.startDate;
-  closeDate.value = item.value?.closeDate;
+  description.value = {
+    ku: item.value?.descriptionKu,
+    en: item.value?.descriptionEn,
+    ar: item.value?.descriptionAr,
+    tu: item.value?.descriptionTu,
+  };
+  iconBgColor.value = item.value?.iconBgColor;
+  visibility.value = item.value?.isVisible;
+
   visibility.value = item.value?.isVisible;
   loadingStore.setFalse();
 };
@@ -151,34 +205,46 @@ const title = ref({
   ar: item.value?.titleAr,
   tu: item.value?.titleTu,
 });
-const startDate = ref(item.value?.startDate);
-const closeDate = ref(item.value?.closeDate);
+const description = ref({
+  ku: item.value?.descriptionKu,
+  en: item.value?.descriptionEn,
+  ar: item.value?.descriptionAr,
+  tu: item.value?.descriptionTu,
+});
+const icon = ref(item.value?.icon);
+const image = ref(item.value?.image);
+const iconBgColor = ref(item.value?.iconBgColor);
+const backgoundImage = ref(item.value?.icon);
 const visibility = ref(item.value?.isVisible);
 let attachmentPath: string;
 
-const fileInput = ref();
+const backgoundImageInput = ref();
+const imageInput = ref();
+const iconInput = ref();
 
-const removeFile = () => {
-  fileInput.value.value = "";
-};
-const updateJob = async () => {
-  if (fileInput?.value?.files?.[0]) {
+const updateSchool = async () => {
+  if (backgoundImageInput?.value?.files?.[0]) {
     await uploadImage();
   }
-  const job = {
+  const school = {
     titleKu: title.value.ku,
     titleEn: title.value.en,
     titleAr: title.value.ar,
     titleTu: title.value.tu,
-    startDate: startDate.value,
-    closeDate: closeDate.value,
-    attachment: attachmentPath,
+    descriptionKu: item.value?.descriptionKu,
+    descriptionEn: item.value?.descriptionEn,
+    descriptionAr: item.value?.descriptionAr,
+    tdescriptionTu: item.value?.descriptionTu,
+    icon: icon.value,
+    image: image.value,
+    iconBgColor: iconBgColor.value,
+    backgoundImage: backgoundImage.value,
     isVisible: visibility.value,
   };
 
   const response = await requestStore.updateData(
     `${import.meta.env.VITE_API_URL}/admin/schools/${id}`,
-    job,
+    school,
     tokenStore.token || ""
   );
   if (response) {
@@ -188,7 +254,7 @@ const updateJob = async () => {
 };
 
 const uploadImage = async () => {
-  const file = fileInput.value.files[0];
+  const file = backgoundImageInput.value.files[0];
 
   if (!file) {
     console.error("No file selected");
