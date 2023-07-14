@@ -1,11 +1,27 @@
 <template>
-  <div
-    class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50 z-10"
-  >
-    <div class="bg-white w-fit p-6 rounded-lg">
+  <div class="flex justify-center items-center">
+    <div class="bg-white">
       <h1 class="text-lg font-bold mb-8 text-center">Change Password</h1>
       <form @submit.prevent="updatePassword" class="grid grid-cols-2 gap-4">
+        <label for="password">Password:</label>
+        <input
+          v-model="password"
+          type="text"
+          name="password"
+          id="password"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+        />
         <label for="password">New Password:</label>
+        <input
+          v-model="password"
+          type="text"
+          name="password"
+          id="password"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+        />
+        <label for="password">Confirm New Password:</label>
         <input
           v-model="password"
           type="text"

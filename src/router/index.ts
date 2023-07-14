@@ -14,6 +14,7 @@ import AddTeacher from "@/components/teachers/AddTeacher.vue";
 import UpdateTeacher from "@/components/teachers/UpdateTeacher.vue";
 import UpdateRegistration from "@/components/registration/UpdateRegistration.vue";
 import UpdateSchool from "@/components/schools/UpdateSchool.vue";
+import Profile from "../components/user/Profile.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -27,6 +28,8 @@ const router = createRouter({
       name: "home",
       component: HomeView,
       children: [
+        { path: "admin/profile", component: Profile },
+
         { path: "contacts", component: Contacts },
 
         { path: "social-media", component: SocialMedia },
