@@ -6,7 +6,7 @@
       <SideBar />
       <div class="w-full">
         <HeaderBar />
-        <RouterView />
+        <RouterView class="m-8" />
       </div>
     </div>
   </main>
