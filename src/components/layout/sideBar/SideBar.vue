@@ -5,7 +5,12 @@
   />
   <div class="flex flex-col bg-gray-800 text-white min-h-screen w-64 basis-1/6">
     <div class="flex flex-col py-6">
-      <h1 class="text-lg text-center">My Profile</h1>
+      <button
+        class="text-lg text-center flex gap-2 justify-center items-center hover:text-green-600"
+      >
+        <span class="material-symbols-outlined"> account_circle </span>
+        <p>My Profile</p>
+      </button>
       <button
         @click="toogleUserDropDown"
         class="m-2 p-2 flex gap-1 hover:text-green-400 font-bold"
@@ -38,7 +43,6 @@ const toogleUserDropDown = () => {
 };
 
 const links = ref([
-  { id: 0, label: "Overview", path: "/" },
   { id: 1, label: "Registration Fees", path: "/registration" },
   { id: 2, label: "Contacts", path: "/contacts" },
   { id: 3, label: "Social Media", path: "/social-media" },

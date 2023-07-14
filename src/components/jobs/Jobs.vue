@@ -30,20 +30,21 @@
           <td class="border p-4 text-center">
             {{ item.isVisible ? "Yes" : "No" }}
           </td>
-          <td class="border p-4 text-center flex justify-center gap-4">
+          <td
+            class="border p-4 text-center flex justify-center items-center gap-4"
+          >
             <RouterLink
               :to="`/jobs/${item.id}`"
-              class="bg-green-500 hover:bg-green-600 text-white font-bold p-2 pl-4 pr-4 rounded"
+              class="hover:text-green-600 font-bold p-2 pl-4 pr-4 rounded"
             >
-              <span class="material-symbols-outlined text-xl">
-                edit_square
-              </span>
+              <span class="material-symbols-outlined"> edit_square </span>
             </RouterLink>
+            <p class="text-xl">|</p>
             <button
               @click="deleteJob(item.id)"
-              class="bg-red-500 hover:bg-red-600 text-white font-bold p-2 pl-4 pr-4 rounded"
+              class="hover:text-red-600 font-bold p-2 pl-4 pr-4 rounded"
             >
-              <span class="material-symbols-outlined text-xl"> delete </span>
+              <span class="material-symbols-outlined"> delete </span>
             </button>
           </td>
         </tr>

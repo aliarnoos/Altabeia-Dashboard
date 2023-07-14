@@ -24,11 +24,9 @@
           <td class="border p-4 text-center">
             <RouterLink
               :to="`/registration/${item.id}`"
-              class="bg-green-500 hover:bg-green-600 text-white font-bold p-2 pl-4 pr-4 rounded"
+              class="hover:text-green-600 font-bold p-2 pl-4 pr-4 rounded"
             >
-              <span class="material-symbols-outlined text-xl">
-                edit_square
-              </span>
+              <span class="material-symbols-outlined"> edit_square </span>
             </RouterLink>
           </td>
         </tr>
