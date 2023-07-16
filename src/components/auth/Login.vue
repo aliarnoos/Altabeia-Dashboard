@@ -5,7 +5,7 @@
     <h1 class="text-4xl bold">Welocme:</h1>
 
     <div
-      class="bg-white p-8 flex justify-center flex-col gap-4 shadow-md rounded-md w-80"
+      class="bg-white p-8 flex justify-center flex-col gap-4 shadow-md rounded w-96"
     >
       <h2 class="text-2xl font-bold mb-4">Login</h2>
       <form @submit.prevent="login">
@@ -43,6 +43,9 @@
           Login
         </button>
       </form>
+      <RouterLink to="#" class="ml-auto text-green-600 underline"
+        >Forgot password?</RouterLink
+      >
       <p v-if="errorMessage" class="text-red-600 font-bold">
         {{ errorMessage }}
       </p>

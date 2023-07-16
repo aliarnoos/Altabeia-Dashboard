@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full p-10 flex items-center flex-col gap-10 overflow-x-auto">
+  <div class="p-10 flex items-center flex-col gap-10 overflow-x-auto">
     <div class="flex items-center justify-between w-full">
       <h1 class="text-3xl font-bold text-center">Jobs</h1>
       <RouterLink
@@ -37,14 +37,14 @@
               :to="`/jobs/${item.id}`"
               class="hover:text-green-600 font-bold p-2 pl-4 pr-4 rounded"
             >
-              <span class="material-symbols-outlined"> edit_square </span>
+              <i class="fa-solid fa-pen-to-square"></i>
             </RouterLink>
             <p class="text-xl">|</p>
             <button
               @click="deleteJob(item.id)"
               class="hover:text-red-600 font-bold p-2 pl-4 pr-4 rounded"
             >
-              <span class="material-symbols-outlined"> delete </span>
+              <i class="fa-solid fa-trash"></i>
             </button>
           </td>
         </tr>

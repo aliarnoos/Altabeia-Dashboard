@@ -4,10 +4,10 @@
       <h1 class="text-3xl font-bold text-center">Teachers</h1>
       <RouterLink
         to="/teachers/add"
-        class="flex justify-center gap-2 bg-green-500 rounded p-4 text-white ml-auto font-bold hover:bg-green-600"
+        class="flex justify-center items-center gap-2 bg-green-500 rounded p-4 text-white ml-auto font-bold hover:bg-green-600"
       >
-        <span class="material-symbols-outlined"> add </span>
-        Add Teacher
+        <i class="fa-solid fa-plus"></i>
+        <p>Add Teacher</p>
       </RouterLink>
     </div>
     <table class="w-full">
@@ -34,14 +34,14 @@
               :to="`/teachers/${item.id}`"
               class="hover:text-green-600 font-bold p-2 pl-4 pr-4 rounded"
             >
-              <span class="material-symbols-outlined"> edit_square </span>
+              <i class="fa-solid fa-pen-to-square"></i>
             </RouterLink>
             <p class="text-xl">|</p>
             <button
               @click="deleteTeacher(item.id)"
               class="hover:text-red-600 font-bold p-2 pl-4 pr-4 rounded"
             >
-              <span class="material-symbols-outlined"> delete </span>
+              <i class="fa-solid fa-trash"></i>
             </button>
           </td>
         </tr>

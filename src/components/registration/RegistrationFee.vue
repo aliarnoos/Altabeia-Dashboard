@@ -26,7 +26,7 @@
               :to="`/registration/${item.id}`"
               class="hover:text-green-600 font-bold p-2 pl-4 pr-4 rounded"
             >
-              <span class="material-symbols-outlined"> edit_square </span>
+              <i class="fa-solid fa-pen-to-square"></i>
             </RouterLink>
           </td>
         </tr>

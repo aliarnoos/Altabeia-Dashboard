@@ -224,7 +224,13 @@ const iconInput = ref();
 
 const updateSchool = async () => {
   if (backgoundImageInput?.value?.files?.[0]) {
-    await uploadImage();
+    await uploadImage(backgoundImageInput?.value?.files?.[0]);
+  }
+  if (imageInput?.value?.files?.[0]) {
+    await uploadImage(imageInput?.value?.files?.[0]);
+  }
+  if (iconInput?.value?.files?.[0]) {
+    await uploadImage(iconInput?.value?.files?.[0]);
   }
   const school = {
     titleKu: title.value.ku,
@@ -253,9 +259,7 @@ const updateSchool = async () => {
   }
 };
 
-const uploadImage = async () => {
-  const file = backgoundImageInput.value.files[0];
-
+const uploadImage = async (file: any) => {
   if (!file) {
     console.error("No file selected");
     return;

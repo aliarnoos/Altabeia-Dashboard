@@ -5,14 +5,20 @@
         to="/admin/profile"
         class="text-lg text-center flex gap-2 justify-center items-center hover:text-green-600"
       >
-        <span class="material-symbols-outlined"> account_circle </span>
+        <i class="fas fa-user"></i>
         <p>My Profile</p>
       </RouterLink>
       <button
-        @click="toogleUserDropDown"
-        class="m-2 p-2 flex gap-1 hover:text-green-400 font-bold"
+        class="m-2 p-2 flex gap-2 hover:text-green-400 font-bold items-center"
       >
-        <span class="material-symbols-outlined"> home </span>
+        <i class="fa-solid fa-chart-line"></i>
+        <p>Dashboard</p>
+      </button>
+      <button
+        @click="toogleUserDropDown"
+        class="m-2 p-2 flex gap-2 hover:text-green-400 font-bold items-center"
+      >
+        <i class="fas fa-home"></i>
         Home
         <span
           v-if="!showUserDropDown"
@@ -27,9 +33,11 @@
       <div v-if="showUserDropDown" class="w-full bg-gray-900">
         <SideBarButton :links="links" />
       </div>
-      <button class="m-2 p-2 flex gap-1 hover:text-green-400 font-bold">
-        <span class="material-symbols-outlined"> call </span>
-        Contact
+      <button
+        class="m-2 p-2 flex gap-2 hover:text-green-400 font-bold items-center"
+      >
+        <i class="fa-solid fa-phone"></i>
+        <p>Contact</p>
       </button>
     </div>
   </div>
@@ -52,5 +60,7 @@ const links = ref([
   { id: 4, label: "Jobs", path: "/jobs" },
   { id: 5, label: "Teachers", path: "/teachers" },
   { id: 6, label: "Schools", path: "/schools" },
+  { id: 7, label: "Facilities", path: "/facilities" },
+  { id: 8, label: "Activities", path: "/activities" },
 ]);
 </script>

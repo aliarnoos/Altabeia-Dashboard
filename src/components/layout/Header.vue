@@ -9,8 +9,9 @@
       <span class="mr-4">{{ userStore.user?.email }}</span>
       <button
         @click="logout"
-        class="px-4 py-2 bg-gray-700 hover:bg-gray-800 text-white rounded"
+        class="px-4 py-2 flex items-center gap-2 bg-gray-700 hover:bg-gray-800 text-white rounded"
       >
+        <i class="fa-solid fa-right-from-bracket"></i>
         Logout
       </button>
     </div>
