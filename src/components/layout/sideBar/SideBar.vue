@@ -3,21 +3,22 @@
     <div class="flex flex-col py-6">
       <RouterLink
         to="/admin/profile"
-        class="text-lg text-center flex gap-2 mb-6 justify-center items-center hover:text-green-600"
+        class="text-center flex gap-2 mb-6 justify-center items-center hover:text-green-600"
       >
         <i class="fas fa-user"></i>
         <p>My Profile</p>
       </RouterLink>
       <RouterLink
         to="/"
-        class="m-2 p-2 flex gap-2 hover:text-green-400 font-bold items-center"
+        class="m-2 p-4 flex gap-2 hover:text-green-400 items-center"
       >
         <i class="fa-solid fa-chart-line"></i>
         <p>Dashboard</p>
       </RouterLink>
       <button
         @click="toogleUserDropDown"
-        class="m-2 p-2 flex gap-2 hover:text-green-400 font-bold items-center"
+        class="p-4 flex gap-2 hover:text-green-400 items-center"
+        :class="{ 'bg-gray-900': showDropDown }"
       >
         <i class="fas fa-home"></i>
         Home
@@ -27,9 +28,7 @@
       <div v-if="showDropDown" class="w-full bg-gray-900">
         <SideBarButton :links="links" />
       </div>
-      <button
-        class="m-2 p-2 flex gap-2 hover:text-green-400 font-bold items-center"
-      >
+      <button class="m-2 p-4 flex gap-2 hover:text-green-400 items-center">
         <i class="fa-solid fa-phone"></i>
         <p>Contact</p>
       </button>
