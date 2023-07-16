@@ -38,40 +38,34 @@
               </button>
             </template>
             <button type="button" @click="addVideo" v-if="hasYoutubeLink">
-              <FontAwesomeIcon
-                :icon="['fab', 'youtube']"
-                class="text-lg cursor-pointer text-red-500"
-              />
+              <i
+                class="fa-brands fa-youtube text-lg cursor-pointer text-red-500"
+              ></i>
             </button>
             <button
               type="button"
               @click="editor.chain().focus().setTextAlign('left').run()"
               :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }"
             >
-              <FontAwesomeIcon
-                icon="align-left"
-                class="text-sm cursor-pointer text-gray-600"
-              />
+              <i class="fa-solid fa-align-left text-gray-600"></i>
             </button>
             <button
               type="button"
               @click="editor.chain().focus().setTextAlign('center').run()"
               :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }"
             >
-              <FontAwesomeIcon
-                icon="align-center"
-                class="text-sm cursor-pointer text-gray-600"
-              />
+              <i
+                class="fa-solid fa-align-center text-sm cursor-pointer text-gray-600"
+              ></i>
             </button>
             <button
               type="button"
               @click="editor.chain().focus().setTextAlign('right').run()"
               :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }"
             >
-              <FontAwesomeIcon
-                icon="align-right"
-                class="text-sm cursor-pointer text-gray-600"
-              />
+              <i
+                class="fa-solid fa-align-right text-sm cursor-pointer text-gray-600"
+              ></i>
             </button>
             <button
               type="button"
@@ -109,7 +103,7 @@
               @click="editor.commands.undo()"
               :class="{ 'is-active': editor.isActive('bulletList') }"
             >
-              <FontAwesomeIcon icon="undo" class="h-3.5 text-gray-600" />
+              <i class="fa-solid fa-arrow-rotate-left h-3.5 text-gray-600"></i>
             </button>
             <button
               type="button"
@@ -117,7 +111,7 @@
               @click="editor.commands.redo()"
               :class="{ 'is-active': editor.isActive('bulletList') }"
             >
-              <FontAwesomeIcon icon="redo" class="h-3.5 text-gray-600" />
+              <i class="fa-solid fa-arrow-rotate-right h-3.5 text-gray-600"></i>
             </button>
             <label
               v-if="hasHighlightOption"
@@ -136,6 +130,10 @@
               <input
                 type="color"
                 class="h-5 w-5"
+                @input="(event) => {
+                  const target = event.target as HTMLInputElement;
+                  editor.chain().focus().setColor(target.value).run();
+                }"
                 :value="editor.getAttributes('textStyle').color"
               />
             </div>
@@ -320,9 +318,6 @@ export default defineComponent({
         Heading.configure({
           levels: [1, 2, 3, 4, 5, 6],
         }),
-        Highlight.configure({
-          multicolor: true,
-        }),
         BulletList,
         ListItem,
         Color,
@@ -330,17 +325,12 @@ export default defineComponent({
         Document,
         Paragraph,
         Text,
-        Youtube,
         Bold,
         HardBreak,
         HorizontalRule,
         Highlight,
         Italic,
       ],
-      content: this.modelValue,
-      onUpdate: () => {
-        this.$emit("update:modelValue", this.editor.getHTML());
-      },
     });
 
     this.updateLanguage();
