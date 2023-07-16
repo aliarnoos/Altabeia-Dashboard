@@ -6,10 +6,11 @@
       <SideBar />
       <div class="w-full">
         <HeaderBar />
-        <RouterView class="m-8" />
+        <RouterView class="m-8 mb-16" />
       </div>
     </div>
   </main>
+  <Footer></Footer>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +24,7 @@ import jwtDecode from "jwt-decode";
 import PopupCard from "@/components/common/PopupCard.vue";
 import { useMessageStore } from "@/stores/statusMessage";
 import HeaderBar from "@/components/layout/Header.vue";
+import Footer from "@/components/layout/Footer.vue";
 
 const requestStore = useRequestStore();
 const userStore = useUserStore();
