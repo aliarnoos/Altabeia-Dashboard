@@ -3,34 +3,28 @@
     <div class="flex flex-col py-6">
       <RouterLink
         to="/admin/profile"
-        class="text-lg text-center flex gap-2 justify-center items-center hover:text-green-600"
+        class="text-lg text-center flex gap-2 mb-6 justify-center items-center hover:text-green-600"
       >
         <i class="fas fa-user"></i>
         <p>My Profile</p>
       </RouterLink>
-      <button
+      <RouterLink
+        to="/"
         class="m-2 p-2 flex gap-2 hover:text-green-400 font-bold items-center"
       >
         <i class="fa-solid fa-chart-line"></i>
         <p>Dashboard</p>
-      </button>
+      </RouterLink>
       <button
         @click="toogleUserDropDown"
         class="m-2 p-2 flex gap-2 hover:text-green-400 font-bold items-center"
       >
         <i class="fas fa-home"></i>
         Home
-        <span
-          v-if="!showUserDropDown"
-          class="material-symbols-outlined ml-auto"
-        >
-          arrow_drop_down
-        </span>
-        <span v-else class="material-symbols-outlined ml-auto">
-          arrow_drop_up
-        </span>
+        <i v-if="showDropDown" class="fa-solid fa-caret-up ml-auto"></i>
+        <i v-else class="fa-solid fa-caret-down ml-auto"></i>
       </button>
-      <div v-if="showUserDropDown" class="w-full bg-gray-900">
+      <div v-if="showDropDown" class="w-full bg-gray-900">
         <SideBarButton :links="links" />
       </div>
       <button
@@ -44,14 +38,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import SideBarButton from "./sideBarButton.vue";
+import { useRoute } from "vue-router";
 
-const showUserDropDown = ref(false);
+const showDropDown = ref(false);
+const route = useRoute();
 
-const toogleUserDropDown = () => {
-  showUserDropDown.value = !showUserDropDown.value;
-};
+const pagePath = route.fullPath;
 
 const links = ref([
   { id: 1, label: "Registration Fees", path: "/registration" },
@@ -63,4 +57,13 @@ const links = ref([
   { id: 7, label: "Facilities", path: "/facilities" },
   { id: 8, label: "Activities", path: "/activities" },
 ]);
+
+links.value.map((link) => {
+  if (link.path == pagePath) {
+    showDropDown.value = true;
+  }
+});
+const toogleUserDropDown = () => {
+  showDropDown.value = !showDropDown.value;
+};
 </script>

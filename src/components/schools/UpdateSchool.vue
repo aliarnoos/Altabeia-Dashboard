@@ -2,7 +2,10 @@
   <div class="flex justify-center items-center">
     <div class="bg-white">
       <h1 class="text-2xl font-bold text-left mb-14">Edit School</h1>
-      <form @submit.prevent="updateSchool" class="grid grid-cols-2 gap-4">
+      <form
+        @submit.prevent="updateSchool"
+        class="grid grid-cols-2 gap-4 justify-items-start"
+      >
         <label for="nameKu">Titile_KU:</label>
         <input
           v-model="title.ku"
@@ -41,44 +44,17 @@
         />
 
         <label for="descriptionKu">Description_KU:</label>
-        <input
-          v-model="description.ku"
-          type="text"
-          name="descriptionKu"
-          id="descriptionKu"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <TipTap v-model="description.ku" :hasYoutubeLink="false" />
 
-        <label for="descriptionEn">Description_EN:</label>
-        <input
-          v-model="description.en"
-          type="text"
-          name="descriptionEn"
-          id="descriptionEn"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <!-- <label for="descriptionEn">Description_EN:</label>
+        <TipTap v-model="description.en" :hasYoutubeLink="false" />
 
         <label for="descriptionAr">Description_AR:</label>
-        <input
-          v-model="description.ar"
-          type="text"
-          name="descriptionAr"
-          id="descriptionAr"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <TipTap v-model="description.ar" :hasYoutubeLink="false" />
 
         <label for="descriptionTu">Description_TU:</label>
-        <input
-          v-model="description.tu"
-          type="text"
-          name="descriptionTu"
-          id="descriptionTu"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <TipTap v-model="description.tu" :hasYoutubeLink="false" /> -->
+
         <label for="icon">Icon:</label>
         <FilePreviewInput
           @updateFile="(event:any) => iconInput = event.value"
@@ -103,7 +79,7 @@
           name="iconBgColor"
           id="iconBgColor"
           required
-          class="w-full h-10 bg-white px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+          class="w-20 h-16 bg-white px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
         <label for="isVisible">Visible:</label>
         <input
@@ -140,6 +116,7 @@ import { useLoadingStore } from "@/stores/loading";
 import { useRoute, useRouter } from "vue-router";
 import { useMessageStore } from "@/stores/statusMessage";
 import FilePreviewInput from "../common/FilePreviewInput.vue";
+import TipTap from "../common/textInput/TipTap.vue";
 
 interface Item {
   id: number;
@@ -176,22 +153,23 @@ const fetchSchool = async () => {
   );
   item.value = requestStore.fetchedData.school;
 
-  title.value = {
-    ku: item.value?.titleKu,
-    en: item.value?.titleEn,
-    ar: item.value?.titleAr,
-    tu: item.value?.titleTu,
-  };
-  description.value = {
-    ku: item.value?.descriptionKu,
-    en: item.value?.descriptionEn,
-    ar: item.value?.descriptionAr,
-    tu: item.value?.descriptionTu,
-  };
-  iconBgColor.value = item.value?.iconBgColor;
-  visibility.value = item.value?.isVisible;
-
-  visibility.value = item.value?.isVisible;
+  if (item.value) {
+    title.value = {
+      ku: item.value.titleKu,
+      en: item.value.titleEn,
+      ar: item.value.titleAr,
+      tu: item.value.titleTu,
+    };
+    description.value = {
+      ku: item.value.descriptionKu,
+      en: item.value.descriptionEn,
+      ar: item.value.descriptionAr,
+      tu: item.value.descriptionTu,
+    };
+    iconBgColor.value = item.value.iconBgColor;
+    visibility.value = item.value.isVisible;
+    visibility.value = item.value.isVisible;
+  }
   loadingStore.setFalse();
 };
 
@@ -200,16 +178,16 @@ onBeforeMount(async () => {
 });
 
 const title = ref({
-  ku: item.value?.titleKu,
-  en: item.value?.titleEn,
-  ar: item.value?.titleAr,
-  tu: item.value?.titleTu,
+  ku: "",
+  en: "",
+  ar: "",
+  tu: "",
 });
 const description = ref({
-  ku: item.value?.descriptionKu,
-  en: item.value?.descriptionEn,
-  ar: item.value?.descriptionAr,
-  tu: item.value?.descriptionTu,
+  ku: "",
+  en: "",
+  ar: "",
+  tu: "",
 });
 const icon = ref(item.value?.icon);
 const image = ref(item.value?.image);
@@ -232,15 +210,19 @@ const updateSchool = async () => {
   if (iconInput?.value?.files?.[0]) {
     await uploadImage(iconInput?.value?.files?.[0]);
   }
+  console.log(description.value.ku);
+  console.log(description.value.en);
+  console.log(description.value.ar);
+  console.log(description.value.tu);
   const school = {
     titleKu: title.value.ku,
     titleEn: title.value.en,
     titleAr: title.value.ar,
     titleTu: title.value.tu,
-    descriptionKu: item.value?.descriptionKu,
-    descriptionEn: item.value?.descriptionEn,
-    descriptionAr: item.value?.descriptionAr,
-    tdescriptionTu: item.value?.descriptionTu,
+    descriptionKu: description.value.ku,
+    descriptionEn: description.value.en,
+    descriptionAr: description.value.ar,
+    descriptionTu: description.value.tu,
     icon: icon.value,
     image: image.value,
     iconBgColor: iconBgColor.value,

@@ -1,8 +1,8 @@
 <template>
   <div class="flex justify-center items-center">
     <div class="bg-white">
-      <h1 class="text-2xl font-bold text-left mb-14">Edit School</h1>
-      <form @submit.prevent="updateSchool" class="grid grid-cols-2 gap-4">
+      <h1 class="text-2xl font-bold text-left mb-14">Edit Facility</h1>
+      <form @submit.prevent="updateFacility" class="grid grid-cols-2 gap-4">
         <label for="nameKu">Titile_KU:</label>
         <input
           v-model="title.ku"
@@ -41,14 +41,15 @@
         />
 
         <label for="descriptionKu">Description_KU:</label>
-        <input
+        <!-- <input
           v-model="description.ku"
           type="text"
           name="descriptionKu"
           id="descriptionKu"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        /> -->
+        <TipTap v-model="description.ku" :hasYoutubeLink="false" />
 
         <label for="descriptionEn">Description_EN:</label>
         <input
@@ -128,6 +129,7 @@ import { useLoadingStore } from "@/stores/loading";
 import { useRoute, useRouter } from "vue-router";
 import { useMessageStore } from "@/stores/statusMessage";
 import FilePreviewInput from "../common/FilePreviewInput.vue";
+import TipTap from "../common/textInput/TipTap.vue";
 
 interface Item {
   id: number;
@@ -162,22 +164,24 @@ const fetchFacility = async () => {
   );
   item.value = requestStore.fetchedData.facility;
 
-  title.value = {
-    ku: item.value?.titleKu,
-    en: item.value?.titleEn,
-    ar: item.value?.titleAr,
-    tu: item.value?.titleTu,
-  };
-  description.value = {
-    ku: item.value?.descriptionKu,
-    en: item.value?.descriptionEn,
-    ar: item.value?.descriptionAr,
-    tu: item.value?.descriptionTu,
-  };
-  iconBgColor.value = item.value?.iconBgColor;
-  visibility.value = item.value?.isVisible;
+  if (item.value) {
+    title.value = {
+      ku: item.value.titleKu,
+      en: item.value.titleEn,
+      ar: item.value.titleAr,
+      tu: item.value.titleTu,
+    };
+    description.value = {
+      ku: item.value.descriptionKu,
+      en: item.value.descriptionEn,
+      ar: item.value.descriptionAr,
+      tu: item.value.descriptionTu,
+    };
+    iconBgColor.value = item.value.iconBgColor;
+    visibility.value = item.value.isVisible;
 
-  visibility.value = item.value?.isVisible;
+    visibility.value = item.value.isVisible;
+  }
   loadingStore.setFalse();
 };
 
@@ -192,7 +196,7 @@ const title = ref({
   tu: item.value?.titleTu,
 });
 const description = ref({
-  ku: item.value?.descriptionKu,
+  ku: "",
   en: item.value?.descriptionEn,
   ar: item.value?.descriptionAr,
   tu: item.value?.descriptionTu,
@@ -204,19 +208,20 @@ let attachmentPath: string;
 
 const iconInput = ref();
 
-const updateSchool = async () => {
+const updateFacility = async () => {
+  console.log(description.value.ku);
   if (iconInput?.value?.files?.[0]) {
     await uploadImage();
   }
-  const school = {
+  const facility = {
     titleKu: title.value.ku,
     titleEn: title.value.en,
     titleAr: title.value.ar,
     titleTu: title.value.tu,
-    descriptionKu: item.value?.descriptionKu,
-    descriptionEn: item.value?.descriptionEn,
-    descriptionAr: item.value?.descriptionAr,
-    tdescriptionTu: item.value?.descriptionTu,
+    descriptionKu: description.value.ku,
+    descriptionEn: description.value.en,
+    descriptionAr: description.value.ar,
+    descriptionTu: description.value.tu,
     icon: icon.value,
     iconBgColor: iconBgColor.value,
     isVisible: visibility.value,
@@ -224,7 +229,7 @@ const updateSchool = async () => {
 
   const response = await requestStore.updateData(
     `${import.meta.env.VITE_API_URL}/admin/facilities/${id}`,
-    school,
+    facility,
     tokenStore.token || ""
   );
   if (response) {
