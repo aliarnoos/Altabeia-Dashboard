@@ -1,3 +1,210 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.layout-padding {
+  @apply md:px-10 sm:px-5 px-[15px];
+}
+
+@layer utilities {
+  .text-primary-dark {
+    color: #333333;
+  }
+}
+
+.modal-backdrop {
+  @apply fixed bg-black/80 h-screen w-screen left-0 right-0 top-0 z-40;
+}
+.modal-backdrop-glass {
+  @apply fixed bg-white/50 backdrop-blur-md h-screen w-screen left-0 right-0 top-0 z-40;
+}
+.modal-shadow {
+  box-shadow: 15px 15px 50px 10px rgba(0, 0, 0, 0.03);
+}
+.side-nav-shadow {
+  box-shadow: 0px 3px 30px rgba(0, 0, 0, 0.05);
+}
+.modal {
+  @apply w-max relative z-50  flex items-center;
+}
+
+.label {
+  @apply text-primary-dark flex mb-[8px] font-bold text-sm;
+}
+
+.input {
+  @apply border focus:border-sky-100 focus:bg-sky-100 outline-none  bg-white text-primary-dark transition-all border-sky-100 text-sm rounded-lg h-[50px] flex items-center sm:px-5 px-3  leading-tight focus:outline-none w-full;
+}
+.input::placeholder {
+  @apply text-sky-100;
+}
+
+.input[disabled] {
+  @apply bg-sky-100 border-sky-100 text-sky-100;
+}
+
+.input[error] {
+  @apply bg-red-200 border-red-200;
+}
+
+.primary-btn {
+  @apply bg-sky-400 hover:bg-sky-500 transition-all text-white font-bold text-sm sm:px-5 px-3 h-[50px] flex justify-center items-center rounded-lg;
+}
+button[disabled] {
+  @apply bg-sky-100 border-sky-100 cursor-not-allowed hover:bg-sky-100 text-sky-100;
+}
+select[disabled] {
+  @apply text-sky-100;
+}
+select {
+  @apply appearance-none bg-no-repeat;
+  background-image: url("/images/icons/chevron-down-solid.svg") !important;
+  background-position: right 10px center !important;
+}
+
+.error {
+  @apply text-red-700 mt-1 capitalize font-bold text-xs;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+.modal-backdrop {
+  @apply fixed bg-black/80 h-screen w-screen left-0 right-0 top-0 z-40;
+}
+.modal-backdrop-glass {
+  @apply fixed bg-white/50 backdrop-blur-md h-screen w-screen left-0 right-0 top-0 z-40;
+}
+.modal-shadow {
+  box-shadow: 15px 15px 50px 10px rgba(0, 0, 0, 0.03);
+}
+.modal {
+  @apply w-max relative z-50  flex items-center;
+}
+
+.floating-menu {
+  display: flex;
+  background-color: #fff;
+  /* border-radius: 0.5rem; */
+}
+
+.floating-menu button {
+  /* border: none; */
+  background: none;
+  width: 36px;
+  height: 36px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  /* padding: 0 0.2rem; */
+  opacity: 0.4;
+  display: grid;
+  place-content: center;
+}
+
+.floating-menu button:hover,
+.floating-menu button.is-active {
+  opacity: 1;
+}
+
+.ProseMirror ul {
+  list-style: disc !important;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3,
+.ProseMirror h4,
+.ProseMirror h5,
+.ProseMirror h6 {
+  display: block;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+.ProseMirror h1,
+.html-content h1 {
+  font-size: 2em;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+}
+
+.ProseMirror h2,
+.html-content h2 {
+  font-size: 1.5em;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+}
+
+.ProseMirror h3,
+.html-content h3 {
+  font-size: 1.17em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.ProseMirror h4,
+.html-content h4 {
+  margin-top: 1.33em;
+  margin-bottom: 1.33em;
+}
+
+.ProseMirror h5,
+.html-content h5 {
+  font-size: 0.83em;
+  margin-top: 1.67em;
+  margin-bottom: 1.67em;
+}
+
+.ProseMirror h6,
+.html-content h6 {
+  font-size: 0.67em;
+  margin-top: 2.33em;
+  margin-bottom: 2.33em;
+}
+
+.html-content > * + * {
+  @apply mt-3;
+}
+
+.html-content p {
+  min-height: 24px;
+}
+
+.html-content {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  white-space: break-spaces;
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0;
+}
+
+.ProseMirror strong,
+.html-content strong {
+  @apply !text-inherit;
+}
+
+.ProseMirror a,
+.html-content a {
+  @apply text-sky-400 cursor-default;
+}
+
+.ProseMirror-focused {
+  @apply outline-none;
+}
