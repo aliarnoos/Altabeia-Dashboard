@@ -27,11 +27,11 @@
           <td class="border p-2">{{ item.titleEn }}</td>
           <td class="border p-2">{{ item.startDate }}</td>
           <td class="border p-2">{{ item.closeDate }}</td>
-          <td class="border p-4 text-center">
+          <td class="border p-2 text-center">
             {{ item.isVisible ? "Yes" : "No" }}
           </td>
           <td
-            class="border p-4 text-center flex justify-center items-center gap-4"
+            class="border p-2 text-center flex justify-center items-center gap-4"
           >
             <RouterLink
               :to="`/jobs/${item.id}`"

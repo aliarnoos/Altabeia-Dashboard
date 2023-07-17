@@ -23,7 +23,7 @@
       <img :src="url" class="w-40" />
     </div>
     <div v-else-if="props.imageSrc" class="relative">
-      <img :src="props.imageSrc" alt="Teacher" class="w-40" />
+      <img :src="props.imageSrc" class="w-40" />
     </div>
   </div>
 </template>
