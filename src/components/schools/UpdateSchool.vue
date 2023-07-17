@@ -59,17 +59,20 @@
         <FilePreviewInput
           @updateFile="(event:any) => iconInput = event.value"
           :required="false"
+          :key="1"
         />
-        <label for="closeDate">Image :</label>
+        <label for="image">Image :</label>
         <FilePreviewInput
           @updateFile="(event:any) => imageInput = event.value"
           :required="false"
+          :key="2"
         />
 
-        <label for="closeDate">Backgound Image :</label>
+        <label for="backgoundImage">Backgound Image :</label>
         <FilePreviewInput
           @updateFile="(event:any) => backgoundImageInput = event.value"
           :required="false"
+          :key="3"
         />
 
         <label for="iconBgColor">Icon Background Color:</label>
@@ -190,10 +193,10 @@ const description = ref({
   ar: "",
   tu: "",
 });
-const icon = ref(item.value?.icon);
-const image = ref(item.value?.image);
+const icon = ref<string | null | undefined>(item.value?.icon);
+const image = ref<string | null | undefined>(item.value?.image);
 const iconBgColor = ref(item.value?.iconBgColor);
-const backgoundImage = ref(item.value?.icon);
+const backgoundImage = ref<string | null | undefined>(item.value?.icon);
 const visibility = ref(item.value?.isVisible);
 let attachmentPath: string;
 
@@ -203,18 +206,16 @@ const iconInput = ref();
 
 const updateSchool = async () => {
   if (backgoundImageInput?.value?.files?.[0]) {
-    await uploadImage(backgoundImageInput?.value?.files?.[0]);
+    backgoundImage.value = await uploadImage(
+      backgoundImageInput?.value?.files?.[0]
+    );
   }
   if (imageInput?.value?.files?.[0]) {
-    await uploadImage(imageInput?.value?.files?.[0]);
+    image.value = await uploadImage(imageInput?.value?.files?.[0]);
   }
   if (iconInput?.value?.files?.[0]) {
-    await uploadImage(iconInput?.value?.files?.[0]);
+    icon.value = await uploadImage(iconInput?.value?.files?.[0]);
   }
-  console.log(description.value.ku);
-  console.log(description.value.en);
-  console.log(description.value.ar);
-  console.log(description.value.tu);
   const school = {
     titleKu: title.value.ku,
     titleEn: title.value.en,
@@ -268,8 +269,10 @@ const uploadImage = async (file: any) => {
 
   if (uploadResponse.ok) {
     attachmentPath = fileName;
+    return fileName;
   } else {
     console.error("Failed to upload file to S3:", uploadResponse.status);
+    return null;
   }
 };
 
