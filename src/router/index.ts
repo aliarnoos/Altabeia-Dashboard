@@ -20,7 +20,8 @@ import UpdateFacilities from "../components/facilities/UpdateFacilities.vue";
 import Activities from "../components/activities/Activities.vue";
 import AddActivities from "../components/activities/AddActivity.vue";
 import UpdateActivity from "@/components/activities/UpdateActivity.vue";
-
+import Banners from "../components/banners/Banners.vue";
+import UpdateBanner from "@/components/banners/UpdateBanner.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -60,6 +61,9 @@ const router = createRouter({
         { path: "activities", component: Activities },
         { path: "activities/add", component: AddActivities },
         { path: "activities/:id", component: UpdateActivity },
+
+        { path: "banners", component: Banners },
+        { path: "banners/:id", component: UpdateBanner },
       ],
     },
   ],
