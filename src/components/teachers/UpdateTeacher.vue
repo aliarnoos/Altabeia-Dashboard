@@ -80,6 +80,7 @@
         <FilePreviewInput
           @updateFile="(event:any) => fileInput = event.value"
           :required="false"
+          :imageSrc="item?.imageUrl"
         />
         <label for="isVisible">Visible:</label>
         <input
@@ -140,6 +141,7 @@ interface Item {
   id: number;
 }
 const item = ref<Item>();
+const fileInput = ref();
 
 const fetchTeacher = async () => {
   loadingStore.setLoading();
@@ -162,6 +164,8 @@ const fetchTeacher = async () => {
   };
   visibility.value = item.value?.isVisible;
   loadingStore.setFalse();
+  console.log(item.value?.imageUrl);
+  fileInput.value = item.value?.imageUrl;
 };
 
 onBeforeMount(async () => {
@@ -181,13 +185,13 @@ const position = ref({
   tu: item.value?.positionTu,
 });
 const visibility = ref(item.value?.isVisible);
-const fileInput = ref();
 let imagePath: string;
 
 const removeFile = () => {
   fileInput.value.value = "";
 };
 const updateTeacher = async () => {
+  loadingStore.setLoading();
   if (fileInput?.value?.files?.[0]) {
     await uploadImage();
   }
@@ -214,6 +218,7 @@ const updateTeacher = async () => {
     messageStore.setMessage(response.message);
     router.push("/teachers");
   }
+  loadingStore.setFalse();
 };
 
 const uploadImage = async () => {

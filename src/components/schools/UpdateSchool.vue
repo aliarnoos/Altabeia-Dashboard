@@ -44,16 +44,16 @@
         />
 
         <label for="descriptionKu">Description_KU:</label>
-        <TipTap v-model="description.ku" :hasYoutubeLink="false" />
+        <TipTapEditor v-model="description.ku" :hasYoutubeLink="false" />
 
-        <!-- <label for="descriptionEn">Description_EN:</label>
-        <TipTap v-model="description.en" :hasYoutubeLink="false" />
+        <label for="descriptionEn">Description_EN:</label>
+        <TipTapEditor v-model="description.en" :hasYoutubeLink="false" />
 
         <label for="descriptionAr">Description_AR:</label>
-        <TipTap v-model="description.ar" :hasYoutubeLink="false" />
+        <TipTapEditor v-model="description.ar" :hasYoutubeLink="false" />
 
         <label for="descriptionTu">Description_TU:</label>
-        <TipTap v-model="description.tu" :hasYoutubeLink="false" /> -->
+        <TipTapEditor v-model="description.tu" :hasYoutubeLink="false" />
 
         <label for="icon">Icon:</label>
         <FilePreviewInput
@@ -116,7 +116,7 @@ import { useLoadingStore } from "@/stores/loading";
 import { useRoute, useRouter } from "vue-router";
 import { useMessageStore } from "@/stores/statusMessage";
 import FilePreviewInput from "../common/FilePreviewInput.vue";
-import TipTap from "../common/textInput/TipTap.vue";
+import TipTapEditor from "../common/textInput/TipTapEditor.vue";
 
 interface Item {
   id: number;
@@ -168,7 +168,8 @@ const fetchSchool = async () => {
     };
     iconBgColor.value = item.value.iconBgColor;
     visibility.value = item.value.isVisible;
-    visibility.value = item.value.isVisible;
+    image.value = item.value.image;
+    icon.value = item.value.icon;
   }
   loadingStore.setFalse();
 };
