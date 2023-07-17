@@ -41,80 +41,28 @@
         />
 
         <label for="descriptionKu">Description_KU:</label>
-        <input
-          v-model="description.ku"
-          type="text"
-          name="descriptionKu"
-          id="descriptionKu"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <TipTapEditor v-model="description.ku" :hasYoutubeLink="false" />
 
         <label for="descriptionEn">Description_EN:</label>
-        <input
-          v-model="description.en"
-          type="text"
-          name="descriptionEn"
-          id="descriptionEn"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <TipTapEditor v-model="description.en" :hasYoutubeLink="false" />
 
         <label for="descriptionAr">Description_AR:</label>
-        <input
-          v-model="description.ar"
-          type="text"
-          name="descriptionAr"
-          id="descriptionAr"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <TipTapEditor v-model="description.ar" :hasYoutubeLink="false" />
 
         <label for="descriptionTu">Description_TU:</label>
-        <input
-          v-model="description.tu"
-          type="text"
-          name="descriptionTu"
-          id="descriptionTu"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <TipTapEditor v-model="description.tu" :hasYoutubeLink="false" />
+
         <label for="summaryKu">Summary_KU:</label>
-        <input
-          v-model="summary.ku"
-          type="text"
-          name="summaryKu"
-          id="summaryKu"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <TipTapEditor v-model="summary.ku" :hasYoutubeLink="false" />
+
         <label for="summaryEn">Summary_EN:</label>
-        <input
-          v-model="summary.en"
-          type="text"
-          name="summaryEn"
-          id="summaryEn"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <TipTapEditor v-model="summary.en" :hasYoutubeLink="false" />
+
         <label for="summaryKu">Summary_AR:</label>
-        <input
-          v-model="summary.ar"
-          type="text"
-          name="summaryAR"
-          id="summaryAR"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <TipTapEditor v-model="summary.ar" :hasYoutubeLink="false" />
+
         <label for="summaryKu">Summary_TU:</label>
-        <input
-          v-model="summary.tu"
-          type="text"
-          name="summaryTu"
-          id="summaryTu"
-          required
-          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
-        />
+        <TipTapEditor v-model="summary.tu" :hasYoutubeLink="false" />
         <label for="image">Image:</label>
         <FilePreviewInput
           @updateFile="(event:any) => imageInput = event.value"
@@ -140,7 +88,7 @@
           <button
             class="w-full py-2 px-4 bg-green-500 text-white font-bold rounded hover:bg-green-600"
           >
-            Update
+            Add
           </button>
           <RouterLink
             to="/activities"
@@ -163,6 +111,7 @@ import { useLoadingStore } from "@/stores/loading";
 import { useRoute, useRouter } from "vue-router";
 import { useMessageStore } from "@/stores/statusMessage";
 import FilePreviewInput from "../common/FilePreviewInput.vue";
+import TipTapEditor from "../common/textInput/TipTapEditor.vue";
 
 interface Item {
   id: number;
@@ -198,16 +147,16 @@ const title = ref({
   tu: item.value?.titleTu,
 });
 const summary = ref({
-  ku: item.value?.summaryKu,
-  en: item.value?.summaryEn,
-  ar: item.value?.summaryAr,
-  tu: item.value?.summaryTu,
+  ku: item.value?.summaryKu || "",
+  en: item.value?.summaryEn || "",
+  ar: item.value?.summaryAr || "",
+  tu: item.value?.summaryTu || "",
 });
 const description = ref({
-  ku: item.value?.descriptionKu,
-  en: item.value?.descriptionEn,
-  ar: item.value?.descriptionAr,
-  tu: item.value?.descriptionTu,
+  ku: item.value?.descriptionKu || "",
+  en: item.value?.descriptionEn || "",
+  ar: item.value?.descriptionAr || "",
+  tu: item.value?.descriptionTu || "",
 });
 const image = ref();
 const date = ref();
@@ -234,7 +183,7 @@ const addActivity = async () => {
     summaryEn: item.value?.summaryEn,
     summaryAr: item.value?.summaryAr,
     summaryTu: item.value?.summaryTu,
-    image: image.value,
+    image: attachmentPath,
     date: date.value,
     isVisible: visibility.value,
   };
