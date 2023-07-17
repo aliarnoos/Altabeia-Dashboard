@@ -21,15 +21,9 @@
     </div>
     <div v-if="url" class="relative">
       <img :src="url" class="w-40" />
-      <button
-        type="button"
-        class="rounded text-red-500 hover:text-red-600 absolute top-0 right-0"
-        @click="removeFile"
-      >
-        <span class="material-symbols-outlined bg-white font-bold">
-          close
-        </span>
-      </button>
+    </div>
+    <div v-else-if="props.imageSrc" class="relative">
+      <img :src="props.imageSrc" alt="Teacher" class="w-40" />
     </div>
   </div>
 </template>
@@ -37,7 +31,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const props = defineProps(["required"]);
+const props = defineProps(["required", "imageSrc"]);
 
 const url = ref<string | null>(null);
 const fileInput = ref();
@@ -55,11 +49,6 @@ const onFileChange = (e: any) => {
   } else {
     imageError.value = inValed;
   }
-};
-
-const removeFile = () => {
-  fileInput.value = "";
-  url.value = null;
 };
 
 const validateImage = (file: any) => {
