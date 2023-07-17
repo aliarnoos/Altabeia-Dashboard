@@ -176,7 +176,8 @@ const description = ref({
 const icon = ref(item.value?.icon);
 const iconBgColor = ref(item.value?.iconBgColor);
 const visibility = ref(item.value?.isVisible);
-let attachmentPath: string;
+
+let attachmentPath = item.value?.icon;
 
 const iconInput = ref();
 
@@ -195,7 +196,7 @@ const updateFacility = async () => {
     descriptionEn: description.value.en,
     descriptionAr: description.value.ar,
     descriptionTu: description.value.tu,
-    icon: icon.value,
+    icon: attachmentPath,
     iconBgColor: iconBgColor.value,
     isVisible: visibility.value,
   };
