@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col bg-gray-800 text-white min-h-screen w-80">
-    <div class="flex flex-col xpy-6">
+    <div class="flex flex-col py-6">
       <RouterLink
         to="/admin/profile"
         class="text-center flex gap-2 mb-6 justify-center items-center hover:text-green-600"
