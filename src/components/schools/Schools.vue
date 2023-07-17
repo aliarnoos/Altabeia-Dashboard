@@ -6,8 +6,8 @@
         <tr>
           <th class="p-2 border">ID</th>
           <th class="p-2 border">Title</th>
-          <th class="p-2 border">Description</th>
-          <th class="p-2 border">Icon BG Color</th>
+          <!-- <th class="p-2 border">Description</th> -->
+          <!-- <th class="p-2 border">Icon BG Color</th> -->
           <th class="p-2 border">Visible</th>
           <th class="p-2 border">Edit</th>
         </tr>
@@ -16,10 +16,10 @@
         <tr v-for="item in items" :key="item.id">
           <td class="border p-2 text-center">{{ item.id }}</td>
           <td class="border p-2">{{ item.titleEn }}</td>
-          <td class="border p-2">{{ item.descriptionEn }}</td>
-          <td class="border p-2 text-center">
+          <!-- <td class="border p-2">{{ item.descriptionEn }}</td> -->
+          <!-- <td class="border p-2 text-center">
             {{ item.iconBgColor }}
-          </td>
+          </td> -->
           <td class="border p-4">
             {{ item.isVisible ? "Yes" : "No" }}
           </td>
