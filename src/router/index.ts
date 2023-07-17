@@ -19,6 +19,7 @@ import Facilities from "../components/facilities/Facilities.vue";
 import UpdateFacilities from "../components/facilities/UpdateFacilities.vue";
 import Activities from "../components/activities/Activities.vue";
 import AddActivities from "../components/activities/AddActivity.vue";
+import UpdateActivity from "@/components/activities/UpdateActivity.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,7 +59,7 @@ const router = createRouter({
 
         { path: "activities", component: Activities },
         { path: "activities/add", component: AddActivities },
-        { path: "activities/:id", component: UpdateFacilities },
+        { path: "activities/:id", component: UpdateActivity },
       ],
     },
   ],
