@@ -58,7 +58,7 @@
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
         <label for="attachment">Attachment:</label>
-        <FilePreviewInput
+        <FileInput
           @updateFile="(event:any) => fileInput = event.value"
           :required="false"
         />
@@ -96,7 +96,7 @@ import { onBeforeMount } from "vue";
 import { useLoadingStore } from "@/stores/loading";
 import { useRoute, useRouter } from "vue-router";
 import { useMessageStore } from "@/stores/statusMessage";
-import FilePreviewInput from "../common/FilePreviewInput.vue";
+import FileInput from "../common/FileInput.vue";
 
 interface Item {
   id: number;

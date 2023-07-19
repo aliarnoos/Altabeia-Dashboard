@@ -53,10 +53,8 @@
         <TipTapEditor v-model="description.tu" :hasYoutubeLink="false" />
 
         <label for="icon">Image:</label>
-        <FilePreviewInput
-          @updateFile="(event:any) => imageInput = event.value"
-          :required="false"
-          :imageSrc="item?.imageUrl"
+        <ImagePreviewInput
+          v-model="imageInput"
         />
         <label for="isVisible">Visible:</label>
         <input
@@ -92,7 +90,7 @@ import { onBeforeMount } from "vue";
 import { useLoadingStore } from "@/stores/loading";
 import { useRoute, useRouter } from "vue-router";
 import { useMessageStore } from "@/stores/statusMessage";
-import FilePreviewInput from "../common/FilePreviewInput.vue";
+import ImagePreviewInput from "../common/ImagePreviewInput.vue";
 import TipTapEditor from "../common/textInput/TipTapEditor.vue";
 
 interface Item {

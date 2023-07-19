@@ -18,7 +18,7 @@
           <td class="border p-2 text-center">{{ item.id }}</td>
           <td class="border p-2">{{ item.titleEn }}</td>
           <td class="border p-2">{{ item.price }}</td>
-          <td class="border p-2">
+          <td class="border p-2 text-center">
             {{ item.isVisible ? "Yes" : "No" }}
           </td>
           <td class="border p-4 text-center">

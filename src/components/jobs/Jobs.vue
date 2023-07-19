@@ -4,10 +4,13 @@
       <h1 class="text-3xl font-bold text-center">Jobs</h1>
       <RouterLink
         to="jobs/add"
-        class="flex justify-center gap-2 bg-green-500 rounded p-4 text-white font-bold hover:bg-green-600"
+        class="flex justify-center items-center gap-2 bg-green-500 rounded p-4 text-white font-bold hover:bg-green-600"
       >
-        <span class="material-symbols-outlined"> add </span>
+      <i class="fa-solid fa-plus"></i>
+      <span>
+
         Add Job
+      </span>
       </RouterLink>
     </div>
     <table class="w-full">

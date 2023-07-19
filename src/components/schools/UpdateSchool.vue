@@ -56,23 +56,21 @@
         <TipTapEditor v-model="description.tu" :hasYoutubeLink="false" />
 
         <label for="icon">Icon:</label>
-        <FilePreviewInput
-          @updateFile="(event:any) => iconInput = event.value"
-          :required="false"
-          :key="1"
-        />
-        <label for="image">Image :</label>
-        <FilePreviewInput
-          @updateFile="(event:any) => imageInput = event.value"
-          :required="false"
-          :key="2"
+        <ImagePreviewInput
+        v-model="iconInput"
+        :key="1"
         />
 
-        <label for="backgoundImage">Backgound Image :</label>
-        <FilePreviewInput
-          @updateFile="(event:any) => backgoundImageInput = event.value"
-          :required="false"
-          :key="3"
+        <label for="image">Image :</label>
+        <ImagePreviewInput
+        v-model="imageInput"
+        :key="2"
+        />
+
+        <label for="backgroundImage">Background Image :</label>
+        <ImagePreviewInput
+        v-model="backgroundImageInput"
+        :key="3"
         />
 
         <label for="iconBgColor">Icon Background Color:</label>
@@ -118,7 +116,7 @@ import { onBeforeMount } from "vue";
 import { useLoadingStore } from "@/stores/loading";
 import { useRoute, useRouter } from "vue-router";
 import { useMessageStore } from "@/stores/statusMessage";
-import FilePreviewInput from "../common/FilePreviewInput.vue";
+import ImagePreviewInput from "../common/ImagePreviewInput.vue";
 import TipTapEditor from "../common/textInput/TipTapEditor.vue";
 
 interface Item {
@@ -200,21 +198,20 @@ const backgoundImage = ref<string | null | undefined>(item.value?.icon);
 const visibility = ref(item.value?.isVisible);
 let attachmentPath: string;
 
-const backgoundImageInput = ref();
+const backgroundImageInput = ref();
 const imageInput = ref();
 const iconInput = ref();
 
 const updateSchool = async () => {
-  if (backgoundImageInput?.value?.files?.[0]) {
-    backgoundImage.value = await uploadImage(
-      backgoundImageInput?.value?.files?.[0]
-    );
+  loadingStore.setLoading()
+  if (backgroundImageInput.value) {
+    backgoundImage.value = await uploadImage(backgroundImageInput.value);
   }
-  if (imageInput?.value?.files?.[0]) {
-    image.value = await uploadImage(imageInput?.value?.files?.[0]);
+  if (imageInput.value) {
+    image.value = await uploadImage(imageInput.value);
   }
-  if (iconInput?.value?.files?.[0]) {
-    icon.value = await uploadImage(iconInput?.value?.files?.[0]);
+  if (iconInput.value) {
+    icon.value = await uploadImage(iconInput.value);
   }
   const school = {
     titleKu: title.value.ku,
@@ -241,6 +238,7 @@ const updateSchool = async () => {
     messageStore.setMessage(response.message);
     router.push("/schools");
   }
+  loadingStore.setFalse()
 };
 
 const uploadImage = async (file: any) => {

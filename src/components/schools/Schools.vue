@@ -20,7 +20,7 @@
           <!-- <td class="border p-2 text-center">
             {{ item.iconBgColor }}
           </td> -->
-          <td class="border p-4">
+          <td class="border p-4 text-center">
             {{ item.isVisible ? "Yes" : "No" }}
           </td>
           <td class="border p-4 text-center">

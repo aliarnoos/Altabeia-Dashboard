@@ -85,9 +85,8 @@
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
         <label for="image">Image:</label>
-        <FilePreviewInput
-          @updateFile="(event:any) => fileInput = event.value"
-          :required="true"
+        <ImagePreviewInput
+        v-model="fileInput"
         />
         <div class="col-span-2 flex gap-2 mt-4">
           <button
@@ -114,7 +113,7 @@ import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
 import { useMessageStore } from "@/stores/statusMessage";
 import { useRouter } from "vue-router";
-import FilePreviewInput from "../common/FilePreviewInput.vue";
+import ImagePreviewInput from "../common/ImagePreviewInput.vue";
 
 const name = {
   ku: "",

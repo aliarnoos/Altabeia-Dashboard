@@ -26,7 +26,7 @@
           <td class="border p-2">{{ item.nameEn }}</td>
           <td class="border p-2">{{ item.positionEn }}</td>
 
-          <td class="border p-2">
+          <td class="border p-2 text-center">
             {{ item.isVisible ? "Yes" : "No" }}
           </td>
           <td class="border p-2 flex justify-center items-center gap-4">

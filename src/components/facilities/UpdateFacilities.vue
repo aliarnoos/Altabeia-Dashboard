@@ -53,9 +53,8 @@
         <TipTapEditor v-model="description.tu" :hasYoutubeLink="false" />
 
         <label for="icon">Icon:</label>
-        <FilePreviewInput
-          @updateFile="(event:any) => iconInput = event.value"
-          :required="false"
+        <ImagePreviewInput
+        v-model="iconInput"
         />
         <label for="iconBgColor">Icon Background Color:</label>
         <input
@@ -100,7 +99,7 @@ import { onBeforeMount } from "vue";
 import { useLoadingStore } from "@/stores/loading";
 import { useRoute, useRouter } from "vue-router";
 import { useMessageStore } from "@/stores/statusMessage";
-import FilePreviewInput from "../common/FilePreviewInput.vue";
+import ImagePreviewInput from "../common/ImagePreviewInput.vue";
 import TipTapEditor from "../common/textInput/TipTapEditor.vue";
 
 interface Item {
