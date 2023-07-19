@@ -58,19 +58,19 @@
         <label for="icon">Icon:</label>
         <ImagePreviewInput
         v-model="iconInput"
-        :key="1"
+        :id="1"
         />
 
         <label for="image">Image :</label>
         <ImagePreviewInput
         v-model="imageInput"
-        :key="2"
+        :id="2"
         />
 
         <label for="backgroundImage">Background Image :</label>
         <ImagePreviewInput
         v-model="backgroundImageInput"
-        :key="3"
+        :id="3"
         />
 
         <label for="iconBgColor">Icon Background Color:</label>
