@@ -38,18 +38,6 @@
         </tr>
       </tbody>
     </table>
-    <p
-      v-if="statusMessage == 'Something went wrong!'"
-      class="bg-red-500 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
-    >
-      {{ statusMessage }}
-    </p>
-    <p
-      v-else-if="statusMessage"
-      class="bg-green-500 text-white px-4 py-2 rounded absolute top-10 right-10 m-4 drop-shadow-md z-20"
-    >
-      {{ statusMessage }}
-    </p>
   </div>
 </template>
 
@@ -90,19 +78,7 @@ const editState = ref(false);
 
 const selectedSocialMedia = ref();
 
-const statusMessage = ref();
 
-const showStatusMessage = (event: any) => {
-  fetchSocialMedia();
-  if (event.value) {
-    statusMessage.value = event.value;
-  } else {
-    statusMessage.value = "Something went wrong!";
-  }
-  setTimeout(() => {
-    statusMessage.value = null;
-  }, 2000);
-};
 const activeEdit = (item: any) => {
   selectedSocialMedia.value = {
     type: item.type,
