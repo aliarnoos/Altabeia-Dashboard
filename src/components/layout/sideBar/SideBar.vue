@@ -56,6 +56,7 @@ const links = ref([
   { id: 7, label: "Facilities", path: "/facilities" },
   { id: 8, label: "Activities", path: "/activities" },
   { id: 9, label: "Banners", path: "/banners" },
+  { id: 10, label: "Image Sliders", path: "/image-slider" },
 ]);
 
 links.value.map((link) => {

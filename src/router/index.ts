@@ -22,6 +22,9 @@ import AddActivities from "../components/activities/AddActivity.vue";
 import UpdateActivity from "@/components/activities/UpdateActivity.vue";
 import Banners from "../components/banners/Banners.vue";
 import UpdateBanner from "@/components/banners/UpdateBanner.vue";
+import ImagesSlider from "@/components/images-slider/ImagesSlider.vue";
+import AddImage from "@/components/images-slider/AddImage.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -64,6 +67,10 @@ const router = createRouter({
 
         { path: "banners", component: Banners },
         { path: "banners/:id", component: UpdateBanner },
+
+        { path: "image-slider", component: ImagesSlider },
+        { path: "image-slider/add", component: AddImage },
+        { path: "image-slider/:id", component: UpdateActivity },
       ],
     },
   ],
