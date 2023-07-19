@@ -9,12 +9,12 @@
       <input
         type="file"
         hidden
-        id="image"
+        :id="props.id"
         @input="setImage"
         accept="image/png, image/jpeg, image/jpg"
       />
       <label
-        for="image"
+        :for="props.id"
         class="h-full w-full bg-black/40 opacity-0 group-hover:opacity-100 transition-all rounded-lg grid place-content-center cursor-pointer absolute top-0 left-0"
       >
         <div class="text-white text-center">
@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const props = defineProps(["modelValue"]);
+const props = defineProps(["modelValue", "id"]);
 const emit = defineEmits(["update:modelValue"]);
 
 const imagePreview = ref();
