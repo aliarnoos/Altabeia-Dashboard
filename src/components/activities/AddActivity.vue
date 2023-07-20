@@ -166,7 +166,7 @@ const imageInput = ref();
 
 const addActivity = async () => {
   loadingStore.setLoading();
-  if (imageInput?.value?.files?.[0]) {
+  if (imageInput.value) {
     await uploadImage();
   }
   const activity = {
@@ -200,7 +200,7 @@ const addActivity = async () => {
 };
 
 const uploadImage = async () => {
-  const file = imageInput.value.files[0];
+  const file = imageInput.value;
 
   if (!file) {
     console.error("No file selected");

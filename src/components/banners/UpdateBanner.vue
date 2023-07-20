@@ -171,7 +171,7 @@ const imageInput = ref();
 const updateBanner = async () => {
   loadingStore.setLoading();
 
-  if (imageInput?.value?.files?.[0]) {
+  if (imageInput.value) {
     await uploadImage();
   }
   const banner = {
@@ -200,7 +200,7 @@ const updateBanner = async () => {
 };
 
 const uploadImage = async () => {
-  const file = imageInput.value.files[0];
+  const file = imageInput.value;
 
   if (!file) {
     console.error("No file selected");

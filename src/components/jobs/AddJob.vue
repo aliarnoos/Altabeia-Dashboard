@@ -115,12 +115,9 @@ const router = useRouter();
 
 const fileInput = ref();
 
-const removeFile = () => {
-  fileInput.value.value = "";
-};
 const addJob = async () => {
   if (fileInput.value.files[0]) {
-    await uploadImage();
+    await uploadFile();
   }
   const job = {
     titleKu: title.ku,
@@ -144,7 +141,7 @@ const addJob = async () => {
   }
 };
 
-const uploadImage = async () => {
+const uploadFile = async () => {
   const file = fileInput.value.files[0];
 
   if (!file) {
@@ -161,7 +158,6 @@ const uploadImage = async () => {
   );
 
   const { url } = await response;
-  console.log(fileName);
 
   // const uploadResponse = await requestStore.putData(url, formData);
   const uploadResponse = await fetch(url, {

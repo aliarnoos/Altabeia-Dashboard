@@ -208,7 +208,7 @@ onBeforeMount(async () => {
 
 const updatectivity = async () => {
   loadingStore.setLoading();
-  if (imageInput?.value?.files?.[0]) {
+  if (imageInput.value) {
     await uploadImage();
   }
   const activity = {
@@ -242,7 +242,7 @@ const updatectivity = async () => {
 };
 
 const uploadImage = async () => {
-  const file = imageInput.value.files[0];
+  const file = imageInput.value;
 
   if (!file) {
     console.error("No file selected");

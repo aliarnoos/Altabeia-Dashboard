@@ -183,7 +183,7 @@ const iconInput = ref();
 const updateFacility = async () => {
   console.log(description.value.ku);
 
-  if (iconInput?.value?.files?.[0]) {
+  if (iconInput.value) {
     await uploadImage();
   }
   const facility = {
@@ -212,7 +212,7 @@ const updateFacility = async () => {
 };
 
 const uploadImage = async () => {
-  const file = iconInput.value.files[0];
+  const file = iconInput.value;
 
   if (!file) {
     console.error("No file selected");

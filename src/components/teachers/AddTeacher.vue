@@ -137,7 +137,7 @@ const messageStore = useMessageStore();
 const router = useRouter();
 
 const addTeacher = async () => {
-  if (fileInput?.value?.files?.[0]) {
+  if (fileInput.value) {
     await uploadImage();
   }
 
@@ -166,7 +166,7 @@ const addTeacher = async () => {
 };
 
 const uploadImage = async () => {
-  const file = fileInput?.value?.files?.[0];
+  const file = fileInput.value;
 
   if (!file) {
     console.error("No file selected");

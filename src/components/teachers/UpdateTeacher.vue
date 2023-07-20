@@ -162,7 +162,6 @@ const fetchTeacher = async () => {
   };
   visibility.value = item.value?.isVisible;
   loadingStore.setFalse();
-  console.log(item.value?.imageUrl);
   fileInput.value = item.value?.imageUrl;
 };
 
@@ -190,7 +189,7 @@ const removeFile = () => {
 };
 const updateTeacher = async () => {
   loadingStore.setLoading();
-  if (fileInput?.value?.files?.[0]) {
+  if (fileInput.value) {
     await uploadImage();
   }
 
@@ -220,7 +219,7 @@ const updateTeacher = async () => {
 };
 
 const uploadImage = async () => {
-  const file = fileInput.value.files[0];
+  const file = fileInput.value;
 
   if (!file) {
     console.error("No file selected");
@@ -236,7 +235,6 @@ const uploadImage = async () => {
   );
 
   const { url } = await response;
-  console.log(fileName);
 
   const uploadResponse = await fetch(url, {
     method: "PUT",

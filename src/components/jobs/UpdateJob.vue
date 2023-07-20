@@ -163,7 +163,7 @@ const removeFile = () => {
 };
 const updateJob = async () => {
   if (fileInput?.value?.files?.[0]) {
-    await uploadImage();
+    await uploadFile();
   }
   const job = {
     titleKu: title.value.ku,
@@ -187,7 +187,7 @@ const updateJob = async () => {
   }
 };
 
-const uploadImage = async () => {
+const uploadFile = async () => {
   const file = fileInput.value.files[0];
 
   if (!file) {
