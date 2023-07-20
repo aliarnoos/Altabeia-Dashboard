@@ -24,7 +24,7 @@ import Banners from "../components/banners/Banners.vue";
 import UpdateBanner from "@/components/banners/UpdateBanner.vue";
 import ImagesSlider from "@/components/images-slider/ImagesSlider.vue";
 import AddImage from "@/components/images-slider/AddImage.vue";
-
+import UpdateImage from "@/components/images-slider/UpdateImage.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -70,7 +70,7 @@ const router = createRouter({
 
         { path: "image-slider", component: ImagesSlider },
         { path: "image-slider/add", component: AddImage },
-        { path: "image-slider/:id", component: UpdateActivity },
+        { path: "image-slider/:id", component: UpdateImage },
       ],
     },
   ],
