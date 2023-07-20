@@ -9,12 +9,12 @@
       <input
         type="file"
         hidden
-        :id="props.id"
+        :id="props.id? props.id : '1'"
         @input="setImage"
         accept="image/png, image/jpeg, image/jpg"
       />
       <label
-        :for="props.id"
+        :for="props.id? props.id : '1'"
         class="h-full w-full bg-black/40 opacity-0 group-hover:opacity-100 transition-all rounded-lg grid place-content-center cursor-pointer absolute top-0 left-0"
       >
         <div class="text-white text-center">
