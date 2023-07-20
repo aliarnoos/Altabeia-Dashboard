@@ -1,7 +1,7 @@
 <template>
   <div class="w-6/12 ml-auto mr-auto flex justify-center items-center">
     <div class="bg-white">
-      <h1 class="text-2xl font-bold text-left mb-14">Add New Teacher:</h1>
+      <h1 class="text-2xl font-bold text-left mb-14">Add New Image:</h1>
       <form @submit.prevent="addImage" class="grid grid-cols-2 gap-4 ">
 
         <label for="positionAr">Content Type:</label>
@@ -10,7 +10,8 @@
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
           required
         >
-          <option value="elemntrySchool">Elementry School</option>
+        <option value="kindergarten">Kindergarten</option>
+          <option value="elementarySchool">Elementary School</option>
           <option value="highSchoolMales">High School - Males</option>
           <option value="highSchoolFemales">High School - Females</option>
           <option value="campus">Campus</option>
