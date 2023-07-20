@@ -46,17 +46,23 @@ const route = useRoute();
 
 const pagePath = route.fullPath;
 
+// const links = ref([
+//   { id: 1, label: "Registration Fees", path: "/registration" },
+//   { id: 2, label: "Contacts", path: "/contacts" },
+//   { id: 3, label: "Social Media", path: "/social-media" },
+//   { id: 4, label: "Jobs", path: "/jobs" },
+//   { id: 5, label: "Teachers", path: "/teachers" },
+//   { id: 6, label: "Schools", path: "/schools" },
+//   { id: 7, label: "Facilities", path: "/facilities" },
+//   { id: 8, label: "Activities", path: "/activities" },
+//   { id: 9, label: "Banners", path: "/banners" },
+//   { id: 10, label: "Image Sliders", path: "/image-slider" },
+// ]);
+
 const links = ref([
-  { id: 1, label: "Registration Fees", path: "/registration" },
-  { id: 2, label: "Contacts", path: "/contacts" },
-  { id: 3, label: "Social Media", path: "/social-media" },
-  { id: 4, label: "Jobs", path: "/jobs" },
-  { id: 5, label: "Teachers", path: "/teachers" },
-  { id: 6, label: "Schools", path: "/schools" },
-  { id: 7, label: "Facilities", path: "/facilities" },
-  { id: 8, label: "Activities", path: "/activities" },
-  { id: 9, label: "Banners", path: "/banners" },
-  { id: 10, label: "Image Sliders", path: "/image-slider" },
+  { id: 1, label: "Banner", path: "/article/2" },
+  { id: 2, label: "Statistic", path: "/article/3" },
+
 ]);
 
 links.value.map((link) => {

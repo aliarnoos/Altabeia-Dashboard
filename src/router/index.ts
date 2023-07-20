@@ -25,6 +25,8 @@ import UpdateBanner from "@/components/banners/UpdateBanner.vue";
 import ImagesSlider from "@/components/images-slider/ImagesSlider.vue";
 import AddImage from "@/components/images-slider/AddImage.vue";
 import UpdateImage from "@/components/images-slider/UpdateImage.vue"
+import Article from "@/components/articles/Article.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -41,6 +43,9 @@ const router = createRouter({
         { path: "admin/profile", component: Profile },
 
         { path: "contacts", component: Contacts },
+
+        { path: "article/:id", component: Article },
+
 
         { path: "social-media", component: SocialMedia },
 
