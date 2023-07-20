@@ -217,11 +217,12 @@ const messageStore = useMessageStore();
 const route = useRoute();
 const router = useRouter();
 
-const id = route.params.id;
+let id = route.params.id;
 
 const item = ref<Item>();
 
-const fetchBanner = async () => {
+const fetchArticle = async () => {
+  id = route.params.id;
   loadingStore.setLoading();
   await requestStore.getData(
     `${import.meta.env.VITE_API_URL}/admin/general-content/${id}`,
@@ -262,10 +263,10 @@ const fetchBanner = async () => {
   loadingStore.setFalse();
 };
 onBeforeMount(async () => {
-  fetchBanner();
+  fetchArticle();
 });
 onBeforeRouteUpdate(async () => {
-  fetchBanner();
+  fetchArticle();
 });
 
 const title = ref({
