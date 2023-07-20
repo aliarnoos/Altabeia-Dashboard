@@ -63,7 +63,7 @@ select[disabled] {
 }
 select {
   @apply appearance-none bg-no-repeat;
-  background-image: url("/images/icons/chevron-down-solid.svg") !important;
+  /* background-image: url("/images/icons/chevron-down-solid.svg") !important; */
   background-position: right 10px center !important;
 }
 
