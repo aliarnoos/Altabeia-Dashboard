@@ -6,7 +6,7 @@
       <SideBar />
       <div class="w-full">
         <HeaderBar />
-        <RouterView class="m-8 mb-16" />
+        <RouterView class="m-8 mb-16"  :key="route.path"/>
       </div>
     </div>
   </main>
@@ -25,11 +25,13 @@ import PopupCard from "@/components/common/PopupCard.vue";
 import { useMessageStore } from "@/stores/statusMessage";
 import HeaderBar from "@/components/layout/Header.vue";
 import Footer from "@/components/layout/Footer.vue";
+import { useRoute } from "vue-router";
 
 const requestStore = useRequestStore();
 const userStore = useUserStore();
 const tokenStore = useTokenStore();
 const messageStore = useMessageStore();
+const route = useRoute()
 
 const setUser = async () => {
   const response = await requestStore.getData(
