@@ -4,11 +4,12 @@
       <h1 class="text-2xl font-bold text-left mb-14">Add New Image:</h1>
       <form @submit.prevent="addImage" class="grid grid-cols-2 gap-4 ">
 
-        <label for="positionAr">Content Type:</label>
+        <label for="contentType">Content Type:</label>
         <select
           v-model="contentType"
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
           required
+          id="contentType"
         >
         <option value="kindergarten">Kindergarten</option>
           <option value="elementarySchool">Elementary School</option>
