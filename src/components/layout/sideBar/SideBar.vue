@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col bg-gray-800 text-white min-h-screen w-80">
-    <div class="flex flex-col py-6">
+    <div class="flex flex-col py-6 ">
       <RouterLink
         to="/admin/profile"
         class="text-center flex gap-2 mb-6 justify-center items-center hover:text-green-600"
@@ -10,7 +10,7 @@
       </RouterLink>
       <RouterLink
         to="/"
-        class="m-2 p-4 flex gap-2 hover:text-green-400 items-center"
+        class=" p-4 flex gap-2 hover:text-green-400 items-center"
       >
         <i class="fa-solid fa-chart-line"></i>
         <p>Dashboard</p>
@@ -26,20 +26,26 @@
         <i v-else class="fa-solid fa-caret-down ml-auto"></i>
       </button>
       <div v-if="showDropDown" class="w-full bg-gray-900">
+        <HomeStat/>
         <SideBarButton :links="links" />
       </div>
-      <button class="m-2 p-4 flex gap-2 hover:text-green-400 items-center">
+      <SchoolsMenu/>
+      <RouterLink
+      to="/contacts"
+      class="p-4 flex gap-2 hover:text-green-400 items-center">
         <i class="fa-solid fa-phone"></i>
         <p>Contact</p>
-      </button>
+      </RouterLink>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import SideBarButton from "./sideBarButton.vue";
 import { useRoute } from "vue-router";
+import HomeStat from "./HomeStat.vue";
+import SchoolsMenu from "./SchoolsMenu.vue";
 
 const showDropDown = ref(false);
 const route = useRoute();
@@ -60,8 +66,9 @@ const pagePath = route.fullPath;
 // ]);
 
 const links = ref([
-  { id: 1, label: "Banner", path: "/article/2" },
-  { id: 2, label: "Statistic", path: "/article/3" },
+  { id: 1, label: "Home Banner", path: "/article/2" },
+  { id: 2, label: "Why Us", path: "/article/7" },
+  { id: 3, label: "Register", path: "/article/8" },
 
 ]);
 
