@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col bg-gray-800 text-white min-h-screen w-80">
-    <div class="flex flex-col py-6 ">
+    <div class="flex flex-col py-6">
       <RouterLink
         to="/admin/profile"
         class="text-center flex gap-2 mb-6 justify-center items-center hover:text-green-600"
@@ -25,17 +25,38 @@
         <i v-if="showDropDown" class="fa-solid fa-caret-up ml-auto"></i>
         <i v-else class="fa-solid fa-caret-down ml-auto"></i>
       </button>
-      <div v-if="showDropDown" class="w-full bg-gray-900">
+      <div v-if="showDropDown" class="pl-4 w-full bg-gray-900">
         <HomeStat/>
         <SideBarButton :links="links" />
       </div>
       <SchoolsMenu/>
+      <AboutMenu/>
+      <ActivityMenu/>
+      <RegiserationMenu/>
+      <ContactMenu/>
+
       <RouterLink
-      to="/contacts"
+      to="/jobs"
       class="p-4 flex gap-2 hover:text-green-400 items-center">
-        <i class="fa-solid fa-phone"></i>
-        <p>Contact</p>
+      <i class="fa-solid fa-briefcase"></i>        
+      <p>Jobs</p>
       </RouterLink>
+
+      <RouterLink
+      to="/banners"
+      class="p-4 flex gap-2 hover:text-green-400 items-center">
+      <i class="fa-regular fa-file-image"></i>      
+      <p>Banners</p>
+      </RouterLink>
+
+      <RouterLink
+      to="/image-slider"
+      class="p-4 flex gap-2 hover:text-green-400 items-center">
+      <i class="fa-solid fa-images"></i>      
+      <p>Images Slider</p>
+      </RouterLink>
+
+
     </div>
   </div>
 </template>
@@ -44,26 +65,17 @@
 import { ref } from "vue";
 import SideBarButton from "./sideBarButton.vue";
 import { useRoute } from "vue-router";
-import HomeStat from "./HomeStat.vue";
-import SchoolsMenu from "./SchoolsMenu.vue";
+import HomeStat from "./sub-menu/HomeStat.vue";
+import SchoolsMenu from "./sub-menu/SchoolsMenu.vue";
+import AboutMenu from "./sub-menu/AboutMenu.vue";
+import ActivityMenu from "./sub-menu/ActivityMenu.vue";
+import RegiserationMenu from "./sub-menu/RegiserationMenu.vue";
+import ContactMenu from "./sub-menu/ContactMenu.vue";
 
 const showDropDown = ref(false);
 const route = useRoute();
 
 const pagePath = route.fullPath;
-
-// const links = ref([
-//   { id: 1, label: "Registration Fees", path: "/registration" },
-//   { id: 2, label: "Contacts", path: "/contacts" },
-//   { id: 3, label: "Social Media", path: "/social-media" },
-//   { id: 4, label: "Jobs", path: "/jobs" },
-//   { id: 5, label: "Teachers", path: "/teachers" },
-//   { id: 6, label: "Schools", path: "/schools" },
-//   { id: 7, label: "Facilities", path: "/facilities" },
-//   { id: 8, label: "Activities", path: "/activities" },
-//   { id: 9, label: "Banners", path: "/banners" },
-//   { id: 10, label: "Image Sliders", path: "/image-slider" },
-// ]);
 
 const links = ref([
   { id: 1, label: "Home Banner", path: "/article/2" },

@@ -5,8 +5,8 @@
       class="p-4 flex gap-2 hover:text-green-400 items-center"
       :class="{ 'bg-gray-900': showDropDown }"
     >
-    <i class="fa-solid fa-school"></i>    
-    Schools
+    <i class="fa-solid fa-file-contract"></i>    
+    Registration
       <i v-if="showDropDown" class="fa-solid fa-caret-up ml-auto"></i>
       <i v-else class="fa-solid fa-caret-down ml-auto"></i>
     </button>
@@ -17,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import SideBarButton from "./sideBarButton.vue";
+import { ref } from "vue";
+import SideBarButton from "../sideBarButton.vue";
 import { useRoute } from "vue-router";
 
 const showDropDown = ref(false);
@@ -27,8 +27,8 @@ const route = useRoute();
 const pagePath = route.fullPath;
 
 const links = ref([
-  { id: 1, label: "Schools", path: "/schools" },
-
+  { id: 0, label: "Header", path: "/article/14" },
+  { id: 1, label: "Fees", path: "/registration" },
 ]);
 
 links.value.map((link) => {

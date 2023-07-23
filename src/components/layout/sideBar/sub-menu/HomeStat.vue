@@ -1,11 +1,11 @@
 <template>
-    <div class=" flex flex-col py-6">
+    <div class=" flex flex-col">
       <button
         @click="toogleUserDropDown"
-        class="p-4 flex gap-2 hover:text-green-400 items-center"
+        class="p-4 flex gap-2 hover:bg-gray-800 items-center"
         :class="{ 'bg-gray-900': showDropDown }"
       >
-      <i class="fa-solid fa-arrow-down-wide-short"></i>        
+      <!-- <i class="fa-solid fa-arrow-down-wide-short"></i>         -->
       Statistics
         <i v-if="showDropDown" class="fa-solid fa-caret-up ml-auto"></i>
         <i v-else class="fa-solid fa-caret-down ml-auto"></i>
@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import SideBarButton from "./sideBarButton.vue";
+import SideBarButton from "../sideBarButton.vue";
 import { useRoute } from "vue-router";
 
 const showDropDown = ref(false);
