@@ -1,9 +1,9 @@
 <template>
-  <div class="flex justify-center items-center">
+  <div class="flex justify-center itemss-center w-8/12 ml-auto mr-auto">
     <div class="bg-white ">
       <h1 class="text-2xl font-bold text-left mb-14">Edit Article</h1>
-      <form @submit.prevent="updateBanner" class="flex flex-col gap-8">
-        <div v-if="item?.titleEn" class="w-full grid grid-cols-2 gap-4">
+      <form @submit.prevent="updateArticle" class="flex flex-col gap-8">
+        <div v-if="items?.titleEn" class="w-full grid grid-cols-2 gap-4">
           <label for="nameKu">Titile_KU:</label>
           <input
           v-model="title.ku"
@@ -42,7 +42,7 @@
         />
         </div>
 
-        <div v-if="item?.subTitleEn" class="w-full grid grid-cols-2 gap-4">
+        <div v-if="items?.subTitleEn" class="w-full grid grid-cols-2 gap-4">
           <label for="nameKu">SubTitile_KU:</label>
           <input
             v-model="subTitle.ku"
@@ -81,7 +81,7 @@
           />
         </div>
 
-        <div v-if="item?.buttonEn" class="w-full grid grid-cols-2 gap-4">
+        <div v-if="items?.buttonEn" class="w-full grid grid-cols-2 gap-4">
 
           <label for="nameTu">Button_KU:</label>
           <input
@@ -133,7 +133,59 @@
           class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
         />
         </div>
-          <template v-if="item?.descriptionEn">
+
+        <div v-if="items?.buttonTwoEn" class="w-full grid grid-cols-2 gap-4">
+          <label for="nameTu">Button_Two_KU:</label>
+          <input
+          v-model="buttonTwo.ku"
+          type="text"
+          name="nameTu"
+          id="nameTu"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+          />
+
+          <label for="nameTu">Button_Two_EN:</label>
+          <input
+          v-model="buttonTwo.en"
+          type="text"
+          name="nameTu"
+          id="nameTu"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+          />
+
+          <label for="nameTu">Button_Two_AR:</label>
+          <input
+          v-model="buttonTwo.ar"
+          type="text"
+          name="nameTu"
+          id="nameTu"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+          />
+
+          <label for="nameTu">Button_Two_TU:</label>
+          <input
+          v-model="buttonTwo.tu"
+          type="text"
+          name="nameTu"
+          id="nameTu"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+          />
+
+          <label for="nameTu">Button_Two_URL:</label>
+          <input
+          v-model="buttonTwo.url"
+          type="text"
+          name="nameTu"
+          id="nameTu"
+          required
+          class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-green-600"
+          />
+          </div>
+          <template v-if="items?.descriptionEn">
             <label for="descriptionKu">Description_KU:</label>
         <TipTapEditor v-model="description.ku" :hasYoutubeLink="false" />
 
@@ -187,7 +239,7 @@ import ImagePreviewInput from "../common/ImagePreviewInput.vue";
 import TipTapEditor from "../common/textInput/TipTapEditor.vue";
 import { onBeforeRouteUpdate } from 'vue-router';
 
-interface Item {
+interface items {
   id: number;
   titleKu: string;
   titleEn: string;
@@ -206,6 +258,11 @@ interface Item {
   buttonAr: string;
   buttonTu: string;
   buttonUrl: string;
+  buttonTwoKu: string;
+  buttonTwoEn: string;
+  buttonTwoAr: string;
+  buttonTwoTu: string;
+  buttonTwoUrl: string;
   image: string;
   imageUrl: string;
   isVisible: string;
@@ -219,88 +276,114 @@ const router = useRouter();
 
 let id = route.params.id;
 
-const item = ref<Item>();
+const items = ref<items>();
 
 const fetchArticle = async () => {
   id = route.params.id;
   loadingStore.setLoading();
-  await requestStore.getData(
-    `${import.meta.env.VITE_API_URL}/admin/general-content/${id}`,
-    tokenStore.token || undefined
-  );
-  item.value = requestStore.fetchedData?.generalContent;
 
-  if (item.value) {
+  const url = new URL(`${import.meta.env.VITE_API_URL}/admin/general-content/${id}`);
+    // url.searchParams.append('pageId', "1");
+  
+  await requestStore.getData(url.toString(), tokenStore.token || undefined);
+  
+  items.value = requestStore.fetchedData?.generalContent;
+  if (items.value) {
     title.value = {
-      ku: item.value.titleKu,
-      en: item.value.titleEn,
-      ar: item.value.titleAr,
-      tu: item.value.titleTu,
+      ku: items.value.titleKu,
+      en: items.value.titleEn,
+      ar: items.value.titleAr,
+      tu: items.value.titleTu,
     };
     subTitle.value = {
-      ku: item.value.subTitleKu,
-      en: item.value.subTitleEn,
-      ar: item.value.subTitleAr,
-      tu: item.value.subTitleTu,
+      ku: items.value.subTitleKu,
+      en: items.value.subTitleEn,
+      ar: items.value.subTitleAr,
+      tu: items.value.subTitleTu,
     };
     description.value = {
-      ku: item.value.descriptionKu,
-      en: item.value.descriptionEn,
-      ar: item.value.descriptionAr,
-      tu: item.value.descriptionTu,
+      ku: items.value.descriptionKu,
+      en: items.value.descriptionEn,
+      ar: items.value.descriptionAr,
+      tu: items.value.descriptionTu,
     };
     button.value = {
-      ku: item.value?.buttonKu,
-      en: item.value?.buttonEn,
-      ar: item.value?.buttonAr,
-      tu: item.value?.buttonTu,
-      url: item.value?.buttonUrl
+      ku: items.value?.buttonKu,
+      en: items.value?.buttonEn,
+      ar: items.value?.buttonAr,
+      tu: items.value?.buttonTu,
+      url: items.value?.buttonUrl
     }
-    image.value = item.value.image;
+    buttonTwo.value = {
+      ku: items.value?.buttonTwoKu,
+      en: items.value?.buttonTwoEn,
+      ar: items.value?.buttonTwoAr,
+      tu: items.value?.buttonTwoTu,
+      url: items.value?.buttonTwoUrl
+    }
+    image.value = items.value.image;
 
-    visibility.value = item.value.isVisible;
+    visibility.value = items.value.isVisible;
   }
   loadingStore.setFalse();
 };
+
+
+const fetchSubArticle = async () => {
+  id = route.params.id;
+  loadingStore.setLoading();
+
+  const url = new URL(`${import.meta.env.VITE_API_URL}/admin/sub-content/`);
+    url.searchParams.append('contentId', id[0]);
+  
+  const response =await requestStore.getData(url.toString(), tokenStore.token || undefined);
+  console.log(response)
+  loadingStore.setFalse();
+};
+
 onBeforeMount(async () => {
-  fetchArticle();
-});
-onBeforeRouteUpdate(async () => {
   fetchArticle();
 });
 
 const title = ref({
-  ku: item.value?.titleKu,
-  en: item.value?.titleEn,
-  ar: item.value?.titleAr,
-  tu: item.value?.titleTu,
+  ku: items.value?.titleKu,
+  en: items.value?.titleEn,
+  ar: items.value?.titleAr,
+  tu: items.value?.titleTu,
 });
 const button = ref({
-  ku: item.value?.buttonKu,
-  en: item.value?.buttonEn,
-  ar: item.value?.buttonAr,
-  tu: item.value?.buttonTu,
-  url: item.value?.buttonUrl
+  ku: items.value?.buttonKu,
+  en: items.value?.buttonEn,
+  ar: items.value?.buttonAr,
+  tu: items.value?.buttonTu,
+  url: items.value?.buttonUrl
+});
+const buttonTwo = ref({
+  ku: items.value?.buttonTwoKu,
+  en: items.value?.buttonTwoEn,
+  ar: items.value?.buttonTwoAr,
+  tu: items.value?.buttonTwoTu,
+  url: items.value?.buttonTwoUrl
 });
 const subTitle = ref({
-  ku: item.value?.titleKu,
-  en: item.value?.titleEn,
-  ar: item.value?.titleAr,
-  tu: item.value?.titleTu,
+  ku: items.value?.titleKu,
+  en: items.value?.titleEn,
+  ar: items.value?.titleAr,
+  tu: items.value?.titleTu,
 });
 const description = ref({
-  ku: item.value?.descriptionKu || "",
-  en: item.value?.descriptionEn || "",
-  ar: item.value?.descriptionAr || "",
-  tu: item.value?.descriptionTu || "",
+  ku: items.value?.descriptionKu || "",
+  en: items.value?.descriptionEn || "",
+  ar: items.value?.descriptionAr || "",
+  tu: items.value?.descriptionTu || "",
 });
-const image = ref(item.value?.image);
-const visibility = ref(item.value?.isVisible);
-let attachmentPath = item.value?.image;
+const image = ref(items.value?.image);
+const visibility = ref(items.value?.isVisible);
+let attachmentPath = items.value?.image;
 
 const imageInput = ref();
 
-const updateBanner = async () => {
+const updateArticle = async () => {
   loadingStore.setLoading();
 
   if (imageInput.value) {
