@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center itemss-center w-8/12 ml-auto mr-auto">
     <div class="bg-white ">
-      <h1 class="text-2xl font-bold text-left mb-14">Edit Article</h1>
+      <h1 class="text-2xl font-bold text-left mb-14">Edit Article </h1>
       <form @submit.prevent="updateArticle" class="flex flex-col gap-8">
         <div v-if="items?.titleEn" class="w-full grid grid-cols-2 gap-4">
           <label for="nameKu">Titile_KU:</label>
@@ -199,11 +199,13 @@
         <TipTapEditor v-model="description.tu" :hasYoutubeLink="false" />
           </template>
 
+          <div v-if="items?.image" class="w-full grid grid-cols-2" >
+            <label for="icon">Image:</label>
+            <ImagePreviewInput
+              v-model="imageInput"
+            />
 
-        <label for="icon">Image:</label>
-        <ImagePreviewInput
-          v-model="imageInput"
-        />
+          </div >
         
         <div class="w-full grid grid-cols-2">
           <label for="isVisible">Visible:</label>
@@ -228,7 +230,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onBeforeUpdate, onMounted, ref } from "vue";
 import { useTokenStore } from "../../stores/token";
 import { useRequestStore } from "@/stores/request";
 import { onBeforeMount } from "vue";
@@ -454,4 +456,5 @@ const generateUniqueFileName = (fileName: string) => {
   const uniqueFileName = `${fileNameWithoutSpaces}_${timestamp}`;
   return uniqueFileName;
 };
+
 </script>
