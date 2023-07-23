@@ -43,7 +43,7 @@
             </RouterLink>
             <p class="text-xl">|</p>
             <button
-              @click="deleteJob(item.id)"
+              @click="deleteActivity(item.id)"
               class="hover:text-red-600 font-bold p-2 pl-4 pr-4 rounded"
             >
               <i class="fa-solid fa-trash"></i>
@@ -102,7 +102,7 @@ onBeforeMount(async () => {
   fetchActivities();
 });
 
-const deleteJob = async (jobId: number) => {
+const deleteActivity = async (jobId: number) => {
   const response = await requestStore.deleteData(
     `${import.meta.env.VITE_API_URL}/admin/activities/${jobId}`,
     tokenStore.token || ""
