@@ -114,8 +114,6 @@ const messageStore = useMessageStore();
 const route = useRoute();
 const router = useRouter();
 
-const id = route.params.id;
-
 const item = ref<Item>();
 
 const title = ref({
@@ -130,8 +128,7 @@ const description = ref({
   ar: item.value?.descriptionAr || "",
   tu: item.value?.descriptionTu || "",
 });
-const image = ref(item.value?.image);
-const visibility = ref(item.value?.isVisible);
+const visibility = ref(true);
 let attachmentPath = item.value?.image;
 
 const imageInput = ref();
