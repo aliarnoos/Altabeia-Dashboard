@@ -29,7 +29,9 @@ import Article from "@/components/articles/Article.vue";
 import Programs from "@/components/programs/Programs.vue";
 import UpdateProgram from "@/components/programs/UpdateProgram.vue";
 import AddProgram from "@/components/programs/AddProgram.vue";
-
+import SchoolFeatures from '@/components/schools/SchoolFeatures.vue'
+import UpdateFeature from '@/components/schools/UpdateFeature.vue'
+import AddFeature from "@/components/schools/AddFeature.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -68,6 +70,9 @@ const router = createRouter({
 
         { path: "schools", component: Schools },
         { path: "schools/:id", component: UpdateSchool },
+        { path: "schools/features", component: SchoolFeatures },
+        { path: "schools/features/:id", component: UpdateFeature },
+        { path: "schools/features/add", component: AddFeature },
 
         { path: "facilities", component: Facilities },
         { path: "facilities/:id", component: UpdateFacilities },

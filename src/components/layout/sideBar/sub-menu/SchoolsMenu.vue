@@ -28,6 +28,7 @@ const pagePath = route.fullPath;
 
 const links = ref([
   { id: 1, label: "Schools", path: "/schools" },
+  { id: 8, label: "Features", path: "/schools/features" },
   { id: 2, label: "Curriculum", path: "/article/16" },
   { id: 3, label: "Activities", path: "/article/17" },
   { id: 7, label: "Programs", path: "/programs" },
