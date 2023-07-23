@@ -26,6 +26,9 @@ import ImagesSlider from "@/components/images-slider/ImagesSlider.vue";
 import AddImage from "@/components/images-slider/AddImage.vue";
 import UpdateImage from "@/components/images-slider/UpdateImage.vue"
 import Article from "@/components/articles/Article.vue";
+import Programs from "@/components/programs/Programs.vue";
+import UpdateProgram from "@/components/programs/UpdateProgram.vue";
+import AddProgram from "@/components/programs/AddProgram.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +49,9 @@ const router = createRouter({
 
         { path: "article/:id", component: Article },
 
+        { path: "programs", component: Programs },
+        { path: "programs/add", component: AddProgram },
+        { path: "programs/:id", component: UpdateProgram },
 
         { path: "social-media", component: SocialMedia },
 
