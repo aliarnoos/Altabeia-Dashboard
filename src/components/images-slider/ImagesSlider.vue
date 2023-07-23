@@ -50,6 +50,46 @@
       </tbody>
     </table>
 
+    <h2 class="mr-auto font-bold text-xl">Activities: </h2>
+    <table class="w-full table">
+      <thead>
+        <tr>
+          <th class="p-2 border table-cell">ID</th>
+          <th class="p-2 border table-cell">Image</th>
+          <th class="p-2 border table-cell">Visible</th>
+          <th class="p-2 border table-cell">Actions</th>
+        </tr>
+      </thead>
+      <tbody v-for="item in items" :key="item.id">
+        <tr v-if="item.contentType=='activities'">
+          <td class="border p-2 table-cell text-center">{{ item.id }}</td>
+          <td class="border p-2 justify-center table-cell ml-auto mr-auto">
+            <img :src="item.imageUrl" alt="slide image" class="w-20 ml-auto mr-auto">
+          </td>
+          <td class="border p-2 text-center table-cell">
+            {{ item.isVisible ? "Yes" : "No" }}
+          </td>
+          <td class="border p-2 justify-center items-center gap-4 table-cell">
+            <div class="flex justify-center items-center">
+              <RouterLink
+                :to="`/image-slider/${item.id}`"
+                class="hover:text-green-600 font-bold p-2 pl-4 pr-4 rounded"
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+              </RouterLink>
+              <p class="text-xl">|</p>
+              <button
+                @click="deleteTeacher(item.id)"
+                class="hover:text-red-600 font-bold p-2 pl-4 pr-4 rounded"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
     <h2 class="mr-auto font-bold text-xl">Kindergarten: </h2>
     <table class="w-full table">
       <thead>

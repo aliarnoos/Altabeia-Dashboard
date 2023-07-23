@@ -15,6 +15,7 @@
           <option value="highSchoolMales">High School - Males</option>
           <option value="highSchoolFemales">High School - Females</option>
           <option value="campus">Campus</option>
+          <option value="activities">Activities</option>
         </select>
 
         <label for="image">Image:</label>
