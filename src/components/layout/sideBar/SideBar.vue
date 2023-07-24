@@ -56,7 +56,12 @@
       <p>Images Slider</p>
       </RouterLink>
 
-
+      <RouterLink
+      to="/users"
+      class="p-4 flex gap-2 hover:text-green-400 items-center">
+      <i class="fa-solid fa-user-group"></i>      
+      <p>Users</p>
+      </RouterLink>
     </div>
   </div>
 </template>

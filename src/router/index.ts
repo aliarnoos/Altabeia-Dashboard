@@ -35,6 +35,7 @@ import AddFeature from "@/components/schools/AddFeature.vue"
 import WhyUs from "@/components/about-us/WhyUs.vue";
 import AddAboutFeature from "@/components/about-us/AddAboutFeature.vue";
 import UpdateAboutFeature from "@/components/about-us/UpdateAboutFeature.vue";
+import Users from "@/components/users/Users.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -92,6 +93,10 @@ const router = createRouter({
         { path: "image-slider/:id", component: UpdateImage },
 
         { path: "why-us", component: WhyUs },
+        { path: "why-us/add", component: AddAboutFeature },
+        { path: "why-us/:id", component: UpdateAboutFeature },
+
+        { path: "users", component: Users },
         { path: "why-us/add", component: AddAboutFeature },
         { path: "why-us/:id", component: UpdateAboutFeature },
         
