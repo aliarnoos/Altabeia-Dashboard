@@ -28,8 +28,8 @@
         <tr v-for="item in items" :key="item.id">
           <td class="border p-2 text-center">{{ item.id }}</td>
           <td class="border p-2">{{ item.titleEn }}</td>
-          <td class="border p-2">{{ item.startDate }}</td>
-          <td class="border p-2">{{ item.closeDate }}</td>
+          <td class="border p-2 text-center">{{ item.startDate }}</td>
+          <td class="border p-2 text-center">{{ item.closeDate }}</td>
           <td class="border p-2 text-center">
             {{ item.isVisible ? "Yes" : "No" }}
           </td>

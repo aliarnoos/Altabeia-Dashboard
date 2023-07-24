@@ -23,8 +23,8 @@
       <tbody>
         <tr v-for="item in items" :key="item.id">
           <td class="border p-2 text-center">{{ item.id }}</td>
-          <td class="border p-2">{{ item.nameEn }}</td>
-          <td class="border p-2">{{ item.positionEn }}</td>
+          <td class="border p-2 text-center">{{ item.nameEn }}</td>
+          <td class="border p-2 text-center">{{ item.positionEn }}</td>
 
           <td class="border p-2 text-center">
             {{ item.isVisible ? "Yes" : "No" }}

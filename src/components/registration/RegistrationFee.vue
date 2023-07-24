@@ -17,7 +17,7 @@
         <tr v-for="item in items" :key="item.id">
           <td class="border p-2 text-center">{{ item.id }}</td>
           <td class="border p-2">{{ item.titleEn }}</td>
-          <td class="border p-2">{{ item.price }}</td>
+          <td class="border p-2 text-center">{{ item.price }}</td>
           <td class="border p-2 text-center">
             {{ item.isVisible ? "Yes" : "No" }}
           </td>

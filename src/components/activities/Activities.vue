@@ -28,7 +28,7 @@
           <td class="border p-2">{{ item.titleEn }}</td>
           <!-- <td class="border p-2">{{ item.descriptionEn }}</td>
           <td class="border p-2">{{ item.summaryEn }}</td> -->
-          <td class="border p-2">{{ item.date }}</td>
+          <td class="border p-2 text-center">{{ item.date }}</td>
           <td class="border p-4 text-center">
             {{ item.isVisible ? "Yes" : "No" }}
           </td>
