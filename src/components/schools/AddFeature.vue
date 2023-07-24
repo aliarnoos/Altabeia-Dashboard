@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center items-center">
     <div class="bg-white">
-      <h1 class="text-2xl font-bold text-left mb-14">Edit Feature</h1>
+      <h1 class="text-2xl font-bold text-left mb-14">Add Feature</h1>
       <form @submit.prevent="updateFeature" class="grid grid-cols-2 gap-4">
 
         <label for="contentType">School</label>

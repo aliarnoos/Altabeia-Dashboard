@@ -1,8 +1,8 @@
 <template>
   <div class="flex justify-center items-center">
     <div class="bg-white">
-      <h1 class="text-2xl font-bold text-left mb-14">Edit Banner</h1>
-      <form @submit.prevent="updateProgram" class="grid grid-cols-2 gap-4">
+      <h1 class="text-2xl font-bold text-left mb-14">Edit Feature</h1>
+      <form @submit.prevent="updateFeature" class="grid grid-cols-2 gap-4">
         <label for="nameKu">Titile_KU:</label>
         <input
           v-model="title.ku"
@@ -211,7 +211,7 @@ const description = ref({
 const visibility = ref(item.value?.isVisible);
 
 
-const updateProgram = async () => {
+const updateFeature = async () => {
   loadingStore.setLoading();
 
   const program = {

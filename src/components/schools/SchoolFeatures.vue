@@ -238,7 +238,7 @@ onBeforeMount(async () => {
 
 const deleteFeature = async (id: number) => {
   const response = await requestStore.deleteData(
-    `${import.meta.env.VITE_API_URL}/admin/image-slider/${id}`,
+    `${import.meta.env.VITE_API_URL}/admin/general-content/${id}`,
     tokenStore.token || ""
   );
   if (response) {
