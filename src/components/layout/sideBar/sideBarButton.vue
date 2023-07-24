@@ -8,7 +8,7 @@
           :key="link.id"
           class="mb-2 pl-2 hover:bg-gray-800 cursor-pointer flex items-stretch"
         >
-          <router-link :to="link.path" class="p-4 grow">{{
+          <router-link :to="link.path" class="p-3 grow">{{
             link.label
           }}</router-link>
         </li>
