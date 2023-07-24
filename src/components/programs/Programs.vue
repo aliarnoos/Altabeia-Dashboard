@@ -92,9 +92,9 @@ onBeforeMount(async () => {
   fetchPrograms();
 });
 
-const deleteProgram = async (jobId: number) => {
+const deleteProgram = async (id: number) => {
   const response = await requestStore.deleteData(
-    `${import.meta.env.VITE_API_URL}/admin/general-content/${jobId}`,
+    `${import.meta.env.VITE_API_URL}/admin/general-content/${id}`,
     tokenStore.token || ""
   );
   if (response) {
