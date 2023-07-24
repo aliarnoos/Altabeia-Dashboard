@@ -32,6 +32,9 @@ import AddProgram from "@/components/programs/AddProgram.vue";
 import SchoolFeatures from '@/components/schools/SchoolFeatures.vue'
 import UpdateFeature from '@/components/schools/UpdateFeature.vue'
 import AddFeature from "@/components/schools/AddFeature.vue"
+import WhyUs from "@/components/about-us/WhyUs.vue";
+import AddAboutFeature from "@/components/about-us/AddAboutFeature.vue";
+import UpdateAboutFeature from "@/components/about-us/UpdateAboutFeature.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -87,6 +90,11 @@ const router = createRouter({
         { path: "image-slider", component: ImagesSlider },
         { path: "image-slider/add", component: AddImage },
         { path: "image-slider/:id", component: UpdateImage },
+
+        { path: "why-us", component: WhyUs },
+        { path: "why-us/add", component: AddAboutFeature },
+        { path: "why-us/:id", component: UpdateAboutFeature },
+        
       ],
     },
   ],
