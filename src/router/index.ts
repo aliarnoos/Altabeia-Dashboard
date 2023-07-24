@@ -36,6 +36,9 @@ import WhyUs from "@/components/about-us/WhyUs.vue";
 import AddAboutFeature from "@/components/about-us/AddAboutFeature.vue";
 import UpdateAboutFeature from "@/components/about-us/UpdateAboutFeature.vue";
 import Users from "@/components/users/Users.vue";
+import ForgotPassword from "@/components/auth/Forgotpassword.vue"
+import InputEmail from "@/components/auth/InputEmail.vue"
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -43,6 +46,16 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
+    },
+    { 
+      path: "/reset-password/", 
+      name: 'reset-password' ,
+      component: ForgotPassword 
+    },
+    { 
+      path: "/forgot-password/", 
+      name: 'forget-password',
+      component: InputEmail 
     },
     {
       path: "/",
@@ -108,7 +121,7 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   const tokenStore = useTokenStore();
   const tokenValidation = tokenStore.validateToken();
-  if (!tokenValidation && to.name !== "login") {
+  if (!tokenValidation && to.name !== "login" && to.name != 'reset-password' && to.name != 'forget-password') {
     // redirect the user to the login page
     return { name: "login" };
   }

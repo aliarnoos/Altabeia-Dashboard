@@ -43,9 +43,10 @@
           Login
         </button>
       </form>
-      <RouterLink to="#" class="ml-auto text-green-600 underline"
-        >Forgot password?</RouterLink
-      >
+      <RouterLink to="/forgot-password" class="ml-auto text-green-600 underline"
+        >
+        Forgot password?
+        </RouterLink>
       <p v-if="errorMessage" class="text-red-600 font-bold">
         {{ errorMessage }}
       </p>
