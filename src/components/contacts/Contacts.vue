@@ -1,12 +1,26 @@
 <template>
   <div class="p-10 flex items-center flex-col gap-10 overflow-x-auto">
-    <h1 class="text-3xl font-bold flex justify-start w-full">Contacts</h1>
-
+    <div class="flex items-center justify-between w-full">
+      <h1 class="text-3xl font-bold text-center">Contacts</h1>
+      <button
+        @click="addState=true"
+        class="flex justify-center items-center gap-2 bg-green-500 rounded p-4 text-white ml-auto font-bold hover:bg-green-600"
+      >
+        <i class="fa-solid fa-plus"></i>
+        <p>Add Contact</p>
+      </button>
+      </div>
     <UpdateContact
       v-if="editState"
       @cancelEdit="editState = false"
       @updated="() => fetchContacts()"
       :contact="selectedContact"
+      class="w-5/12"
+    />
+    <AddContact
+      v-if="addState"
+      @cancelEdit="addState = false"
+      @added="() => fetchContacts()"
       class="w-5/12"
     />
     <table class="w-full">
@@ -25,7 +39,8 @@
           <td class="border p-2 text-center">{{ item.type }}</td>
           <td class="border p-2 text-center">{{ item.value }}</td>
           <td class="border p-2 text-center">
-            {{ item.isVisible ? "Yes" : "No" }}
+            <i v-if="item.isVisible" class="fa-solid fa-eye"></i>
+            <i v-else-if="!item.isVisible" class="fa-solid fa-eye-slash"></i>
           </td>
           <td class="border p-2 text-center">
             <button
@@ -47,6 +62,7 @@ import { onBeforeMount, ref } from "vue";
 import UpdateContact from "../../components/contacts/UpdateContact.vue";
 import { useRequestStore } from "@/stores/request";
 import { useLoadingStore } from "@/stores/loading";
+import AddContact from "./AddContact.vue";
 interface Item {
   id: number;
   type: string;
@@ -73,6 +89,7 @@ onBeforeMount(async () => {
 });
 
 const editState = ref(false);
+const addState = ref(false);
 
 const selectedContact = ref();
 
