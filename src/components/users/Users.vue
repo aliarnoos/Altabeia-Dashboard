@@ -28,11 +28,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in items" :key="item.id" :class="item.state=='active' ? 'bg-green-100' : ' bg-red-100'">
+        <tr v-for="item in items" :key="item.id">
           <td class="border p-2 text-center">{{ item.id }}</td>
           <td class="border p-2 text-center">{{ item.email }}</td>
           <td class="border p-2 text-center">{{ item.roles }}</td>
-          <td class="border p-2 text-center"> {{ item.state }} </td>
+          <td class="border p-2"> 
+            <div :class=" (item.state=='active' ? 'bg-green-500 w-4 h-4 rounded-full ml-auto mr-auto' : 'bg-red-500 w-4 h-4 rounded-full  ml-auto mr-auto') "></div>
+          </td>
           <td v-if="userStore.user?.roles=='primary-admin'" class="border p-2 text-center">
             <button
               @click="toggleState(item)"
