@@ -31,7 +31,8 @@
           <td class="border p-2 text-center">{{ item.startDate }}</td>
           <td class="border p-2 text-center">{{ item.closeDate }}</td>
           <td class="border p-2 text-center">
-            {{ item.isVisible ? "Yes" : "No" }}
+            <i v-if="item.isVisible" class="fa-solid fa-eye"></i>
+            <i v-else-if="!item.isVisible" class="fa-solid fa-eye-slash"></i>
           </td>
           <td
             class="border p-2 text-center flex justify-center items-center gap-4"

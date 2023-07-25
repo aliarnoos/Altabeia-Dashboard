@@ -17,7 +17,8 @@
           <td class="border p-2">{{ item.titleEn }}</td>
           <!-- <td class="border p-2">{{ item.descriptionEn }}</td> -->
           <td class="border p-4 text-center">
-            {{ item.isVisible ? "Yes" : "No" }}
+            <i v-if="item.isVisible" class="fa-solid fa-eye"></i>
+            <i v-else-if="!item.isVisible" class="fa-solid fa-eye-slash"></i> 
           </td>
           <td class="border p-4 text-center">
             <RouterLink

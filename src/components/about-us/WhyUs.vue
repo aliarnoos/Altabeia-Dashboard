@@ -29,8 +29,9 @@
           <td class="border p-2 justify-center table-cell ml-auto mr-auto">
             {{ item.subTitleEn }}
           </td>
-          <td class="border p-2 text-center table-cell">
-            {{ item.isVisible ? "Yes" : "No" }}
+          <td class="border p-2 text-center table-cel">
+            <i v-if="item.isVisible" class="fa-solid fa-eye"></i>
+            <i v-else-if="!item.isVisible" class="fa-solid fa-eye-slash"></i>
           </td>
           <td class="border p-2 justify-center items-center gap-4 table-cell">
             <div class="flex justify-center items-center">
