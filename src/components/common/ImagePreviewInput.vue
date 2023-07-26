@@ -2,8 +2,8 @@
   <div>
     <div class="relative h-max mb-3 group overflow-hidden w-4/12">
       <img
-        :src="imagePreview ? imagePreview : '/images/image-ph.png'"
-        class="w-full rounded-lg object-cover border object-center"
+      :src="imagePreview ? imagePreview : (props.imageUrl !=null ? props.imageUrl : '/images/image-ph.png') "
+        class="w-96 rounded-lg object-cover border object-center"
         alt="image"
       />
       <input
@@ -31,10 +31,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const props = defineProps(["modelValue", "id"]);
+const props = defineProps(["modelValue", "id", "imageUrl"]);
 const emit = defineEmits(["update:modelValue"]);
 
-const imagePreview = ref();
+const imagePreview = ref(props.modelValue);
 const imageError = ref();
 
 const setImage = (e: any) => {

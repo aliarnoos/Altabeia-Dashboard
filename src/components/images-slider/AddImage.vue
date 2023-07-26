@@ -58,6 +58,7 @@ import { useRequestStore } from "@/stores/request";
 import { useMessageStore } from "@/stores/statusMessage";
 import { useRouter } from "vue-router";
 import ImagePreviewInput from "../common/ImagePreviewInput.vue";
+import { useLoadingStore } from "@/stores/loading";
 
 
 const visibility = ref(true);
@@ -69,9 +70,11 @@ const fileInput = ref();
 const tokenStore = useTokenStore();
 const requestStore = useRequestStore();
 const messageStore = useMessageStore();
+const loadingStore = useLoadingStore()
 const router = useRouter();
 
 const addImage = async () => {
+  loadingStore.setLoading()
   if (fileInput.value) {
     await uploadImage();
   }
@@ -91,6 +94,7 @@ const addImage = async () => {
     messageStore.setMessage(response.message);
     router.push("/image-slider");
   }
+  loadingStore.setFalse()
 };
 
 const uploadImage = async () => {

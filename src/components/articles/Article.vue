@@ -199,10 +199,11 @@
         <TipTapEditor v-model="description.tu" :hasYoutubeLink="false" />
           </template>
 
-          <div v-if="items?.image" class="w-full grid grid-cols-2" >
+          <div class="w-full grid grid-cols-2" >
             <label for="icon">Image:</label>
             <ImagePreviewInput
               v-model="imageInput"
+              :imageUrl="items?.imageUrl"
             />
 
           </div >

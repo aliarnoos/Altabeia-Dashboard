@@ -55,6 +55,7 @@
         <label for="icon">Icon:</label>
         <ImagePreviewInput
         v-model="iconInput"
+        :imageUrl="item?.iconUrl"
         />
         <label for="iconBgColor">Icon Background Color:</label>
         <input
@@ -113,6 +114,7 @@ interface Item {
   descriptionAr: string;
   descriptionTu: string;
   icon: string;
+  iconUrl: string;
   iconBgColor: string;
   isVisible: string;
 }
@@ -181,8 +183,7 @@ let attachmentPath = item.value?.icon;
 const iconInput = ref();
 
 const updateFacility = async () => {
-  console.log(description.value.ku);
-
+  loadingStore.setLoading()
   if (iconInput.value) {
     await uploadImage();
   }
@@ -209,6 +210,7 @@ const updateFacility = async () => {
     messageStore.setMessage(response.message);
     router.push("/facilities");
   }
+  loadingStore.setFalse()
 };
 
 const uploadImage = async () => {

@@ -58,18 +58,21 @@
         <label for="icon">Icon:</label>
         <ImagePreviewInput
         v-model="iconInput"
+        :imageUrl="item?.iconUrl"
         :id="1"
         />
 
         <label for="image">Image :</label>
         <ImagePreviewInput
         v-model="imageInput"
+        :imageUrl="item?.imageUrl"
         :id="2"
         />
 
         <label for="backgroundImage">Background Image :</label>
         <ImagePreviewInput
         v-model="backgroundImageInput"
+        :imageUrl="item?.backgoundImageUrl"
         :id="3"
         />
 
@@ -132,6 +135,9 @@ interface Item {
   icon: string;
   image: string;
   backgoundImage: string;
+  iconUrl: string;
+  imageUrl: string;
+  backgoundImageUrl: string;
   iconBgColor: string;
   isVisible: string;
 }

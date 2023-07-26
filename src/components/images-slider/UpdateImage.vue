@@ -20,6 +20,7 @@
         <label for="image">Image:</label>
         <ImagePreviewInput
         v-model="imageInput"
+        :imageUrl="item?.imageUrl"
         :id="1"
         />
         <label for="isVisible">Visible:</label>

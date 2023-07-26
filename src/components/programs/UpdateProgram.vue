@@ -55,6 +55,7 @@
         <label for="icon">Image:</label>
         <ImagePreviewInput
           v-model="imageInput"
+          :imageUrl="item?.imageUrl"
         />
         <label for="isVisible">Visible:</label>
         <input

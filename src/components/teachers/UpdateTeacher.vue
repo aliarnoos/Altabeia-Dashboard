@@ -79,6 +79,7 @@
         <label for="image">Image:</label>
         <ImagePreviewInput
           v-model="fileInput"
+          :imageUrl="item?.imageUrl"
         />
         <label for="isVisible">Visible:</label>
         <input

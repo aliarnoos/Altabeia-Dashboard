@@ -67,6 +67,7 @@
         <label for="image">Image:</label>
         <ImagePreviewInput
         v-model="imageInput"
+        :imageUrl="item?.imageUrl"
         />
         <label for="date">Date:</label>
         <input
@@ -128,6 +129,7 @@ interface Item {
   summaryAr: string;
   summaryTu: string;
   image: string;
+  imageUrl: string
   date: string;
   isVisible: string;
 }
